@@ -1,0 +1,368 @@
+#!/bin/sh -e
+# vim:set et ts=2 sts=2 sw=2 si ai tw=78:
+#############################################################################
+# Copyright © 2019 Osamu Aoki
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#############################################################################
+PROG="${0##*/}"
+VERSION="0.3"
+DEBUG=": "
+#DEBUG="echo"
+
+# Use ~/.vim as PWD
+HVIMDIR="$HOME/.vim"
+cd "$HVIMDIR"
+# setup directories
+PPAVDIR="conf/pack.available"
+mkdir -p "$PPAVDIR"
+PPENDIR="pack/vimconf/start"
+mkdir -p "$PPENDIR"
+PCAVDIR="conf/conf.available"
+mkdir -p "$PCAVDIR"
+PCENDIR="conf/conf.enabled"
+mkdir -p "$PCENDIR"
+PRVIDIR="conf/required.vim"
+mkdir -p "$PRVIDIR"
+PRSYDIR="conf/required.system"
+mkdir -p "$PRSYDIR"
+OCAVDIR="conf/override.available"
+mkdir -p "$OCAVDIR"
+OCENDIR="conf/override.enabled"
+mkdir -p "$OCENDIR"
+#
+#######################################################################
+# Functions
+#######################################################################
+help() {
+  echo "$PROG: Select Vim Plugins and Configurations"
+  echo "            Version $VERSION, © 2019   Osamu Aoki"
+  echo ""
+  echo "Usage: $PROG [a|sp|up|so|uo|nm|gu|r|h|ga \$URL|gd \$REPO]"
+  echo ""
+  echo "Actions:"
+  echo "(none) Start with current plugin and override selections."
+  echo "  a    Select all plugins and Unselect all override."
+  echo "  sp   Select all plugins."
+  echo "  up   Unselect all plugins."
+  echo "  so   Select all overrides."
+  echo "  uo   Unselect all overrides."
+  echo "  nm   No menu selection."
+  echo "  ga   Add a local plugin git repository \$URL."
+  echo "  gd   Drop a local plugin git repository \$REPO."
+  echo "  gu   Update all local plugin git repositories."
+  echo "  r    Reset all configurations and local plugin git repositories."
+  echo "  h    Show this help."
+  echo ""
+  echo "           Latest: https://github.com/osamuaoki/dot-vim"
+}
+#
+cleanup() {
+  RTN="$?"
+  echo "Operation interrupted. Exit code($RTN)"
+  exit "$RTN"
+}
+#
+trap "cleanup" 1 2 15
+#
+expand_plugin () {
+  # expand vim plugin words to include their dependencies
+  # shellcheck disable=SC2068
+  for pkg in $@; do
+    echo "$pkg"
+    if [ -e "$PRVIDIR/$pkg" ]; then
+      cat "$PRVIDIR/$pkg"
+    fi
+  done | sort |uniq
+}
+#
+check_deb () {
+  # convert plugin words to their dependency Debian packages
+  # shellcheck disable=SC2068
+  for pkg in $@; do
+    if [ -e "$PRSYDIR/$pkg" ]; then
+      while read -r deb; do
+        if ! dpkg --verify "$deb" 2>/dev/null; then
+          echo "$deb"
+        fi
+      done < "$PRSYDIR/$pkg"
+    fi
+  done
+}
+#
+menu_dialog () {
+  # Input:
+  #   PROG: Window title
+  #   ITEM_NAME: Selection item name
+  #   AVAILABLE: available choices (words)
+  #   MANAGEDS: managed choices (words)
+  # Output:
+  #   SELECTED: selected choices (words)
+  #
+  # Window size
+  WW=640
+  WH=400
+  # CL0, CL1: command line
+  CL0="zenity"
+  CL0="$CL0 --list"
+  CL0="$CL0 --title='$PROG'"
+  CL0="$CL0 --text='Select $ITEM_NAME to Activate   (currently"
+  CL1="--width $WW"
+  CL1="$CL1 --height $WH"
+  CL1="$CL1 --checklist"
+  CL1="$CL1 --print-column=2"
+  CL1="$CL1 --column 'Checks'"
+  CL1="$CL1 --column 'Vim Plugins'"
+  CL1="$CL1 --separator=' '"
+  # N: number of enabled plugin in menu
+  N=0
+  $DEBUG ">>> AVAILABLE=$AVAILABLE"
+  $DEBUG ">>> MANAGEDS=$MANAGEDS"
+  for M in ${AVAILABLE}; do
+    F="FALSE"
+    for P in ${MANAGEDS}; do
+      if [ "$M" = "$P" ]; then
+        F="TRUE"
+        N=$((N + 1))
+        break
+      fi
+    done
+    CL1="$CL1 '$F' '$M'"
+  done
+  # Show plugin selection menu
+  SELECTED=$(eval "$CL0 $N active)' $CL1")
+  $DEBUG ">>> SELECTED=$SELECTED"
+}
+#
+set_plugin () {
+  reset_all_plugin
+  for P in $PPENM; do
+    # Set link for plugin
+    ln -sf "../../../$PPAVDIR/$P" "$PPENDIR/$P"
+    if [ -e "$PCAVDIR/$P" ]; then
+      # Set link for plugin configuration
+      ln -sf "../../$PCAVDIR/$P" "$PCENDIR/$P"
+    fi
+  done
+}
+#
+set_override () {
+  reset_all_override
+  for P in $OCENM; do
+    if [ -e "$OCAVDIR/$P" ]; then
+      # Set link for custom configuration
+      ln -sf "../../$OCAVDIR/$P" "$OCENDIR/$P"
+    fi
+  done
+}
+#
+set_all_plugin () {
+  PPENM="${PPAVS}"
+  set_plugin
+}
+#
+set_all_override () {
+  OCENM="${OCAVS}"
+  set_override
+}
+#
+reset_all_plugin () {
+  for P in $PPAVS; do
+    # Reset link for plugin
+    rm -rf "${PPENDIR:?error for null PPENDIR}/$P"
+  done
+  for P in $PCAVS; do
+    # Reset link for plugin configuration
+    rm -rf "${PCENDIR:?error for null PCENDIR}/$P"
+  done
+}
+#
+reset_all_override () {
+  for P in $OCAVS; do
+    # Reset link for custom configuration
+    rm -rf "${OCENDIR:?error for null OCENDIR}/$P"
+  done
+}
+#
+#
+# List directory
+list_directory () {
+  # DIRECTORY: directory to check
+  { find "$1" -mindepth 1 -maxdepth 1 -type d || true; } \
+    2>/dev/null | sed -e 's,.*/,,' |sort -f
+}
+#
+# List link
+list_link () {
+  # DIRECTORY: directory to check
+  { find "$1" -mindepth 1 -maxdepth 1 -type l || true; } \
+    2>/dev/null | sed -e 's,.*/,,' |sort -f
+}
+#
+# List file
+list_file () {
+  # DIRECTORY: directory to check
+  { find "$1" -mindepth 1 -maxdepth 1 -type f || true; } \
+    2>/dev/null | sed -e 's,.*/,,' |sort -f
+}
+#
+check_managed () {
+  AVDIR="$1"
+  ENDIR="$2"
+  ENABLEDS="$(list_link "$ENDIR")"
+  # package managed by this program
+  MANAGEDS=""
+  # package **NOT** managed by this program
+  NONMNGDS=""
+  for P in ${ENABLEDS}; do
+    if [ ! -e "$ENDIR/$P" ] ; then
+      echo "!!! Remove dangling symlink for plugin: $ENDIR/$P" >&2
+      rm -f  "$ENDIR/$P"
+    elif [ -h "$ENDIR/$P" ] && \
+      [ "$(realpath "$ENDIR/$P")" = "$(realpath "$AVDIR/$P")" ] ; then
+      MANAGEDS="$MANAGEDS $P"
+    else
+      NONMNGDS="$NONMNGDS $P"
+    fi
+  done
+}
+#######################################################################
+# Main program
+#######################################################################
+#
+PPAVS="$(list_directory "$PPAVDIR")"
+$DEBUG ">>> PPAVS=$PPAVS"
+PCAVS="$(list_file "$PCAVDIR")"
+$DEBUG ">>> PCAVS=$PCAVS"
+OCAVS="$(list_file "$OCAVDIR")"
+$DEBUG ">>> OCAVS=$OCAVS"
+#
+# check enabled plugin package
+check_managed "$PPAVDIR" "$PPENDIR"
+# package managed by this program
+PPENM="$MANAGEDS"
+# package **NOT** managed by this program
+PPENN="$NONMNGDS"
+#
+# check override configuration
+check_managed "$OCAVDIR" "$OCENDIR"
+# override configuration managed by this program
+OCENM="$MANAGEDS"
+# override configuration **NOT** managed by this program
+OCENN="$NONMNGDS"
+#
+MENU_ENABLED="true"
+while [ -n "$1" ]; do
+  case "$1" in
+    a)
+      PPENM="${PPAVS}"
+      OCENM=""
+      ;;
+    sp)
+      PPENM="${PPAVS}"
+      ;;
+    up)
+      PPENM=""
+      ;;
+    so)
+      OCENM="${OCAVS}"
+      ;;
+    uo)
+      OCENM=""
+      ;;
+    nm)
+      MENU_ENABLED="false"
+      ;;
+    ga)
+      URL="${2}"
+      REPO="${2##*/}"
+      REPO="${REPO%.git}"
+      git submodule add ${URL} ${PPAVDIR}/${REPO}
+      git commit -m "Add ${URL} to ${PPAVDIR}/${REPO}"
+      exit 0
+      ;;
+    gd)
+      REPO="${2##*/}"
+      REPO="${REPO%.git}"
+      git rm -f  ${PPAVDIR}/${REPO}
+      git commit -m "Remove ${PPAVDIR}/${REPO}"
+      exit 0
+      ;;
+    gu)
+      git submodule update --init --recursive
+      exit 0
+      ;;
+    r)
+      "$PROG" up uo nm	
+      cd "$HVIMDIR"
+      echo -n "Are you sure to reset all (y/N) ?"
+      read YN
+      if [ "$YN" = "y" -o "$YN" = "Y" ]; then
+	git submodule foreach git reset --hard
+	git submodule foreach git clean -d -f -x
+	git reset --hard
+	git clean -d -f -x
+      fi
+      exit 0
+      ;;
+    *)
+      help
+      exit 0
+      ;;
+  esac
+  shift
+done
+#
+if $MENU_ENABLED; then
+  # Plugin selection
+  ITEM_NAME="Vim Plugins"
+  AVAILABLE="${PPAVS}"
+  MANAGEDS="${PPENM}"
+  menu_dialog
+  PPENM=$SELECTED
+  # Add dependency plugins
+  PPENM="$(expand_plugin "$PPENM")"
+  # check dependency deb packages
+  DEBN="$(check_deb "$PPENM")"
+  #
+  # Override selection
+  ITEM_NAME="Vim Overrides"
+  AVAILABLE="${OCAVS}"
+  MANAGEDS="${OCENM}"
+  menu_dialog
+  OCENM=$SELECTED
+fi
+#
+# Change configuration
+set_plugin
+set_override
+#
+# Sanity report
+for P in $PPENN; do
+  echo "$PROG doesn't manege: $PPENDIR/$P" >&2
+done
+for P in $OCENN; do
+  echo "$PROG doesn't manege: $OCENDIR/$P" >&2
+done
+for P in $DEBN; do
+  echo "!!! Please install a Debian package !!!: $P" >&2
+done
+#
+# Update tag data
+vim -E -c packloadall -c 'silent! helptags ALL'  -c q

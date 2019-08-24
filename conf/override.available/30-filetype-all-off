@@ -1,0 +1,12 @@
+" Setting filetype default
+filetype plugin indent on
+" ----------------------------------------------------------------------
+" command			detection	plugin		indent
+" filetype on			on		unchanged	unchanged
+" filetype off			off		unchanged	unchanged
+" filetype plugin on		on		on		unchanged
+" filetype plugin off		unchanged	off		unchanged
+" filetype indent on		on		unchanged	on
+" filetype indent off		unchanged	unchanged	off
+" filetype plugin indent on	on		on		on
+" filetype plugin indent off	unchanged	off		off

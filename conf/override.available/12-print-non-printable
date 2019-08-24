@@ -1,0 +1,6 @@
+" Display non-printable tabs and newlines
+set list
+"set listchars=tab:→\ ,eol:↲,extends:↦,nbsp:▱,trail:░
+"set listchars=tab:▶\ ,eol:↲,extends:▶,nbsp:░,trail:░
+set listchars=tab:▶\ ,eol:↲,extends:▶,nbsp:░,trail:░
+
