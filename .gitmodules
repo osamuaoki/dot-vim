@@ -13,3 +13,6 @@
 [submodule "conf/pack.available/fzf"]
 	path = conf/pack.available/fzf
 	url = https://github.com/junegunn/fzf
+[submodule "conf/pack.available/fzf.vim"]
+	path = conf/pack.available/fzf.vim
+	url = https://github.com/junegunn/fzf.vim
