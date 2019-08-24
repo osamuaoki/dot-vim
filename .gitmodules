@@ -10,3 +10,6 @@
 [submodule "conf/pack.available/ctrlp.vim"]
 	path = conf/pack.available/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim
+[submodule "conf/pack.available/fzf"]
+	path = conf/pack.available/fzf
+	url = https://github.com/junegunn/fzf
