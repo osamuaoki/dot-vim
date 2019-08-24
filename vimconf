@@ -1,5 +1,5 @@
 #!/bin/sh -e
-# vim:set et ts=2 sts=2 sw=2 si ai tw=78 ft=vim:
+# vim:set et ts=2 sts=2 sw=2 si ai tw=78 ft=sh:
 #############################################################################
 # Copyright © 2019 Osamu Aoki
 #
