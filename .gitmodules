@@ -49,3 +49,6 @@
 [submodule "conf/pack.available/vim-surround"]
 	path = conf/pack.available/vim-surround
 	url = https://github.com/tpope/vim-surround
+[submodule "conf/pack.available/vim-trailing-whitespace"]
+	path = conf/pack.available/vim-trailing-whitespace
+	url = https://github.com/bronson/vim-trailing-whitespace
