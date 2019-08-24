@@ -293,14 +293,14 @@ while [ -n "$1" ]; do
       URL="${2}"
       REPO="${2##*/}"
       REPO="${REPO%.git}"
-      git submodule add ${URL} ${PPAVDIR}/${REPO}
+      git submodule add "${URL}" "${PPAVDIR}/${REPO}"
       git commit -m "Add ${URL} to ${PPAVDIR}/${REPO}"
       exit 0
       ;;
     gd)
       REPO="${2##*/}"
       REPO="${REPO%.git}"
-      git rm -f  ${PPAVDIR}/${REPO}
+      git rm -f  "${PPAVDIR}/${REPO}"
       git commit -m "Remove ${PPAVDIR}/${REPO}"
       exit 0
       ;;
@@ -309,15 +309,15 @@ while [ -n "$1" ]; do
       exit 0
       ;;
     r)
-      "$PROG" up uo nm	
+      "$PROG" up uo nm
       cd "$HVIMDIR"
-      echo -n "Are you sure to reset all (y/N) ?"
-      read YN
-      if [ "$YN" = "y" -o "$YN" = "Y" ]; then
-	git submodule foreach git reset --hard
-	git submodule foreach git clean -d -f -x
-	git reset --hard
-	git clean -d -f -x
+      printf "Are you sure to reset all (y/N) ?"
+      read -r YN
+      if [ "$YN" = "y" ] || [ "$YN" = "Y" ]; then
+        git submodule foreach git reset --hard
+        git submodule foreach git clean -d -f -x
+        git reset --hard
+        git clean -d -f -x
       fi
       exit 0
       ;;
