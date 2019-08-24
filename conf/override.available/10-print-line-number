@@ -1,3 +1,4 @@
+" vim: set sw=2 sts=2 et ft=vim :
 " Show line numbers
 set number
 

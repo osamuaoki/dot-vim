@@ -1,3 +1,4 @@
+" vim: set sw=2 sts=2 et ft=vim :
 " Just to be sure (default for Debian)
 if &compatible|set nocompatible|endif
 

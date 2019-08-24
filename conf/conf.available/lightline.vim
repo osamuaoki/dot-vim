@@ -1,3 +1,4 @@
+" vim: set sw=2 sts=2 et ft=vim :
 " lightline
 set noshowmode
 set laststatus=2

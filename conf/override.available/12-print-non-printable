@@ -1,3 +1,4 @@
+" vim: set sw=2 sts=2 et ft=vim :
 " Display non-printable tabs and newlines
 set list
 "set listchars=tab:→\ ,eol:↲,extends:↦,nbsp:▱,trail:░
