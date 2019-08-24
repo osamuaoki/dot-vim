@@ -7,3 +7,6 @@
 [submodule "conf/pack.available/ale"]
 	path = conf/pack.available/ale
 	url = https://github.com/dense-analysis/ale
+[submodule "conf/pack.available/ctrlp.vim"]
+	path = conf/pack.available/ctrlp.vim
+	url = https://github.com/ctrlpvim/ctrlp.vim
