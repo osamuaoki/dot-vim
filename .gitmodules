@@ -25,3 +25,6 @@
 [submodule "conf/pack.available/nerdtree"]
 	path = conf/pack.available/nerdtree
 	url = https://github.com/scrooloose/nerdtree
+[submodule "conf/pack.available/pudb.vim"]
+	path = conf/pack.available/pudb.vim
+	url = https://github.com/SkyLeach/pudb.vim
