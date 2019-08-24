@@ -4,7 +4,7 @@
 
 This is a copy of my ~/.vim managed by the `vimconf` script.
 
-This ``vimconf` script provides:
+This `vimconf` script provides:
 
 * GTK GUI based configuration menu for the `vim` start-up configuration.
 * Simple reconfiguration mechanism using symlinks.
