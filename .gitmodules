@@ -4,3 +4,6 @@
 [submodule "conf/pack.available/ack.vim"]
 	path = conf/pack.available/ack.vim
 	url = https://github.com/mileszs/ack.vim
+[submodule "conf/pack.available/ale"]
+	path = conf/pack.available/ale
+	url = https://github.com/dense-analysis/ale
