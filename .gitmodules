@@ -19,3 +19,6 @@
 [submodule "conf/pack.available/lightline.vim"]
 	path = conf/pack.available/lightline.vim
 	url = https://github.com/itchyny/lightline.vim
+[submodule "conf/pack.available/lightline-bufferline"]
+	path = conf/pack.available/lightline-bufferline
+	url = https://github.com/mengelbrecht/lightline-bufferline
