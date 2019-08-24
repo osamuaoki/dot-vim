@@ -310,7 +310,6 @@ while [ -n "$1" ]; do
       ;;
     r)
       "$PROG" up uo nm
-      cd "$HVIMDIR"
       printf "Are you sure to reset all (y/N) ?"
       read -r YN
       if [ "$YN" = "y" ] || [ "$YN" = "Y" ]; then
