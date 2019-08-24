@@ -37,3 +37,6 @@
 [submodule "conf/pack.available/vim-multiple-cursors"]
 	path = conf/pack.available/vim-multiple-cursors
 	url = https://github.com/terryma/vim-multiple-cursors
+[submodule "conf/pack.available/vim-polyglot"]
+	path = conf/pack.available/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot
