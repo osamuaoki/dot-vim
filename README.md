@@ -83,7 +83,8 @@ Content organization of `~/vim/` directory:
 
 .
 ├── after/
-│   └── ZZZ_override
+│   └── plugin/
+│       └── ZZZ_override.vim Hook for conf.enabled/\*, override.enabled/\*
 ├── conf/
 │   ├── conf.available/
 │   │   ├── lightline.vim
@@ -108,7 +109,7 @@ Content organization of `~/vim/` directory:
 │   ├── override.enabled/
 │   │   ├── 12-print-non-printable -> ../../conf/override.available/12-print-non-printable
 │   │   └── 22-search-fancy -> ../../conf/override.available/22-search-fancy
-│   ├── pack.available/
+│   ├── pack.available/      Local copies of managed plugins
 │   │   ├── ack.vim/
 │   │   │   └── ...
 │   │   ├── ale/
@@ -152,10 +153,10 @@ Content organization of `~/vim/` directory:
 │       └── vim-airline-themes
 ├── pack/
 │   ├── persistent/
-│   │   └── start/
+│   │   └── start/           Local copies of persistent plugins
 │   │       └── securemodelines/
 │   └── vimconf/
-│       └── start/
+│       └── start/           Directory for symlinks to managed plugins
 │           ├── ack.vim -> ../../../conf/pack.available/ack.vim/
 │           ├── ale -> ../../../conf/pack.available/ale/
 │           ├── ctrlp.vim -> ../../../conf/pack.available/ctrlp.vim/
@@ -167,7 +168,7 @@ Content organization of `~/vim/` directory:
 ├── plugins.md
 ├── README.md
 ├── vimconf\*
-└── vimrc
+└── vimrc                         start up code read after debian.vim
 ```
 
 The exact contents may drift from the above but this should give you
