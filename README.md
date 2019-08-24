@@ -63,28 +63,13 @@ Actions:
 
 ## How `vimconf` works
 
-* Copies of upstream packages are stored under `~/.vim/conf/
-is normally registered with `git submodule`
-  in `~/.vim/repo`
-* A local plugin configuration for `repo1` plugin is provided as
-  `repo1.vimrc` in `~/.vim/_vimrc.plugin.available`
-* `repo1.vimrc` is loaded if only `repo1` is activated by `vimconf`.
-* A local custom configuration is provided as `custom1.vimrc` in
-  `~/.vim/_vimrc.custom.available`
-* Files are arranged as follows and symlinks are managed by the menu
-  which `vimconf` generates using status of symlinks in
-  `~/vim/pack/active/start` `~/.vim/_vimrc.plugin.enabled` and
-  `~/.vim/_vimrc.custom.enabled`.
-*  Sourcing of configuration is in alphabetical order per directory
-
-Content organization of `~/vim/` directory:
+Let's see the content organization of `~/vim/` directory:
 
 ```
-
 .
 ├── after/
 │   └── plugin/
-│       └── ZZZ_override.vim Hook for conf.enabled/\*, override.enabled/\*
+│       └── ZZZ_override.vim Hook for conf.enabled/*, override.enabled/*
 ├── conf/
 │   ├── conf.available/
 │   │   ├── lightline.vim
@@ -167,9 +152,20 @@ Content organization of `~/vim/` directory:
 │           └── vim-polyglot -> ../../../conf/pack.available/vim-polyglot/
 ├── plugins.md
 ├── README.md
-├── vimconf\*
+├── vimconf*
 └── vimrc                         start up code read after debian.vim
 ```
+
+Here:
+
+* Copies of upstream packages are stored under
+  `~/.vim/conf/pack.available/`.
+* A local plugin configuration for each plugin may be provided
+  in `~/.vim/conf/conf.available/` with the matched filename.
+* Optionallocal override configuration files are provided
+  in `~/.vim/conf/override.available/`.
+* Symlinks are managed by the `vimconf` menu program.
+*  Sourcing of configuration is in alphabetical order per directory
 
 The exact contents may drift from the above but this should give you
 fairly good idea how symlinks are used to enable functionalities.
