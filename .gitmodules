@@ -28,3 +28,6 @@
 [submodule "conf/pack.available/pudb.vim"]
 	path = conf/pack.available/pudb.vim
 	url = https://github.com/SkyLeach/pudb.vim
+[submodule "conf/pack.available/vim-gitgutter"]
+	path = conf/pack.available/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter
