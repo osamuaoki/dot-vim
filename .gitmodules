@@ -31,3 +31,6 @@
 [submodule "conf/pack.available/vim-gitgutter"]
 	path = conf/pack.available/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
+[submodule "conf/pack.available/vim-indent-guides"]
+	path = conf/pack.available/vim-indent-guides
+	url = https://github.com/nathanaelkane/vim-indent-guides
