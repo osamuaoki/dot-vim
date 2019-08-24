@@ -46,3 +46,6 @@
 [submodule "conf/pack.available/vim-sleuth"]
 	path = conf/pack.available/vim-sleuth
 	url = https://github.com/tpope/vim-sleuth
+[submodule "conf/pack.available/vim-surround"]
+	path = conf/pack.available/vim-surround
+	url = https://github.com/tpope/vim-surround
