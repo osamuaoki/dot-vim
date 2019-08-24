@@ -156,13 +156,15 @@ Let's see the content organization of `~/vim/` directory:
 └── vimrc                         start up code read after debian.vim
 ```
 
+<!-- * unfool vim formatter -->
+
 Here:
 
 * Copies of upstream packages are stored under
   `~/.vim/conf/pack.available/`.
 * A local plugin configuration for each plugin may be provided
   in `~/.vim/conf/conf.available/` with the matched filename.
-* Optionallocal override configuration files are provided
+* Optional local override configuration files are provided
   in `~/.vim/conf/override.available/`.
 * Symlinks are managed by the `vimconf` menu program.
 *  Sourcing of configuration is in alphabetical order per directory
