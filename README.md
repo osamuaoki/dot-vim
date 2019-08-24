@@ -39,22 +39,22 @@ If you clone this repo, you may wish to use something like the following
 
 ```
 $ vimconf h
-vimconf: Select Vim Plugins and Configurations
+vimconf: Select Vim Plugins and Overrides
             Version 0.3, © 2019   Osamu Aoki
 
 Usage: vimconf [a|sp|up|so|uo|nm|gu|r|h|ga $URL|gd $REPO]
 
 Actions:
-(none) Start with current plugin and override selections.
-  a    Select all plugins and Unselect all override.
-  sp   Select all plugins.
-  up   Unselect all plugins.
-  so   Select all overrides.
-  uo   Unselect all overrides.
-  nm   No menu selection.
-  ga   Add a local plugin git repository $URL.
-  gd   Drop a local plugin git repository $REPO.
-  gu   Update all local plugin git repositories.
+(none) Start with current plugins and overrides.
+  a    Select All plugins and unselect aAll override.
+  sp   Select all Plugins.
+  up   Unselect all Plugins.
+  so   Select all Overrides.
+  uo   Unselect all Overrides.
+  nm   No Menu selection.
+  ga   Add a local plugin Git repository for $URL.
+  gd   Drop a local plugin Git repository for $REPO.
+  gu   Update all local plugin Git repositories.
   r    Reset all configurations and local plugin changes.
   h    Show this help.
 
