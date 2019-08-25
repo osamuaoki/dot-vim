@@ -52,3 +52,6 @@
 [submodule "conf/pack.available/vim-trailing-whitespace"]
 	path = conf/pack.available/vim-trailing-whitespace
 	url = https://github.com/bronson/vim-trailing-whitespace
+[submodule "conf/pack.available/vim-gitbranch"]
+	path = conf/pack.available/vim-gitbranch
+	url = https://github.com/itchyny/vim-gitbranch
