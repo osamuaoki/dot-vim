@@ -97,7 +97,7 @@ check_deb () {
   # shellcheck disable=SC2068
   for pkg in $@; do
     if [ -e "$PRSYDIR/$pkg" ]; then
-      grep -v -e '^[ \t]*[#"]' "$PRSYDIR/$pkg" || true | \
+      ( grep -v -e '^[ \t]*[#"]' "$PRSYDIR/$pkg" || true ; ) | \
       while read -r deb; do
         if ! dpkg --verify "$deb" 2>/dev/null; then
           echo "$deb"
