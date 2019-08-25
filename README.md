@@ -63,6 +63,35 @@ Actions:
 
 ## How `vimconf` works
 
+With `vimconf`, `vim` starts by sourcing following initialization files
+(pwd="~/.vim"):
+
+* Source "$VIM/vimrc"
+  * Search for "debian.vim"
+    * Source /usr/share/vim/vim81/debian.vim
+    * Source /usr/share/vim/vimrc -> /etc/vim/vimrc
+* Source "~/.vim/vimrc" provided by `vimconf`)
+  * ... (load vim system plugins as needed)
+* New package main-loading mechanism used by `vimconf`
+  * Look into "pack/persistent/start/*" (directory)
+    * Source "securemodelines/plugin/securemodelines.vim"↲
+  * Look into "pack/vimconf/start/*" (symlinks)
+    * Source all enabled packages symlinked from here
+* Old package post-loading mechanism used by `vimconf`
+  * Source "after/plugin/ZZZ_override.vim" (hook script)
+    * Source "conf/conf.enabled/*" (symlinks)
+    * Source "conf/override.enabled/*" (symlinks)
+
+Please note that "~/.vimrc" must not exist if `vimconf` to work
+properly since it stops `vim` to read "~/.vim/vimrc".  In other words,
+this file can be used to disable settings by `vimconf`.
+
+Old package main-loading mechanism which places "*.vim" files under
+"plugin/**/" are compatible with `vimconf`.
+
+Actual order of package loading should be checked by invoking `vim` with
+the `-V` option.
+
 Let's see the content organization of `~/vim/` directory:
 
 ```
@@ -125,14 +154,14 @@ Let's see the content organization of `~/vim/` directory:
 │   │   │   └── ...
 │   │   └── vim-trailing-whitespace/
 │   │       └── ...
-│   ├── required.system/
+│   ├── required.system/     Required Debian system package list
 │   │   ├── ack.vim
 │   │   ├── ale
 │   │   ├── fzf
 │   │   ├── vim-fugitive
 │   │   ├── vim-gitgutter
 │   │   └── vim-gutentags
-│   └── required.vim/
+│   └── required.vim/        Required other vim plugin list
 │       ├── fzf.vim
 │       ├── gutentags_plus
 │       └── vim-airline-themes
@@ -168,6 +197,8 @@ Here:
   in `~/.vim/conf/override.available/`.
 * Symlinks are managed by the `vimconf` menu program.
 *  Sourcing of configuration is in alphabetical order per directory
+*  Files in `conf/required.system` and `conf/required.vim` may contain
+   comment lines started by either `"` or `#`.
 
 The exact contents may drift from the above but this should give you
 fairly good idea how symlinks are used to enable functionalities.
