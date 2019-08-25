@@ -82,17 +82,17 @@ With `vimconf`, Vim starts by sourcing following initialization files
     * Source `conf/conf.enabled/*` (symlinks)
     * Source `conf/override.enabled/*` (symlinks)
 
-Please note that `~.vimrc` must not exist if `vimconf` to work
+Please note that `~/.vimrc` must not exist if `vimconf` to work
 properly since it stops `vim` to read `~/.vim/vimrc`.  In other words,
 this file can be used to disable settings by `vimconf`.
 
 Old package main-loading mechanism which places `*.vim` files under
-`plugin/**/` are compatible with `vimconf`.
+`plugin/**/` is compatible with `vimconf` but its use isn't recommended.
 
 Actual order of package loading should be checked by invoking Vim with
 the `-V` option.
 
-Let's see the content organization of `~/vim/` directory:
+Let's see the content organization of `~/.vim/` directory:
 
 ```
 .
@@ -205,7 +205,7 @@ fairly good idea how symlinks are used to enable functionalities.
 
 `vimconf` is smart enough not to step on user temptations.  So you can
 temporarily and directly add plugin package under
-`~/vim/pack/vimconf/start` and random configuration files under
+`~/.vim/pack/vimconf/start` and random configuration files under
 `~/.vim/conf/conf.enabled` and `~/.vim/conf/override.enabled` to
 activate them without getting them managed by `vimconf` as long as names
 are chosen not to conflict.
