@@ -2,11 +2,11 @@
 
 <!-- vim: set sts=2 sw=2 expandtab ai si et tw=72: -->
 
-This is a copy of my ~/.vim managed by the `vimconf` script.
+This is a copy of my `~/.vim` managed by the `vimconf` script.
 
 This `vimconf` script provides:
 
-* GTK GUI based configuration menu for the `vim` start-up configuration.
+* GTK GUI based configuration menu for the Vim start-up configuration.
 * Simple reconfiguration mechanism using symlinks.
 * No network access required for the normal reconfiguration.
 * Minimal exposures to plugin conflicts.
@@ -27,7 +27,7 @@ This will set up basic configuration for your vim.
 ```
 
 If you clone this repo, you may wish to use something like the following
-`git clone` command instead to commit changes back to github via ssh.
+`git clone` command instead to commit changes back to github via `ssh`.
 
 ```
  $ git clone git@github.com:osamuaoki/dot-vim.git ~/.vim
@@ -63,33 +63,33 @@ Actions:
 
 ## How `vimconf` works
 
-With `vimconf`, `vim` starts by sourcing following initialization files
-(pwd="~/.vim"):
+With `vimconf`, Vim starts by sourcing following initialization files
+(pwd=`~/.vim`):
 
-* Source "$VIM/vimrc"
-  * Search for "debian.vim"
-    * Source /usr/share/vim/vim81/debian.vim
-    * Source /usr/share/vim/vimrc -> /etc/vim/vimrc
-* Source "~/.vim/vimrc" provided by `vimconf`)
-  * ... (load vim system plugins as needed)
+* Source `$VIM/vimrc`
+  * Search for `debian.vim`
+    * Source `/usr/share/vim/vim81/debian.vim`
+    * Source `/usr/share/vim/vimrc` -> `/etc/vim/vimrc`
+* Source `~/.vim/vimrc` provided by `vimconf`)
+  * ... (load Vim system plugins as needed)
 * New package main-loading mechanism used by `vimconf`
-  * Look into "pack/persistent/start/*" (directory)
-    * Source "securemodelines/plugin/securemodelines.vim"↲
-  * Look into "pack/vimconf/start/*" (symlinks)
+  * Look into `pack/persistent/start/*` (directory)
+    * Source `securemodelines/plugin/securemodelines.vim`
+  * Look into `pack/vimconf/start/*` (symlinks)
     * Source all enabled packages symlinked from here
 * Old package post-loading mechanism used by `vimconf`
-  * Source "after/plugin/ZZZ_override.vim" (hook script)
-    * Source "conf/conf.enabled/*" (symlinks)
-    * Source "conf/override.enabled/*" (symlinks)
+  * Source `after/plugin/ZZZ_override.vim` (hook script)
+    * Source `conf/conf.enabled/*` (symlinks)
+    * Source `conf/override.enabled/*` (symlinks)
 
-Please note that "~/.vimrc" must not exist if `vimconf` to work
-properly since it stops `vim` to read "~/.vim/vimrc".  In other words,
+Please note that `~.vimrc` must not exist if `vimconf` to work
+properly since it stops `vim` to read `~/.vim/vimrc`.  In other words,
 this file can be used to disable settings by `vimconf`.
 
-Old package main-loading mechanism which places "*.vim" files under
-"plugin/**/" are compatible with `vimconf`.
+Old package main-loading mechanism which places `*.vim` files under
+`plugin/**/` are compatible with `vimconf`.
 
-Actual order of package loading should be checked by invoking `vim` with
+Actual order of package loading should be checked by invoking Vim with
 the `-V` option.
 
 Let's see the content organization of `~/vim/` directory:
@@ -196,9 +196,9 @@ Here:
 * Optional local override configuration files are provided
   in `~/.vim/conf/override.available/`.
 * Symlinks are managed by the `vimconf` menu program.
-*  Sourcing of configuration is in alphabetical order per directory
-*  Files in `conf/required.system` and `conf/required.vim` may contain
-   comment lines started by either `"` or `#`.
+* Sourcing of configuration is in alphabetical order per directory
+* Files in `conf/required.system` and `conf/required.vim` may contain
+  comment lines started by either `"` or `#`.
 
 The exact contents may drift from the above but this should give you
 fairly good idea how symlinks are used to enable functionalities.
