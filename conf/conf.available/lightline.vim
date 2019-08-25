@@ -35,9 +35,10 @@ let g:lightline = {
   \   },
   \ }
 
-" Trim the bar between the filename and modified sign
+" Use full path and Trim the bar before modified sign
 function! LightlineFilename()
-  let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+  "let filename = expand('%:p') !=# '' ? (strchars(expand("%:p")) > winwidth(0) - 40  ? '...' . expand("%:p")[-(winwidth(0) - 40):] : expand("%:p")) : '[No Name]'
+  let filename = expand('%:t') !=# '' ? expand("%:t") : '[No Name]'
   let modified = &modified ? ' +' : ''
   return filename . modified
 endfunction
