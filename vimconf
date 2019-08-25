@@ -87,7 +87,7 @@ expand_plugin () {
   for pkg in $@; do
     echo "$pkg"
     if [ -e "$PRVIDIR/$pkg" ]; then
-      cat "$PRVIDIR/$pkg"
+      grep -v -e '^[ \t]*[#"]' "$PRVIDIR/$pkg" || true
     fi
   done | sort |uniq
 }
@@ -97,11 +97,12 @@ check_deb () {
   # shellcheck disable=SC2068
   for pkg in $@; do
     if [ -e "$PRSYDIR/$pkg" ]; then
+      grep -v -e '^[ \t]*[#"]' "$PRSYDIR/$pkg" || true | \
       while read -r deb; do
         if ! dpkg --verify "$deb" 2>/dev/null; then
           echo "$deb"
         fi
-      done < "$PRSYDIR/$pkg"
+      done
     fi
   done
 }

@@ -1,1 +1,2 @@
+" Debian package
 silversearcher-ag
