@@ -1,28 +1,78 @@
 " vim: set sw=2 sts=2 et ft=vim :
-" lightline
+" lightline standard set-ups
 set noshowmode
 set laststatus=2
 set showtabline=2
-"let g:lightline = {'colorscheme': 'landscape',}
-"let g:lightline = {'colorscheme': 'powerline',}
-"let g:lightline = {'colorscheme': 'molokai',}
-"let g:lightline = {'colorscheme': 'deus',}
-"let g:lightline = {'colorscheme': 'jellybeans',}
-"let g:lightline = {'colorscheme': '16color',}
-"let g:lightline = {'colorscheme': 'wombat',}
-"let g:lightline = {'colorscheme': 'PaperColor_dark',}
-"let g:lightline = {'colorscheme': 'PaperColor_light',}
-"let g:lightline = {'colorscheme': 'darcula',}
-
+" custom set-up
+" >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>     <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+" MODE|PASTE|UNICODE|RO|FILENAME [+]    FFormat|FEncoding|FType|%|LINEINFO
 let g:lightline = {
   \ 'colorscheme': 'wombat',
-  \ 'active': {
-  \   'left': [
+  \ 'active':
+  \   {
+  \   'left':
+  \     [
   \     [ 'mode', 'paste' ],
   \     [ 'charvaluehex'],
-  \     ['readonly', 'filename', 'modified' ]
-  \   ]
-  \ },
-  \ 'component': {'charvaluehex': '0x%B'},
-  \}
+  \     [ 'gitbranch', 'readonly', 'filename' ],
+  \     ],
+  \   'right':
+  \     [
+  \     [ 'lineinfo' ],
+  \     [ 'percent' ],
+  \     [ 'fileformat', 'fileencoding', 'filetype' ],
+  \     ],
+  \   },
+  \ 'component': {'charvaluehex': 'U+%04B'},
+  \ 'component_function':
+  \   {
+  \   'gitbranch': 'gitbranch#name',
+  \   'readonly': 'LightlineReadonly',
+  \   'filename': 'LightlineFilename',
+  \   'fileformat': 'LightlineFileformat',
+  \   'filetype': 'LightlineFiletype',
+  \   'fileencoding': 'LightlineFileencoding',
+  \   },
+  \ }
+
+" Trim the bar between the filename and modified sign
+function! LightlineFilename()
+  let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+  let modified = &modified ? ' +' : ''
+  return filename . modified
+endfunction
+
+" Hide RO if Help
+function! LightlineReadonly()
+  return &readonly && &filetype !=# 'help' ? 'RO' : ''
+endfunction
+
+" Hide FFormat if small window or 'unix'
+function! LightlineFileformat()
+  return winwidth(0) > 70 && &fileformat !=# 'unix' ? &fileformat : ''
+endfunction
+
+" Hide FType if small window
+function! LightlineFiletype()
+  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+
+" Hide FEncoding if UTF-8 or small window↲
+function! LightlineFileencoding()
+  return winwidth(0) > 70 && &fileencoding !=# 'utf-8' ? &fileencoding : ''
+endfunction
+
+
+" ColorScheme alternatives
+"'landscape'
+"'powerline'
+"'molokai'
+"'deus'
+"'jellybeans'
+"'16color'
+"'wombat'
+"'PaperColor_dark'
+"'PaperColor_light'
+"'darcula'
+
 
