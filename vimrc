@@ -63,12 +63,35 @@ set hidden
 " set confirm
 " set autowriteall
 
+" When the last window have a status line: Always=2
+set laststatus=2
+" Maximum internal statusline with full path
+set statusline=%<%F%m%r%h%w[U+%04B]%=[%{&ff}]%y\ (%4l/%4L,%3c%V)\ %P
+"              | | | | | |    |    |  |      |     |   |  |  |    +-- current % into file
+"              | | | | | |    |    |  |      |     |   |  |  +-- Virtual column number
+"              | | | | | |    |    |  |      |     |   |  +-- current column
+"              | | | | | |    |    |  |      |     |   +-- number of lines
+"              | | | | | |    |    |  |      |     +-- current line
+"              | | | | | |    |    |  |      +-- current syntax
+"              | | | | | |    |    |  +-- current fileformat
+"              | | | | | |    |    +-- separation point
+"              | | | | | |    +  Unicode (hex)
+"              | | | | | +-- preview flag in square brackets
+"              | | | | +-- help flag in square brackets
+"              | | | +-- readonly flag in square brackets
+"              | | +-- modified flag in square brackets
+"              | +-- full path to file in the buffer
+"              +-- truncate here
+" Maximum internal statusline with full path from PWD or as typed
+" set statusline=%<%f%m%r%h%w[U+%04B]%=[%{&ff}]%y\ (%4l/%4L,%3c%V)\ %P
+" Maximum internal statusline with file name (tail)
+" set statusline=%<%t%m%r%h%w[U+%04B]%=[%{&ff}]%y\ (%4l/%4L,%3c%V)\ %P
+"
 " Display mode
 set nowrap
-" Always display the status line
-set laststatus=2
-" Last line
+" Insert, Replace or Visual mode put a message on the last line
 set showmode
+" Show (partial) command in the last line
 set showcmd
 " Tab completion for command
 set wildmenu
