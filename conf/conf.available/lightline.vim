@@ -37,8 +37,8 @@ let g:lightline = {
 
 " Use full path and Trim the bar before modified sign
 function! LightlineFilename()
-  "let filename = expand('%:p') !=# '' ? (strchars(expand("%:p")) > winwidth(0) - 40  ? '...' . expand("%:p")[-(winwidth(0) - 40):] : expand("%:p")) : '[No Name]'
-  let filename = expand('%:t') !=# '' ? expand("%:t") : '[No Name]'
+  let filename = expand('%') !=# '' ? (strchars(expand("%")) > winwidth(0) - 40  ? '...' . expand("%")[-(winwidth(0) - 40):] : expand("%")) : '[No Name]'
+  "let filename = expand('%') !=# '' ? expand("%") : '[No Name]'
   let modified = &modified ? ' +' : ''
   return filename . modified
 endfunction
