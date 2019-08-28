@@ -1,8 +1,8 @@
 " This is sourced after plugins
 "
-" Source configuration (in alphabetical order per directory)
+" Source post-configuration (in alphabetical order per directory)
 " for vimconf selected plugins
-runtime! conf/conf.enabled/*
+runtime! conf/postconf.enabled/*
 
 " Source configuration (in alphabetical order per directory)
 " for vimconf selected overrides

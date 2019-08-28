@@ -104,6 +104,10 @@ endif
 " filler
 " filler
 "
+" Source pre-configuration (in alphabetical order per directory)
+" for vimconf selected plugins
+runtime! conf/preconf.enabled/*
+
 " All Vim plugin packages are loaded and processed after this point
 " from the subdirectories of ~/.vim/pack/*/start/ etc.
 "

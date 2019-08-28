@@ -34,10 +34,14 @@ PPAVDIR="conf/pack.available"
 mkdir -p "$PPAVDIR"
 PPENDIR="pack/vimconf/start"
 mkdir -p "$PPENDIR"
-PCAVDIR="conf/conf.available"
-mkdir -p "$PCAVDIR"
-PCENDIR="conf/conf.enabled"
-mkdir -p "$PCENDIR"
+PRCAVDIR="conf/preconf.available"
+mkdir -p "$PRCAVDIR"
+PRCENDIR="conf/preconf.enabled"
+mkdir -p "$PRCENDIR"
+PTCAVDIR="conf/postconf.available"
+mkdir -p "$PTCAVDIR"
+PTCENDIR="conf/postconf.enabled"
+mkdir -p "$PTCENDIR"
 PRVIDIR="conf/required.vim"
 mkdir -p "$PRVIDIR"
 PRSYDIR="conf/required.system"
@@ -156,9 +160,13 @@ set_plugin () {
   for P in $PPENM; do
     # Set link for plugin
     ln -sf "../../../$PPAVDIR/$P" "$PPENDIR/$P"
-    if [ -e "$PCAVDIR/$P" ]; then
-      # Set link for plugin configuration
-      ln -sf "../../$PCAVDIR/$P" "$PCENDIR/$P"
+    if [ -e "$PRCAVDIR/$P" ]; then
+      # Set link for plugin pre-configuration
+      ln -sf "../../$PRCAVDIR/$P" "$PRCENDIR/$P"
+    fi
+    if [ -e "$PTCAVDIR/$P" ]; then
+      # Set link for plugin post-configuration
+      ln -sf "../../$PTCAVDIR/$P" "$PTCENDIR/$P"
     fi
   done
 }
@@ -188,9 +196,13 @@ reset_all_plugin () {
     # Reset link for plugin
     rm -rf "${PPENDIR:?error for null PPENDIR}/$P"
   done
-  for P in $PCAVS; do
-    # Reset link for plugin configuration
-    rm -rf "${PCENDIR:?error for null PCENDIR}/$P"
+  for P in $PRCAVS; do
+    # Reset link for plugin pre-configuration
+    rm -rf "${PRCENDIR:?error for null PRCENDIR}/$P"
+  done
+  for P in $PTCAVS; do
+    # Reset link for plugin pre-configuration
+    rm -rf "${PTCENDIR:?error for null PTCENDIR}/$P"
   done
 }
 #
@@ -249,8 +261,10 @@ check_managed () {
 #
 PPAVS="$(list_directory "$PPAVDIR")"
 $DEBUG ">>> PPAVS=$PPAVS"
-PCAVS="$(list_file "$PCAVDIR")"
-$DEBUG ">>> PCAVS=$PCAVS"
+PRCAVS="$(list_file "$PRCAVDIR")"
+$DEBUG ">>> PRCAVS=$PRCAVS"
+PTCAVS="$(list_file "$PTCAVDIR")"
+$DEBUG ">>> PTCAVS=$PTCAVS"
 OCAVS="$(list_file "$OCAVDIR")"
 $DEBUG ">>> OCAVS=$OCAVS"
 #

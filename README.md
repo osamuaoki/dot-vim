@@ -71,7 +71,8 @@ With `vimconf`, Vim starts by sourcing following initialization files
     * Source `/usr/share/vim/vim81/debian.vim`
     * Source `/usr/share/vim/vimrc` -> `/etc/vim/vimrc`
 * Source `~/.vim/vimrc` provided by `vimconf`)
-  * ... (load Vim system plugins as needed)
+  * ... (load Vim system plugins as needed by `vimrc` script
+  * Source `conf/preconf.enabled/*` (symlinks)
 * New package main-loading mechanism used by `vimconf`
   * Look into `pack/persistent/start/*` (directory)
     * Source `securemodelines/plugin/securemodelines.vim`
@@ -79,7 +80,7 @@ With `vimconf`, Vim starts by sourcing following initialization files
     * Source all enabled packages symlinked from here
 * Old package post-loading mechanism used by `vimconf`
   * Source `after/plugin/ZZZ_override.vim` (hook script)
-    * Source `conf/conf.enabled/*` (symlinks)
+    * Source `conf/postconf.enabled/*` (symlinks)
     * Source `conf/override.enabled/*` (symlinks)
 
 Please note that `~/.vimrc` must not exist if `vimconf` to work
@@ -100,11 +101,13 @@ Let's see the content organization of `~/.vim/` directory:
 │   └── plugin/
 │       └── ZZZ_override.vim Hook for conf.enabled/*, override.enabled/*
 ├── conf/
-│   ├── conf.available/
+│   ├── preconf.available/
+│   ├── preconf.enabled/
+│   ├── postconf.available/
 │   │   ├── lightline.vim
 │   │   ├── nerdtree
 │   │   └── vim-indent-guides
-│   ├── conf.enabled/
+│   ├── postconf.enabled/
 │   │   ├── lightline.vim -> ../../conf/conf.available/lightline.vim
 │   │   └── vim-indent-guides -> ../../conf/conf.available/vim-indent-guides
 │   ├── override.available/
@@ -191,8 +194,10 @@ Here:
 
 * Copies of upstream packages are stored under
   `~/.vim/conf/pack.available/`.
-* A local plugin configuration for each plugin may be provided
-  in `~/.vim/conf/conf.available/` with the matched filename.
+* A local plugin pre-configuration for each plugin may be provided
+  in `~/.vim/conf/preconf.available/` with the matched filename.
+* A local plugin post-configuration for each plugin may be provided
+  in `~/.vim/conf/postconf.available/` with the matched filename.
 * Optional local override configuration files are provided
   in `~/.vim/conf/override.available/`.
 * Symlinks are managed by the `vimconf` menu program.
