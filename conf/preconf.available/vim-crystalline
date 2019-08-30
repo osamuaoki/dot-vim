@@ -1,0 +1,73 @@
+" vim: ft=vim:
+set laststatus=2
+set showtabline=2
+set guioptions-=e
+
+let g:crystalline_enable_sep = 1
+let g:crystalline_statusline_fn = 'StatusLine'
+let g:crystalline_tabline_fn = 'TabLine'
+
+" Color choices
+" badwolf  gruvbox     molokai     shadesofpurple
+" default  hybrid      onedark     solarized
+" dracula  jellybeans  papercolor
+let g:crystalline_theme = 'jellybeans'
+
+"set background=light
+"set background=dark
+
+function! StatusLine(current, width)
+  let l:s = ''
+  " If itchyny/vim-gitbranch is available
+  let l:b = gitbranch#name()
+  " If tpope/vim-fugitive is available
+  "let l:b = fugitive#head()
+
+  if a:current
+    let l:s .= crystalline#mode() . crystalline#right_mode_sep('')
+  else
+    let l:s .= '%#CrystallineInactive#'
+  endif
+  " Skip RO for HELP
+  if &filetype !=# 'help'
+    let l:s .= '%<%F%m%r%h%w '
+    "let l:s .= '%<%f%m%r%h%w '
+  else
+    let l:s .= '%<%F%m%h%w '
+    "let l:s .= '%<%f%m%h%w '
+  endif
+  " Skip master and also not in HELP
+  if a:current
+    if l:b !=# 'master' && &filetype !=# 'help'
+      let l:s .= crystalline#right_sep('', 'Fill') . l:b . 'ᚠ'
+    else
+      let l:s .= crystalline#right_sep('', 'Fill')
+    endif
+  endif
+  " center split
+  let l:s .= '%='
+  if a:current
+    let l:s .= crystalline#left_sep('', 'Fill') . ' %{&paste ?"PASTE ":""}%{&spell?"SPELL ":""}'
+    let l:s .= crystalline#left_mode_sep('')
+  endif
+  let l:s .= ' '
+  if a:width >= 80
+    let l:s .= '%{&ft}'
+    " skip utf-8
+    if &fileencoding !=# 'utf-8' && &fileencoding !=# ''
+      let l:s .= '[%{&fileencoding}]'
+    endif
+    " skip unix
+    if &fileformat !=# 'unix' && &fileformat !=# ''
+      let l:s .= '[%{&fileformat}]'
+    endif
+    let l:s .= ' %l/%L %c%V %P '
+  endif
+  return l:s
+endfunction
+
+function! TabLine()
+  let l:vimlabel = has('nvim') ?  ' NVIM ' : ' VIM '
+  return crystalline#bufferline(2, len(l:vimlabel), 1) . '%=%#CrystallineTab# ' . l:vimlabel
+endfunction
+
