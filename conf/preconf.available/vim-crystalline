@@ -25,41 +25,42 @@ let g:crystalline_theme = 'default'
 "set background=dark
 
 function! StatusLine(current, width)
-  let l:s = ''
 
   " left
   if a:current
-    let l:s .= crystalline#mode()
-    let l:s .= '%{&paste ?"PASTE ":""}'
+    let l:s = crystalline#mode()
+    let l:s .= '%{&paste ? "PASTE " : ""}'
     let l:s .= crystalline#right_mode_sep('')
   else
-    let l:s .= '%#CrystallineInactive#'
+    let l:s = '%#CrystallineInactive#'
   endif
 
-  " Skip git branch RO for HELP
-  if &filetype !=# 'help'
-    if a:width >= 80
-      if g:loaded_gitbranch == 1
-	" If itchyny/vim-gitbranch is available
-	let l:b = gitbranch#name()
-      elseif g:loaded_fugitive == 1
-	" If tpope/vim-fugitive is available
-	let l:b = fugitive#head()
-      else
-	let l:b = ''
-      endif
-      if l:b !=# ''
-	let l:b = ' ' . l:b . ' ᚠ '
-      endif
-      let l:s .= l:b
+  " Skip git branch for HELP or small window
+  if &filetype !=# 'help' && a:width >= 80
+    if exists('g:loaded_gitbranch') && g:loaded_gitbranch == 1
+      " https://github.com/itchyny/vim-gitbranch
+      let l:b = gitbranch#name()
+    elseif exists('g:loaded_fugitive') && g:loaded_fugitive == 1
+      " https://github.com/tpope/vim-fugitive
+      let l:b = fugitive#head()
+    else
+      " No way to get git branch name
+      let l:b = ''
     endif
+    if l:b !=# ''
+      let l:b = ' ᚠ ' . l:b . ' '
+    endif
+    let l:s .= l:b
+  endif
+  " Skip RO for HELP
+  if &filetype !=# 'help'
     "let l:s .= ' %<%F%m%r%h%w '
-    let l:s .= ' %<%f%m%r%h%w '
+    let l:s .= ' %<%t%m%r%h%w '
   else
     "let l:s .= '%<%F%m%h%w '
-    let l:s .= ' %<%f%m%h%w '
+    let l:s .= ' %<%t%m%h%w '
   endif
-  " Skip master and also not in HELP
+  " Skip right separator if Inactive
   if a:current
     let l:s .= crystalline#right_sep('', 'Fill')
   endif
@@ -70,33 +71,40 @@ function! StatusLine(current, width)
   " right
   if a:current
     if a:width >= 80
+      " Print lint result
       let l:s .= crystalline#left_sep('', 'Fill')
-      if ale#engine#IsCheckingBuffer(bufnr(''))
-	let l:s .= ' Linting ... '
-      else
-	let l:counts = ale#statusline#Count(bufnr(''))
-	let l:all_errors = l:counts.error + l:counts.style_error
-	let l:all_non_errors = l:counts.total - l:all_errors
-	let l:all_errors = l:counts.error + l:counts.style_error
-	let l:s .= l:counts.total == 0 ? ' OK' : ''
-	let l:s .= l:all_errors == 0 ? '' : printf(' E: %d', all_errors)
-	let l:s .= l:all_non_errors == 0 ? '' : printf(' W: %d', all_non_errors)
+      if exists('g:loaded_ale') && g:loaded_ale == 1
+	if ale#engine#IsCheckingBuffer(bufnr(''))
+	  let l:s .= ' Linting ... '
+	else
+	  let l:counts = ale#statusline#Count(bufnr(''))
+	  let l:s .= l:counts.total == 0 ? ' OK' : ''
+	  let l:s .= l:counts.error + l:counts.style_error == 0 ? '' :
+	    \ printf(' E: %d', l:counts.error + l:counts.style_error)
+	  let l:s .= l:counts.total - l:counts.error - l:counts.style_error == 0 ? '' :
+	    \ printf(' W: %d', l:counts.error + l:counts.style_error)
+	endif
       endif
-      let l:s .= ' %{&ft} '
-      " skip utf-8
+    endif
+  endif
+  " Always print filetype
+  let l:s .= ' %{&filetype} '
+  if a:current
+    if a:width >= 80
+      " Skip obvious encoding utf-8
       if &fileencoding !=# 'utf-8' && &fileencoding !=# ''
 	let l:s .= '[%{&fileencoding}] '
       endif
-      " skip unix
+      " Skip obvious file format unix
       if &fileformat !=# 'unix' && &fileformat !=# ''
 	let l:s .= '[%{&fileformat}] '
       endif
     endif
     let l:s .= crystalline#left_mode_sep('')
-  endif
-  if a:width >= 80
-    " print UNICODE code point
-    let l:s .= ' U+%04B'
+    if a:width >= 80
+      " print UNICODE code point
+      let l:s .= ' U+%04B'
+    endif
   endif
   let l:s .= ' %l/%L %c%V'
   if a:width >= 80
