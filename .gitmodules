@@ -61,3 +61,6 @@
 [submodule "conf/pack.available/vim-crystalline"]
 	path = conf/pack.available/vim-crystalline
 	url = https://github.com/rbong/vim-crystalline.git
+[submodule "conf/pack.available/lightline-ale"]
+	path = conf/pack.available/lightline-ale
+	url = https://github.com/maximbaz/lightline-ale.git
