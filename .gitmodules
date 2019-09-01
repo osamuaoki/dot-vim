@@ -65,3 +65,6 @@
 [submodule "conf/pack.available/lightline-ale"]
 	path = conf/pack.available/lightline-ale
 	url = https://github.com/maximbaz/lightline-ale.git
+[submodule "conf/pack.available/vim-colorschemes"]
+	path = conf/pack.available/vim-colorschemes
+	url = https://github.com/flazz/vim-colorschemes.git
