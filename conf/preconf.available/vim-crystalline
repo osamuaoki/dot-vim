@@ -15,8 +15,10 @@ let g:crystalline_enable_sep = 1
 let g:crystalline_statusline_fn = 'StatusLine'
 let g:crystalline_tabline_fn = 'TabLine'
 
-"let g:crystalline_separators = ['', '']
-let g:crystalline_separators = ['▶', '◀']
+" with powerline font
+let g:crystalline_separators = ['', '']
+" without powerline font
+"let g:crystalline_separators = ['▶', '◀']
 
 " Color choices
 " badwolf  gruvbox     molokai     shadesofpurple
@@ -51,9 +53,10 @@ function! StatusLine(current, width)
       let l:b = ''
     endif
     if l:b !=# ''
+      " poerline font
+      let l:b = '  ' . l:b . ' '
       "let l:b = ' ᚠ ' . l:b . ' '
-      "let l:b = '  ' . l:b . ' '
-      let l:b = '👉' . l:b . ' '
+      "let l:b = '👉' . l:b . ' '
     endif
     let l:s .= l:b
   endif
