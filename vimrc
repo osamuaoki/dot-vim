@@ -27,12 +27,15 @@ set viminfo='100,<5000,s100,h
 
 " Syntax highlight and spelling
 syntax on
+"syntax off
 
 " Enable filetype based plugin indent control
 filetype plugin indent on
 
 " Enable spell check with en_us for all
-set spell spelllang=en_us
+set spell 
+"set nospell
+set spelllang=en_us
 
 " minimalist encoding as utf-8
 set encoding=utf-8
@@ -100,9 +103,6 @@ set wildmenu
 if $USER == "root"
   set noswapfile
 endif
-" filler to avoid the line above being recognized as a modeline
-" filler
-" filler
 "
 " Source pre-configuration (in alphabetical order per directory)
 " for vimconf selected plugins
