@@ -25,6 +25,19 @@ set smartindent
 " make vim copy buffer bigger (default 50 lines: viminfo='100,<50,s10,h)
 set viminfo='100,<5000,s100,h
 
+" Enable 256 colors (TERM=xterm-256color)
+set t_Co=256
+"set t_AB=^[[48;5;%dm
+"set t_AF=^[[38;5;%dm
+" Available color schemes
+" blue darkblue default delek desert elflord evening industry koehler morning
+" murphy pablo peachpuff ron shine slate torte zellner
+"set background=light
+set background=dark
+colorscheme  murphy
+"colorscheme  industry
+"colorscheme  torte
+
 " Syntax highlight and spelling
 syntax on
 "syntax off
@@ -32,9 +45,9 @@ syntax on
 " Enable filetype based plugin indent control
 filetype plugin indent on
 
-" Enable spell check with en_us for all
-set spell 
-"set nospell
+" Disable spell check with en_us for all
+set nospell " set spell when needed or by FT
+" Sell check with en_us
 set spelllang=en_us
 
 " minimalist encoding as utf-8
