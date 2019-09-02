@@ -57,8 +57,15 @@ function! MyGitBranch()
   return l:b
 endfunction
 
+function! MyModify()
+  let l:m = &modified ? '+' : ''
+  let l:m = &modifiable ? '' : '-'
+  let l:m = (l:m != '' ? '[' . (l:m) . ']' : '')
+  return &filetype !=# 'help' ? (l:m) : ''
+endfunction
+
 function! MyReadOnly()
-  return &filetype !=# 'help' ? '%m%r' : ''
+  return &filetype !=# 'help' && &readonly ? '[RO]' : ''
 endfunction
 
 function! MyAleOutput()
@@ -91,6 +98,7 @@ function! StatusLine(current, width)
     let l:statusline .= '%{MyGitBranch()}'
   endif
   let l:statusline .= ' %<%t'
+  let l:statusline .= '%{MyModify()}'
   let l:statusline .= '%{MyReadOnly()}'
   let l:statusline .= '%h%w '
   " Skip right separator if Inactive
