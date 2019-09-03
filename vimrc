@@ -65,7 +65,19 @@ set pastetoggle=<f2>
 
 " Remap to apply Macro with "Q" ("qq" to record, "q" to quit, "Q" to apply)
 nnoremap Q @q
-vnoremap Q :norm @q<cr>
+xnoremap Q :norm @q<cr>
+
+" Remap quick jk to to get out from insert mode
+inoremap jk  <Esc>
+
+" Remap in visual mode < > related
+xnoremap > >gv
+xnoremap < <gv
+xnoremap <Tab> >gv
+xnoremap <S-Tab> <gv
+nnoremap <Tab> >>_
+nnoremap <S-Tab> <<_
+inoremap <S-Tab> <C-D>
 
 " Rendering fast
 set ttyfast
