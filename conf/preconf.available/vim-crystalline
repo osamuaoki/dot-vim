@@ -27,6 +27,10 @@ let g:crystalline_theme = 'default'
 "set background=light
 "set background=dark
 
+function! MyWinwidth(string)
+  return winwidth(0) >= 80 ? (a:string) : ""
+endfunction
+
 function! MyFileEncoding()
   " Make best effort to get valid encoding
   let l:enc = ( &fileencoding !=# '' ? &fileencoding : &encoding )
@@ -40,11 +44,11 @@ function! MyFileFormat()
 endfunction
 
 function! MyGitBranch()
-  if exists('g:loaded_gitbranch') && g:loaded_gitbranch == 1
-    " https://github.com/itchyny/vim-gitbranch
+  if get(g:, 'loaded_gitbranch', 0) == 1
+    " Install https://github.com/itchyny/vim-gitbranch (recommended)
     let l:b = gitbranch#name()
-  elseif exists('g:loaded_fugitive') && g:loaded_fugitive == 1
-    " https://github.com/tpope/vim-fugitive
+  elseif get(g:, 'loaded_fugitive', 0) == 1
+    " https://github.com/tpope/vim-fugitive (bulky)
     let l:b = fugitive#head()
   else
     " No way to get git branch name
@@ -52,21 +56,21 @@ function! MyGitBranch()
   endif
   if l:b !=# ''
     " powerline font
-    let l:b = '  ' . l:b . ' '
+    let l:b = ' ' . l:b . ' '
   endif
   return l:b
 endfunction
 
-function! MyFiletype()
+function! MyFileAttrib()
   if &filetype ==# 'help'
-    let l:ft = '[Help]'
+    let l:ft = ' [Help]'
   elseif &previewwindow
-    let l:ft = '[Preview]'
+    let l:ft = ' [Preview]'
   elseif &buftype ==# 'terminal'
     let l:ft = '' " supress [-]
   elseif &readonly
     "let l:ft = '[RO]'
-    let l:ft = ''
+    let l:ft = ' '
   else
     let l:ft = &modified ? '+' : ''
     let l:ft = &modifiable ? '' : '-'
@@ -77,16 +81,16 @@ endfunction
 
 function! MyAleOutput()
   if ale#engine#IsCheckingBuffer(bufnr(''))
-    let l:s = 'Linting ... '
+    let l:lint = 'Linting ... '
   else
     let l:counts = ale#statusline#Count(bufnr(''))
-    let l:s = l:counts.total == 0 ? ' OK' : ''
-    let l:s .= l:counts.error + l:counts.style_error == 0 ? '' :
+    let l:lint = l:counts.total == 0 ? 'OK ' : ''
+    let l:lint .= l:counts.error + l:counts.style_error == 0 ? '' :
       \ printf('E: %d ', l:counts.error + l:counts.style_error)
-    let l:s .= l:counts.total - l:counts.error - l:counts.style_error == 0 ? '' :
+    let l:lint .= l:counts.total - l:counts.error - l:counts.style_error == 0 ? '' :
       \ printf('W: %d ', l:counts.error + l:counts.style_error)
   endif
-  return l:s
+  return l:lint
 endfunction
 
 function! StatusLine(current, width)
@@ -100,44 +104,34 @@ function! StatusLine(current, width)
     let l:statusline = '%#CrystallineInactive#'
   endif
 
-  " Skip git branch for HELP or small window
-  if &filetype !=# 'help' && a:width >= 80
-    let l:statusline .= '%{MyGitBranch()}'
-  endif
-  let l:statusline .= ' %<%t'
-  let l:statusline .= '%{MyFiletype()} '
+  " File related info
+  let l:statusline .= ' %{MyWinwidth(MyGitBranch())}%<%t%{MyFileAttrib()} '
   " Skip right separator if Inactive
-  if a:current
+  "if a:current
     let l:statusline .= crystalline#right_sep('', 'Fill')
-  endif
+  "endif
 
   " center split
   let l:statusline .= '%='
 
   " right
-  if a:current
-    if a:width >= 80
-      if exists('g:loaded_ale') && g:loaded_ale == 1
-        let l:statusline .= '%{MyAleOutput()}'
-      endif
-    endif
-  endif
   let l:statusline .= crystalline#left_sep('', 'Fill')
   " Always print filetype
   let l:statusline .= ' %{&filetype} '
+  if get(g:, 'loaded_ale', 0) == 1 && a:current
+    let l:statusline .= '%{MyWinwidth(MyAleOutput())}'
+  endif
   if a:current
-    if a:width >= 80
-      let l:statusline .= '%{MyFileEncoding()}'
-      let l:statusline .= '%{MyFileFormat()}'
-    endif
+    let l:statusline .= '%{MyWinwidth(MyFileEncoding())}'
+    let l:statusline .= '%{MyWinwidth(MyFileFormat())}'
     let l:statusline .= crystalline#left_mode_sep('')
-    if a:width >= 80
+    if winwidth(0) >= 80
       " print UNICODE code point
       let l:statusline .= ' U+%04B'
     endif
   endif
   let l:statusline .= ' %l/%L %c%V'
-  if a:width >= 80
+  if winwidth(0) >= 80
     let l:statusline .= ' %P '
   endif
   return l:statusline
