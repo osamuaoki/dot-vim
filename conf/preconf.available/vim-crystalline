@@ -28,14 +28,14 @@ let g:crystalline_theme = 'default'
 "set background=dark
 
 function! MyWinwidth(string)
-  return winwidth(0) >= 80 ? (a:string) : ""
+  return winwidth(0) >= 80 ? a:string : ""
 endfunction
 
 function! MyFileEncoding()
   " Make best effort to get valid encoding
   let l:enc = ( &fileencoding !=# '' ? &fileencoding : &encoding )
   " Skip obvious encoding utf-8
-  return l:enc !=# 'utf-8' ? (l:enc) : ""
+  return l:enc !=# 'utf-8' ? l:enc : ""
 endfunction
 
 function! MyFileFormat()
@@ -74,7 +74,7 @@ function! MyFileAttrib()
   else
     let l:ft = &modified ? '+' : ''
     let l:ft = &modifiable ? '' : '-'
-    let l:ft = (l:ft != '' ? '[' . (l:ft) . ']' : '')
+    let l:ft = (l:ft != '' ? '[' . l:ft . ']' : '')
   endif
   return l:ft
 endfunction
@@ -88,7 +88,7 @@ function! MyAleOutput()
     let l:lint .= l:counts.error + l:counts.style_error == 0 ? '' :
       \ printf('E: %d ', l:counts.error + l:counts.style_error)
     let l:lint .= l:counts.total - l:counts.error - l:counts.style_error == 0 ? '' :
-      \ printf('W: %d ', l:counts.error + l:counts.style_error)
+      \ printf('W: %d ', l:counts.total - l:counts.error - l:counts.style_error)
   endif
   return l:lint
 endfunction
@@ -96,12 +96,14 @@ endfunction
 function! StatusLine(current, width)
 
   " left
+  let l:statusline = ''
   if a:current
-    let l:statusline = crystalline#mode()
+    let l:statusline .= crystalline#mode()
     let l:statusline .= '%{&paste ? "PASTE " : ""}'
     let l:statusline .= crystalline#right_mode_sep('')
   else
-    let l:statusline = '%#CrystallineInactive#'
+    let l:statusline .= '%#CrystallineInactive#'
+    "let l:statusline .= crystalline#right_mode_sep('')
   endif
 
   " File related info
@@ -142,3 +144,10 @@ function! TabLine()
   return crystalline#bufferline(2, len(l:vimlabel), 1) . '%=%#CrystallineTab# ' . l:vimlabel
 endfunction
 
+" I need to figure out how to update status line data from async process
+"augroup lightline#ale
+"  autocmd!
+"  autocmd User ALEJobStarted call lightline#update()
+"  autocmd User ALELintPost call lightline#update()
+"  autocmd User ALEFixPost call lightline#update()
+"augroup END
