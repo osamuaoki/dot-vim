@@ -85,6 +85,11 @@ set ttyfast
 set scrolloff=5
 set nostartofline
 
+"if executable("ag")
+"    set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --column
+"    set grepformat=%f:%l:%c:%m,%f:%l:%m
+"endif
+
 " open another file without saving the current file
 set hidden
 " Alternative -- always write
