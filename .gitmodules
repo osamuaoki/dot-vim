@@ -61,3 +61,6 @@
 [submodule "conf/pack.available/vim-airline-themes"]
 	path = conf/pack.available/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
+[submodule "conf/pack.available/vim-fugitive"]
+	path = conf/pack.available/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
