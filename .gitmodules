@@ -67,3 +67,6 @@
 [submodule "conf/pack.available/vim-qlist"]
 	path = conf/pack.available/vim-qlist
 	url = https://github.com/romainl/vim-qlist.git
+[submodule "conf/pack.available/vim-bufferline"]
+	path = conf/pack.available/vim-bufferline
+	url = https://github.com/bling/vim-bufferline.git
