@@ -61,3 +61,6 @@
 [submodule "conf/pack.available/vim-fugitive"]
 	path = conf/pack.available/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+[submodule "conf/pack.available/vim-signify"]
+	path = conf/pack.available/vim-signify
+	url = https://github.com/mhinz/vim-signify.git
