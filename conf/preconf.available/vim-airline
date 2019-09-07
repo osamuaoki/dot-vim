@@ -1,12 +1,39 @@
 " Use powerline fonts
 let g:airline_powerline_fonts = 1
 
+" define the set of text to display for each mode.
+let g:airline_mode_map = {
+    \ '__'     : '---',
+    \ 'c'      : 'CMD',
+    \ 'i'      : 'INS',
+    \ 'ic'     : 'INS',
+    \ 'ix'     : 'INS',
+    \ 'n'      : 'NRM',
+    \ 'multi'  : 'MUL',
+    \ 'ni'     : 'NI',
+    \ 'no'     : 'NO',
+    \ 'R'      : 'REP',
+    \ 'Rv'     : 'RV',
+    \ 's'      : 'SEL',
+    \ 'S'      : 'S__',
+    \ ''     : 'S[]',
+    \ 't'      : 'TRM',
+    \ 'v'      : 'VIS',
+    \ 'V'      : 'V__',
+    \ ''     : 'V',
+    \ }
+
 " Skip FileType: utf-8[unix]
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 
-" Display Unicode code point (for utf-8)
+" Display Unicode code point, no %.
 function! AirlineInitOverride()
   let g:airline_section_y = airline#section#create_right(['ffenc','U+%04B'])
+  if airline#util#winwidth() > 79
+    let g:airline_section_z = airline#section#create(['windowswap', 'obsession', 'linenr', 'maxlinenr', ':%3v'])
+  else
+    let g:airline_section_z = airline#section#create(['linenr',  ':%3v'])
+  endif
 endfunction
 autocmd User AirlineAfterInit call AirlineInitOverride()
 
