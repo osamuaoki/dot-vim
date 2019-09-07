@@ -21,7 +21,7 @@ something I want it handy.
 
 ## Statusline plugin
 
-I tried many and waisted lots of time. 
+I tried many and waisted lots of time.
 
 * https://github.com/vim-airline/vim-airline.git
   * Full feature with pre-defined extensions
@@ -34,14 +34,46 @@ I am using `vim-airline` now since it comes with many pre-made support
 scripts as its extension.  It saves me time while it allows very fine
 grained tunings.
 
-Others require you to write ustome script from scratch and if such
-thngs are added, their claimed advantages may not be true any more.
+Others require you to write custome script from scratch and if such
+scripts are added, their claimed advantages may not be true any more.
 
 If I need really light statusline, I use bare monochrome static status
 line string with vim internally defined items (defined in
-`osamuaoki/00-vimrc`).
+`osamuaoki/00-vimrc`).  If vim-airline is active, this setting is
+overriden.
 
+## Spelling checks
 
+I normally turn on spelling checks in `osamuaoki/00-vimrc`.
+
+It can be overriden from `vimconf` menu.
+
+## Git status checks
+
+I now use:
+
+* https://github.com/tpope/vim-fugitive.git
+* https://github.com/airblade/vim-gitgutter
+
+At this moment, My use of `:G....` commands are minimal.  These are used
+only as vim-airline clents running in backgrounds for me at this moment.
+
+## Tailing whitespace checks
+
+For tailing whitespace problem, `bronson/vim-trailing-whitespace` is
+very nice by coloring all of them in RED.
+
+This is really useful in combination of vim-airline reporting the first
+occurance of such tailing whitespace line as warning.
+
+Unlike vim's native feature `listchars` with `list`, this doesn't
+interfare with screen copy by mouse etc.
+
+## Lint checks
+
+I now use:
+
+* https://github.com/dense-analysis/ale.git
 
 
 ## Interesting plugins
@@ -54,11 +86,6 @@ Please check sites such as followings to get popular plugins:
 * https://qiita.com/Sa2Knight/items/6b26d35af571c239da31
 * https://medium.com/@huntie/10-essential-vim-plugins-for-2018-39957190b7a9
 
-Also please check the expert set-up examples:
-
-* https://github.com/itchyny/lightline.vim
-* https://github.com/itchyny/dotfiles/blob/master/.vimrc
-* http://leafcage.hateblo.jp/entry/2013/10/21/lightlinevim-customize
 
 ## Binding for plugins
 
