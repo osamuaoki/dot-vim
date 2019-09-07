@@ -68,3 +68,6 @@
 [submodule "conf/pack.available/vim-colorschemes"]
 	path = conf/pack.available/vim-colorschemes
 	url = https://github.com/flazz/vim-colorschemes.git
+[submodule "conf/pack.available/vim-airline"]
+	path = conf/pack.available/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git
