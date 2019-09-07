@@ -44,9 +44,11 @@ overriden.
 
 ## Spelling checks
 
-I normally turn on spelling checks in `osamuaoki/00-vimrc`.
+I normally turn off spelling checks in `osamuaoki/00-vimrc` to avoid
+hard to read situation.  Just do `:set spell` / `:set nospell` to
+change.
 
-It can be overriden from `vimconf` menu.
+Color optimization may be good idea. ... (TODO)
 
 ## Git status checks
 
