@@ -1,0 +1,3 @@
+" Agressively run for realtime updates
+let g:signify_realtime = 1
+
