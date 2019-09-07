@@ -4,17 +4,45 @@
 
 For installation, see [README](README.md).
 
-## Customizing Plugins from github repositories
+## Perspective
+
+Before going wild with plugins, please read the voice of "old guard" vim
+gurus (April/2016):
+
+* https://www.vi-improved.org/recommendations/
+
+But that was written in vim 7.4 days.  Vimscript was becoming more like
+a real lunguge but we didn't have native support to the asynchronously
+excuting background process.  Now spell checker, lint, git
+monitoring,... are very useful featurs.
+
+Also, even though its purely a eye candies, colored status line is
+something I want it handy.
+
+## Statusline plugin
+
+I tried many and waisted lots of time. 
+
+* https://github.com/vim-airline/vim-airline.git
+  * Full feature with pre-defined extensions
+* https://github.com/rbong/vim-crystalline.git
+  * Simple script and good way to learn how script is wriitten
+* https://github.com/itchyny/lightline.vim.git
+  * Another simple script.
+
+I am using `vim-airline` now since it comes with many pre-made support
+scripts as its extension.  It saves me time while it allows very fine
+grained tunings.
+
+Others require you to write ustome script from scratch and if such
+thngs are added, their claimed advantages may not be true any more.
+
+If I need really light statusline, I use bare monochrome static status
+line string with vim internally defined items (defined in
+`osamuaoki/00-vimrc`).
 
 
-* Add plugin from `https://github.com/<user>/<reponame>`:
-  * `vimconf ga https://github.com/<user>/<reponame>`
-* Drop plugin from `~/.vim/conf/pack.available/<reponame>`:
-  * `vimconf gd <reponame>`
-* Update plugins in `~/.vim/conf/pack.available/`:
-  * `vimconf gu`
-* Reset and clean all configurations and local plugin changes:
-  * `vimconf r`
+
 
 ## Interesting plugins
 

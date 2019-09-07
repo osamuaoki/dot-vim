@@ -20,7 +20,7 @@ let g:airline_mode_map = {
     \ 't'      : 'TRM',
     \ 'v'      : 'VIS',
     \ 'V'      : 'V__',
-    \ ''     : 'V',
+    \ ''     : 'V[]',
     \ }
 
 " Skip FileType: utf-8[unix]

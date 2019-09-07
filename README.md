@@ -215,6 +215,21 @@ temporarily and directly add plugin package under
 activate them without getting them managed by `vimconf` as long as names
 are chosen not to conflict.
 
+## Customizing Plugins from github repositories
+
+* Add plugin from `https://github.com/<user>/<reponame>`:
+  * `vimconf ga https://github.com/<user>/<reponame>`
+* Drop plugin from `~/.vim/conf/pack.available/<reponame>`:
+  * `vimconf gd <reponame>`
+* Update plugins in `~/.vim/conf/pack.available/`:
+  * `vimconf gu`
+* Reset and clean all configurations and local plugin changes:
+  * `vimconf r`
+* Create package specific global settings in:
+  * `vim ~/.vim/conf/preconf.available/<reponame>`
+* Non-baseline local customization, please use submodule under:
+  * `~/.vim/conf/pack.available/00-vimrc/`
+
 ## Further customization of `vimconf`
 
 For more, see [Customizing Plugins](plugins.md).
