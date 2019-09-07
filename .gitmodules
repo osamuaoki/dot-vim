@@ -64,3 +64,6 @@
 [submodule "conf/pack.available/vim-signify"]
 	path = conf/pack.available/vim-signify
 	url = https://github.com/mhinz/vim-signify.git
+[submodule "conf/pack.available/vim-qlist"]
+	path = conf/pack.available/vim-qlist
+	url = https://github.com/romainl/vim-qlist.git
