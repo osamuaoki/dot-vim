@@ -76,3 +76,6 @@
 [submodule "conf/pack.available/gundo.vim"]
 	path = conf/pack.available/gundo.vim
 	url = https://github.com/sjl/gundo.vim.git
+[submodule "conf/pack.available/undotree"]
+	path = conf/pack.available/undotree
+	url = https://github.com/mbbill/undotree.git
