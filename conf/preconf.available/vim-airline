@@ -1,2 +1,12 @@
 " Use powerline fonts
 let g:airline_powerline_fonts = 1
+
+" Skip FileType: utf-8[unix]
+let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
+
+" Display Unicode code point (for utf-8)
+function! AirlineInitOverride()
+  let g:airline_section_y = airline#section#create_right(['ffenc','U+%04B'])
+endfunction
+autocmd User AirlineAfterInit call AirlineInitOverride()
+
