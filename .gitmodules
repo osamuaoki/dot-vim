@@ -71,3 +71,6 @@
 [submodule "conf/pack.available/vim-airline"]
 	path = conf/pack.available/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
+[submodule "conf/pack.available/vim-airline-themes"]
+	path = conf/pack.available/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes.git
