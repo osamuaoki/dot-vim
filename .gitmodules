@@ -82,3 +82,6 @@
 [submodule "conf/pack.available/tagbar"]
 	path = conf/pack.available/tagbar
 	url = https://github.com/majutsushi/tagbar.git
+[submodule "conf/pack.available/taboo.vim"]
+	path = conf/pack.available/taboo.vim
+	url = https://github.com/gcmt/taboo.vim.git
