@@ -73,3 +73,6 @@
 [submodule "conf/pack.available/vim-plugin-minibufexpl"]
 	path = conf/pack.available/vim-plugin-minibufexpl
 	url = https://github.com/weynhamz/vim-plugin-minibufexpl.git
+[submodule "conf/pack.available/gundo.vim"]
+	path = conf/pack.available/gundo.vim
+	url = https://github.com/sjl/gundo.vim.git
