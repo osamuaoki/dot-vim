@@ -88,3 +88,6 @@
 [submodule "conf/pack.available/vim-ctrlspace"]
 	path = conf/pack.available/vim-ctrlspace
 	url = https://github.com/vim-ctrlspace/vim-ctrlspace.git
+[submodule "conf/pack.available/00-vimrc"]
+	path = conf/pack.available/00-vimrc
+	url = git@github.com:osamuaoki/00-vimrc.git
