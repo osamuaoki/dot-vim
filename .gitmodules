@@ -52,10 +52,6 @@
 [submodule "conf/pack.available/vim-orgmode"]
 	path = conf/pack.available/vim-orgmode
 	url = https://github.com/jceb/vim-orgmode.git
-[submodule "conf/pack.available/vim-crystalline"]
-	path = conf/pack.available/vim-crystalline
-	#url = https://github.com/rbong/vim-crystalline.git
-	url = git@github.com:osamuaoki/vim-crystalline.git
 [submodule "conf/pack.available/vim-colorschemes"]
 	path = conf/pack.available/vim-colorschemes
 	url = https://github.com/flazz/vim-colorschemes.git
