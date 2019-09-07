@@ -85,3 +85,6 @@
 [submodule "conf/pack.available/taboo.vim"]
 	path = conf/pack.available/taboo.vim
 	url = https://github.com/gcmt/taboo.vim.git
+[submodule "conf/pack.available/vim-ctrlspace"]
+	path = conf/pack.available/vim-ctrlspace
+	url = https://github.com/vim-ctrlspace/vim-ctrlspace.git
