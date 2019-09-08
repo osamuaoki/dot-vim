@@ -1,27 +1,29 @@
 " Use powerline fonts
 let g:airline_powerline_fonts = 1
 
+" if 0
 " define the set of text to display for each mode.
 let g:airline_mode_map = {
     \ '__'     : '---',
     \ 'c'      : 'CMD',
     \ 'i'      : 'INS',
-    \ 'ic'     : 'INS',
-    \ 'ix'     : 'INS',
+    \ 'ic'     : 'I-C',
+    \ 'ix'     : 'I-X',
     \ 'n'      : 'NRM',
     \ 'multi'  : 'MUL',
-    \ 'ni'     : 'NI',
-    \ 'no'     : 'NO',
+    \ 'ni'     : 'N-I',
+    \ 'no'     : 'N-O',
     \ 'R'      : 'REP',
-    \ 'Rv'     : 'RV',
+    \ 'Rv'     : 'R-V',
     \ 's'      : 'SEL',
-    \ 'S'      : 'S__',
+    \ 'S'      : 'S-L',
     \ ''     : 'S[]',
     \ 't'      : 'TRM',
     \ 'v'      : 'VIS',
-    \ 'V'      : 'V__',
+    \ 'V'      : 'V-L',
     \ ''     : 'V[]',
     \ }
+" endif
 
 " Skip FileType: utf-8[unix]
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
