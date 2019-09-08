@@ -315,7 +315,7 @@ while [ -n "$1" ]; do
     gd)
       REPO="${2##*/}"
       REPO="${REPO%.git}"
-      git rm -f  "${PPAVDIR}/${REPO}"
+      git rm -f "${PPAVDIR}/${REPO}"
       git commit -m "Remove ${PPAVDIR}/${REPO}"
       exit 0
       ;;
@@ -328,10 +328,12 @@ while [ -n "$1" ]; do
       printf "Are you sure to reset all (y/N) ?"
       read -r YN
       if [ "$YN" = "y" ] || [ "$YN" = "Y" ]; then
-        git submodule foreach git reset --hard
-        git submodule foreach git clean -d -f -x
+        git rm -rf "${PPAVDIR}"
+        git submodule update --init --recursive
         git reset --hard
         git clean -d -f -x
+        git submodule foreach git reset --hard
+        git submodule foreach git clean -d -f -x
       fi
       exit 0
       ;;
