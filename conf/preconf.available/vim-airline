@@ -1,7 +1,12 @@
 " Use powerline fonts
+if $TERM !=# "linux"
 let g:airline_powerline_fonts = 1
+else
+let g:airline_powerline_fonts = 0
+let g:airline_symbols_ascii = 1
+endif
 
-" if 0
+if 0
 " define the set of text to display for each mode.
 let g:airline_mode_map = {
     \ '__'     : '---',
@@ -23,7 +28,7 @@ let g:airline_mode_map = {
     \ 'V'      : 'V-L',
     \ ''     : 'V[]',
     \ }
-" endif
+endif
 
 " Skip FileType: utf-8[unix]
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'

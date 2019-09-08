@@ -1,6 +1,6 @@
 # dot-vim
 
-<!-- vim: set sts=2 sw=2 expandtab ai si et tw=72: -->
+<!-- vim: set sts=2 sw=2 expandtab ai si tw=72: -->
 
 This is a copy of my `~/.vim` managed by the `vimconf` script.
 
@@ -32,6 +32,8 @@ If you clone this repo, you may wish to use something like the following
 ```
  $ git clone git@github.com:osamuaoki/dot-vim.git ~/.vim
 ```
+
+TIP: Use `setfont` to set good-looking font for the linux console.
 
 ## Select vim plugins by `vimconf`
 
