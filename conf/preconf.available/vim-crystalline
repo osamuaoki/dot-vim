@@ -1,4 +1,4 @@
-" vim: sts=2 sw=2 ft=vim:
+" vim: set sw=2 sts=2 et ft=vim:
 "
 " Basic design
 " Left most:    Mode for cursor
