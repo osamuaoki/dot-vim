@@ -234,4 +234,10 @@ are chosen not to conflict.
 
 ## Further customization of `vimconf`
 
+Here are a few insightful recomendations for the best practices for Vim.
+
+* [Seven habits of effective text editing](https://www.moolenaar.net/habits.html)
+* [#vim Recommendations](https://www.vi-improved.org/recommendations/)
+* [vim-galore](https://github.com/mhinz/vim-galore)
+
 For more, see [Customizing Plugins](plugins.md).
