@@ -21,6 +21,11 @@ set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.i
 if $USER == "root"
   set noswapfile
 endif
+
+let g:vimrc_level = 2 " all customization
+"let g:vimrc_level = 1 " basic customization
+"let g:vimrc_level = 0 " no customization
+
 "
 " Source pre-configuration (in alphabetical order per directory)
 " for vimconf selected plugins
