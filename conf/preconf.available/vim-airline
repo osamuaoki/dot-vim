@@ -11,18 +11,60 @@ endif
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 
 " Simplify statusline
+" let g:airline_mode_map = {
+"   \ '__' : '------',
+"   \ 'c'  : 'COMMAND',
+"   \ 'i'  : 'INSERT',
+"   \ 'ic' : 'INSERT COMPL',
+"   \ 'ix' : 'INSERT COMPL',
+"   \ 'multi' : 'MULTI',
+"   \ 'n'  : 'NORMAL',
+"   \ 'ni' : '(INSERT)',
+"   \ 'no' : 'OP PENDING',
+"   \ 'R'  : 'REPLACE',
+"   \ 'Rv' : 'V REPLACE',
+"   \ 's'  : 'SELECT',
+"   \ 'S'  : 'S-LINE',
+"   \ '' : 'S-BLOCK',
+"   \ 't'  : 'TERMINAL',
+"   \ 'v'  : 'VISUAL',
+"   \ 'V'  : 'V-LINE',
+"   \ '' : 'V-BLOCK',
+"   \ }
+let g:airline_mode_map = {
+  \ '__' : '---',
+  \ 'c'  : 'COM',
+  \ 'i'  : 'INS',
+  \ 'ic' : 'I C',
+  \ 'ix' : 'I X',
+  \ 'multi' : 'MUL',
+  \ 'n'  : 'NOR',
+  \ 'ni' : 'N I',
+  \ 'no' : 'N O',
+  \ 'R'  : 'REP',
+  \ 'Rv' : 'V-R',
+  \ 's'  : 'SEL',
+  \ 'S'  : 'S-L',
+  \ '' : 'S-B',
+  \ 't'  : 'TRM',
+  \ 'v'  : 'VIS',
+  \ 'V'  : 'V-L',
+  \ '' : 'V-B',
+  \ }
 function! AirlineInitOverride()
-  if airline#util#winwidth() > 120
-    let g:airline_section_a = airline#section#create_left(['mode', 'crypt', 'paste', 'keymap', 'spell', 'capslock', 'xkblayout', 'iminsert'])
+  if airline#util#winwidth() > 90
+    "let g:airline_section_a = airline#section#create_left(['mode', 'crypt', 'paste', 'keymap', 'spell', 'capslock', 'xkblayout', 'iminsert'])
+    let g:airline_section_a = airline#section#create_left(['mode', 'crypt', 'paste', 'capslock', 'xkblayout', 'iminsert'])
     let g:airline_section_y = airline#section#create_right(['ffenc','U+%04B'])
     " let g:airline_section_z = airline#section#create(['windowswap', 'obsession', '%3p%%'.spc, 'linenr', 'maxlinenr', spc.':%3v'])
     " Display Unicode code point, no %.
     let g:airline_section_z = airline#section#create(['windowswap', 'obsession', 'linenr', 'maxlinenr', ':%3v'])
   else
-    let g:airline_section_a = airline#section#create_left(['mode', 'paste'])
+    let g:airline_section_a = airline#section#create_left(['mode'])
     let g:airline_section_y = airline#section#create_right(['ffenc'])
-    let g:airline_section_z = airline#section#create(['linenr', ':%2v'])
+    let g:airline_section_z = airline#section#create(['linenr', 'maxlinenr', ':%2v'])
   endif
 endfunction
 autocmd User AirlineBeforeRefresh call AirlineInitOverride()
+autocmd VimEnter,VimResized * call AirlineInitOverride()
 
