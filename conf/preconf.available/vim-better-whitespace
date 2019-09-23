@@ -1,0 +1,11 @@
+" Use better_whitespace display
+let g:better_whitespace_enabled=1
+
+" Don't auto strip whitespace
+let g:strip_whitespace_on_save=0
+
+" Highlight space characters that appear before or in-between tabs
+let g:show_spaces_that_precede_tabs=1
+
+" Manual strip whitespace with <leader>s
+nnoremap <leader>s :StripWhitespace<cr>
