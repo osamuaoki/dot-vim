@@ -11,5 +11,9 @@ let g:show_spaces_that_precede_tabs=1
 "let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown']
 let g:better_whitespace_filetypes_blacklist=['diff']
 
+"-----------------------------------------------------------------------------
+" Use <SPACE> as leader instead of '\'
+" In NORMAL mode, SPACE is useless.  This has to be before <leader> usage.
+let mapleader = ' '
 " Manual strip whitespace with <leader>s
 nnoremap <leader>s :StripWhitespace<cr>
