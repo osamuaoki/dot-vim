@@ -7,5 +7,9 @@ let g:strip_whitespace_on_save=0
 " Highlight space characters that appear before or in-between tabs
 let g:show_spaces_that_precede_tabs=1
 
+" blacklist this plugin for specific file types
+"let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown']
+let g:better_whitespace_filetypes_blacklist=['diff']
+
 " Manual strip whitespace with <leader>s
 nnoremap <leader>s :StripWhitespace<cr>
