@@ -97,3 +97,6 @@
 [submodule "conf/pack.available/vim-spell-under"]
 	path = conf/pack.available/vim-spell-under
 	url = git@github.com:osamuaoki/vim-spell-under.git
+[submodule "conf/pack.available/vim-better-whitespace"]
+	path = conf/pack.available/vim-better-whitespace
+	url = https://github.com/ntpeters/vim-better-whitespace.git
