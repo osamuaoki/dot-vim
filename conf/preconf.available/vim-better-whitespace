@@ -1,8 +1,9 @@
-" Use better_whitespace display (better than `:list...`)
+" Use better_whitespace display (better than `:set list`)
 let g:better_whitespace_enabled=1
 
 " blacklist this plugin for specific file types
-"let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown']
+" DEFAULT: let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown']
+" Almost no blacklist
 let g:better_whitespace_filetypes_blacklist=['diff']
 
 " Disable skiping to strip whitespace
@@ -18,7 +19,7 @@ let g:show_spaces_that_precede_tabs=1
 let g:strip_whitelines_at_eof=1
 
 "-----------------------------------------------------------------------------
-" Use <SPACE> as leader instead of '\'
+" Use <SPACE> as leader instead of '\' (set again to mske sure)
 " In NORMAL mode, SPACE is useless.  This has to be before <leader> usage.
 let mapleader = ' '
 " Manual strip whitespace with <leader>s
