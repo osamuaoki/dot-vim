@@ -1,5 +1,12 @@
-" Use better_whitespace display
+" Use better_whitespace display (better than `:list...`)
 let g:better_whitespace_enabled=1
+
+" blacklist this plugin for specific file types
+"let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown']
+let g:better_whitespace_filetypes_blacklist=['diff']
+
+" Disable skiping to strip whitespace
+let g:strip_max_file_size=0
 
 " Don't auto strip whitespace
 let g:strip_whitespace_on_save=0
@@ -7,9 +14,8 @@ let g:strip_whitespace_on_save=0
 " Highlight space characters that appear before or in-between tabs
 let g:show_spaces_that_precede_tabs=1
 
-" blacklist this plugin for specific file types
-"let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown']
-let g:better_whitespace_filetypes_blacklist=['diff']
+" Enable stripping white lines at EOF
+let g:strip_whitelines_at_eof=1
 
 "-----------------------------------------------------------------------------
 " Use <SPACE> as leader instead of '\'
