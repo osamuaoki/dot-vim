@@ -1,3 +1,5 @@
+" vim: set sw=2 sts=2 et ft=vim:
+
 " Use better_whitespace display (better than `:set list`)
 let g:better_whitespace_enabled=1
 
