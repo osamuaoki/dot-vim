@@ -85,9 +85,6 @@
 [submodule "conf/pack.available/00-vimrc"]
 	path = conf/pack.available/00-vimrc
 	url = git@github.com:osamuaoki/00-vimrc.git
-[submodule "conf/pack.available/syntastic"]
-	path = conf/pack.available/syntastic
-	url = https://github.com/vim-syntastic/syntastic.git
 [submodule "conf/pack.available/vim-spell-under"]
 	path = conf/pack.available/vim-spell-under
 	url = git@github.com:osamuaoki/vim-spell-under.git
