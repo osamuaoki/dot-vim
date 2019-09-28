@@ -34,9 +34,6 @@
 [submodule "conf/pack.available/vim-polyglot"]
 	path = conf/pack.available/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
-[submodule "conf/pack.available/vim-sensible"]
-	path = conf/pack.available/vim-sensible
-	url = https://github.com/tpope/vim-sensible
 [submodule "conf/pack.available/vim-sleuth"]
 	path = conf/pack.available/vim-sleuth
 	url = https://github.com/tpope/vim-sleuth
