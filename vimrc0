@@ -1,5 +1,7 @@
 "
-" Initialize and Load Plugins configured by vimconf
+" Initialize Vim without plugins
+"
+"  $ vim -u ~/.vim/vimrc0 --noplugin <file-to-edit>
 "
 " I created this while reading sensible.vim by Tim Pope
 "
@@ -12,6 +14,8 @@ if &compatible|set nocompatible|endif
 
 " Set by debian.vim (default for Debian)
 "set runtimepath=~/.vim,/var/lib/vim/addons,/usr/share/vim/vimfiles,/usr/share/vim/vim81,/usr/share/vim/vimfiles/after,/var/lib/vim/addons/after,~/.vim/after
+" Override to disable plugins
+set runtimepath=/var/lib/vim/addons,/usr/share/vim/vimfiles,/usr/share/vim/vim81,/usr/share/vim/vimfiles/after,/var/lib/vim/addons/after
 " ignore for file name completion (default for Debian)
 "set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 
@@ -92,22 +96,6 @@ set hidden                     " open another file without saving
 if $USER == "root"
   set noswapfile
 endif
-
-" Variable to control plugins
-let g:vimrc_level = 2 " all customization
-"let g:vimrc_level = 1 " basic customization
-"let g:vimrc_level = 0 " no customization
-
-"
-" Source pre-configuration (in alphabetical order per directory)
-" for vimconf selected plugins
-runtime! conf/preconf.enabled/*
-
-" All Vim plugin packages are loaded and processed after this point
-" from the subdirectories of ~/.vim/pack/*/start/ etc.
-"
-" If some special override is needed after loading plugins , place such
-" configuration file in ~/.vim/after etc.
 "
 "
 " vim: set sw=2 sts=2 et ft=vim :
