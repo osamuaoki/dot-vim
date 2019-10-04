@@ -14,7 +14,7 @@ undotree
 #vim-airline
 #The following is automatic
 vim-airline-themes
-vim-better-whitespace
+#vim-better-whitespace
 #vim-bufferline
 vim-colorschemes
 vim-ctrlspace

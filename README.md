@@ -11,7 +11,6 @@ This `vimconf` script provides:
 * No network access required for the normal reconfiguration.
 * Minimal exposures to plugin conflicts.
 
-
 ## Quick start
 
 This will set up basic configuration for your vim.
