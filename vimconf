@@ -31,6 +31,7 @@ HVIMDIR="$HOME/.vim"
 cd "$HVIMDIR"
 # setup directories
 PPAVDIR="conf/pack.available"
+PPBLIST="conf/pack.blacklist"
 mkdir -p "$PPAVDIR"
 PPENDIR="pack/vimconf/start"
 mkdir -p "$PPENDIR"
@@ -214,24 +215,28 @@ reset_all_override () {
 }
 #
 #
-# List directory
-list_directory () {
-  # DIRECTORY: directory to check
-  { find "$1" -mindepth 1 -maxdepth 1 -type d || true; } \
-    2>/dev/null | sed -e 's,.*/,,' |sort -f
+# List repository
+list_repository () {
+  # $1: directory to check repository
+  # $PPBLIST: List blacklist repository
+  { \
+    { { find "$1" -mindepth 1 -maxdepth 1 -type d || true ; } \
+      2>/dev/null | sed -e 's,.*/,,'; } ; \
+    { grep -v "^#" "$PPBLIST" || true ; } ; \
+  } | sort -f | uniq -u
 }
 #
 # List link
 list_link () {
-  # DIRECTORY: directory to check
-  { find "$1" -mindepth 1 -maxdepth 1 -type l || true; } \
+  # $1: directory to check activated configuration
+  { find "$1" -mindepth 1 -maxdepth 1 -type l || true ; } \
     2>/dev/null | sed -e 's,.*/,,' |sort -f
 }
 #
 # List file
 list_file () {
-  # DIRECTORY: directory to check
-  { find "$1" -mindepth 1 -maxdepth 1 -type f || true; } \
+  # $1: directory to check available configuration
+  { find "$1" -mindepth 1 -maxdepth 1 -type f || true ; } \
     2>/dev/null | sed -e 's,.*/,,' |sort -f
 }
 #
@@ -259,7 +264,7 @@ check_managed () {
 # Main program
 #######################################################################
 #
-PPAVS="$(list_directory "$PPAVDIR")"
+PPAVS="$(list_repository "$PPAVDIR")"
 $DEBUG ">>> PPAVS=$PPAVS"
 PRCAVS="$(list_file "$PRCAVDIR")"
 $DEBUG ">>> PRCAVS=$PRCAVS"

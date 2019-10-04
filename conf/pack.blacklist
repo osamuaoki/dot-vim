@@ -1,0 +1,32 @@
+# List repository directory to hide from list (# is disable hiding)
+#00-vimrc
+ack.vim
+#ale
+ctrlp.vim
+fzf
+fzf.vim
+gundo.vim
+nerdtree
+pudb.vim
+taboo.vim
+tagbar
+undotree
+#vim-airline
+#The following is automatic
+vim-airline-themes
+vim-better-whitespace
+#vim-bufferline
+vim-colorschemes
+vim-ctrlspace
+#vim-fugitive
+#vim-gitgutter
+#vim-indent-guides
+vim-multiple-cursors
+vim-orgmode
+vim-plugin-minibufexpl
+vim-polyglot
+#vim-qlist
+vim-signify
+vim-sleuth
+#vim-spell-under
+vim-surround
