@@ -239,4 +239,6 @@ Here are a few insightful recommendations for the best practices for Vim.
 * [#vim Recommendations](https://www.vi-improved.org/recommendations/)
 * [vim-galore](https://github.com/mhinz/vim-galore)
 
-For more, see [Customizing Plugins](plugins.md).
+For more, see:
+* [Re-learning Vim (1)](https://osamuaoki.github.io/en/2019/09/17/vim-learn-1/)
+* [Re-learning Vim (2)](https://osamuaoki.github.io/en/2019/09/24/vim-learn-2/)
