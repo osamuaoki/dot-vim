@@ -128,19 +128,7 @@ Let's see the content organization of `~/.vim/` directory:
 │   │   ├── 12-print-non-printable -> ../../conf/override.available/12-print-non-printable
 │   │   └── 22-search-fancy -> ../../conf/override.available/22-search-fancy
 │   ├── pack.available/      Local copies of managed plugins
-│   │   ├── ack.vim/
-│   │   │   └── ...
 │   │   ├── ale/
-│   │   │   └── ...
-│   │   ├── ctrlp.vim/
-│   │   │   └── ...
-│   │   ├── fzf/
-│   │   │   └── ...
-│   │   ├── fzf.vim/
-│   │   │   └── ...
-│   │   ├── lightline.vim/
-│   │   │   └── ...
-│   │   ├── nerdtree/
 │   │   │   └── ...
 │   │   ├── vim-gitgutter/
 │   │   │   └── ...
@@ -148,16 +136,15 @@ Let's see the content organization of `~/.vim/` directory:
 │   │   │   └── ...
 │   │   ├── vim-multiple-cursors/
 │   │   │   └── ...
-│   │   ├── vim-polyglot/
-│   │   │   └── ...
-│   │   ├── vim-sensible/
-│   │   │   └── ...
-│   │   ├── vim-sleuth/
-│   │   │   └── ...
+│   │   .
+│   │   .
+│   │   .
+│   │   │
 │   │   ├── vim-surround/
 │   │   │   └── ...
 │   │   └── vim-trailing-whitespace/
 │   │       └── ...
+│   ├── pack.blacklist       Packages excluded from vimxconf menu
 │   ├── required.system/     Required Debian system package list
 │   │   ├── ack.vim
 │   │   ├── ale
@@ -185,11 +172,9 @@ Let's see the content organization of `~/.vim/` directory:
 │           └── vim-polyglot -> ../../../conf/pack.available/vim-polyglot/
 ├── plugins.md
 ├── README.md
-├── vimconf*
+├── vimconf
 └── vimrc                         start up code read after debian.vim
 ```
-
-<!-- * unfool vim formatter -->
 
 Here:
 
@@ -206,8 +191,8 @@ Here:
 * Files in `conf/required.system` and `conf/required.vim` may contain
   comment lines started by either `"` or `#`.
 
-The exact contents may drift from the above but this should give you
-fairly good idea how symlinks are used to enable functionalities.
+The exact contents has been changed from the above but this should give
+you fairly good idea how symlinks are used to enable functionalities.
 
 `vimconf` is smart enough not to step on user temptations.  So you can
 temporarily and directly add plugin package under
