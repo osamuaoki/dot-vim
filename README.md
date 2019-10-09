@@ -216,6 +216,22 @@ are chosen not to conflict.
 * Non-baseline local customization, please use submodule under:
   * `~/.vim/conf/pack.available/00-vimrc/`
 
+##  Last resort
+
+When you broke Vim start up code, you can start Vim to edit `<somefile>`
+with very basic noncompatible Vim as:
+
+```
+ $ vim -N -u NONE <somefile>
+```
+
+Alternatively, you can start Vim to edit `<somefile>` with noncompatible
+Vim without plugins as:
+
+```
+ $ vim -N -u ~/.vim/vimrc0 <somefile>
+```
+
 ## Further customization of `vimconf`
 
 Here are a few insightful recommendations for the best practices for Vim.
