@@ -22,11 +22,12 @@ vim-ctrlspace
 #vim-gitgutter
 #vim-indent-guides
 vim-multiple-cursors
-vim-orgmode
+#vim-orgmode
 vim-plugin-minibufexpl
 vim-polyglot
 #vim-qlist
 vim-signify
 vim-sleuth
+vim-speeddating
 #vim-spell-under
 vim-surround
