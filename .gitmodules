@@ -91,3 +91,6 @@
 [submodule "conf/pack.available/vim-better-whitespace"]
 	path = conf/pack.available/vim-better-whitespace
 	url = https://github.com/ntpeters/vim-better-whitespace.git
+[submodule "conf/pack.available/vim-speeddating"]
+	path = conf/pack.available/vim-speeddating
+	url = https://github.com/tpope/vim-speeddating.git
