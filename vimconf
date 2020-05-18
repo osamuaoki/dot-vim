@@ -264,6 +264,10 @@ check_managed () {
 # Main program
 #######################################################################
 #
+if [ -f ~/.vimrc ] ; then
+  echo "W: vimconf is incompatible with ~/.vimrc.  Rename it to ~/.vimrc.bak"
+  mv ~/.vimrc ~/.vimrc.bak
+fi
 PPAVS="$(list_repository "$PPAVDIR")"
 $DEBUG ">>> PPAVS=$PPAVS"
 PRCAVS="$(list_file "$PRCAVDIR")"
