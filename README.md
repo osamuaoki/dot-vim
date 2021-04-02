@@ -23,7 +23,7 @@ their cloned tracking repo if they need to push).
  $ ln -sf ../.vim/vimconf bin/vimconf # assume you have ~/bin
  $ cd ~/.vim
  $ git submodule update --init --recursive
- $ git submodule foreach 'git config --add --name $name submodule.$name.update rebase'
+ $ git submodule foreach 'git config --add submodule.$name.update rebase'
  $ git submodule foreach 'git remote set-url --push origin DISABLED_FOR_PUSH'
  $ vimconf a
 ```
@@ -35,18 +35,14 @@ If you clone this repo, you may wish to use something like the following
  $ git clone git@github.com:osamuaoki/dot-vim.git ~/.vim
 ```
 
-For select submodule repos I own and wish to push changes, e.g., `00-vimrc` , I do followings:
+For select submodule repos I own and wish to push my changes, e.g.,
+`00-vimrc` , I do followings:
 
 ```
- $ cd ~/.vim-old/conf/pack.available/00-vimrc
- $ git config --add update merge
+ $ cd ~/.vim/conf/pack.available/00-vimrc
+ $ git config --add submodule.00-vimrc.update merge
  $ git remote set-url --delete --push origin DISABLED_FOR_PUSH
 
-```
-
-For most submodule repos I don't own and wish not to push changes, I do followings:
-
-```
 ```
 
 TIP: Use `setfont` to set good-looking font for the linux console.
