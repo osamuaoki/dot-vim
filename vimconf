@@ -193,7 +193,7 @@ set_all_override () {
 }
 #
 reset_all_plugin () {
-  for P in $PPAVS; do
+  for P in $PPENM; do
     # Reset link for plugin
     rm -rf "${PPENDIR:?error for null PPENDIR}/$P"
   done
