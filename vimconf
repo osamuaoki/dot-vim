@@ -222,7 +222,7 @@ list_repository () {
   { \
     { { find "$1" -mindepth 1 -maxdepth 1 -type d || true ; } \
       2>/dev/null | sed -e 's,.*/,,'; } ; \
-    { grep -v "^#" "$PPBLIST" || true ; } ; \
+    { sed -e 's/#.*$//' -e 's/[ \t]*$//' "$PPBLIST" || true ; } ; \
   } | sort -f | uniq -u
 }
 #

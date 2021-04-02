@@ -1,4 +1,7 @@
-# List repository directory to hide from list (# is disable hiding)
+###########################################
+# List repository directory to hide from GUI list
+# disable blacklisting by commenting it out
+###########################################
 #00-vimrc
 ack.vim
 #ale
@@ -12,14 +15,13 @@ taboo.vim
 tagbar
 undotree
 #vim-airline
-#The following is automatic
-vim-airline-themes
+vim-airline-themes # automatic
 #vim-better-whitespace
-#vim-bufferline
+vim-bufferline
 vim-colorschemes
 vim-ctrlspace
-#vim-fugitive
-#vim-gitgutter
+vim-fugitive
+vim-gitgutter
 #vim-indent-guides
 vim-multiple-cursors
 #vim-orgmode
