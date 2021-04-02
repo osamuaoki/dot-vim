@@ -13,7 +13,8 @@ This `vimconf` script provides:
 
 ## Quick start
 
-This will set up basic configuration for your vim.
+This will set up basic configuration for my vim (Others may need to use
+their cloned tracking repo if they need to push).
 
 ```
  $ cd
@@ -21,15 +22,31 @@ This will set up basic configuration for your vim.
  $ git clone https://github.com/osamuaoki/dot-vim ~/.vim
  $ ln -sf ../.vim/vimconf bin/vimconf # assume you have ~/bin
  $ cd ~/.vim
- $ vimconf gu
+ $ git submodule update --init --recursive
+ $ git submodule foreach 'git config --add --name $name submodule.$name.update rebase'
+ $ git submodule foreach 'git remote set-url --push origin DISABLED_FOR_PUSH'
  $ vimconf a
 ```
 
 If you clone this repo, you may wish to use something like the following
-`git clone` command instead to commit changes back to github via `ssh`.
+`git clone` command instead to commit changes back to your github via `ssh`.
 
 ```
  $ git clone git@github.com:osamuaoki/dot-vim.git ~/.vim
+```
+
+For select submodule repos I own and wish to push changes, e.g., `00-vimrc` , I do followings:
+
+```
+ $ cd ~/.vim-old/conf/pack.available/00-vimrc
+ $ git config --add update merge
+ $ git remote set-url --delete --push origin DISABLED_FOR_PUSH
+
+```
+
+For most submodule repos I don't own and wish not to push changes, I do followings:
+
+```
 ```
 
 TIP: Use `setfont` to set good-looking font for the linux console.

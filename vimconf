@@ -317,7 +317,7 @@ while [ -n "$1" ]; do
       URL="${2}"
       REPO="${2##*/}"
       REPO="${REPO%.git}"
-      git submodule add "${URL}" "${PPAVDIR}/${REPO}"
+      git submodule add --name "${NAME}" "${URL}" "${PPAVDIR}/${REPO}"
       git commit -m "Add ${URL} to ${PPAVDIR}/${REPO}"
       exit 0
       ;;

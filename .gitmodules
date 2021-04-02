@@ -1,96 +1,96 @@
-[submodule "pack/persistent/start/securemodelines"]
+[submodule "securemodelines"]
 	path = pack/persistent/start/securemodelines
 	url = https://github.com/ciaranm/securemodelines
-[submodule "conf/pack.available/ack.vim"]
+[submodule "ack.vim"]
 	path = conf/pack.available/ack.vim
 	url = https://github.com/mileszs/ack.vim
-[submodule "conf/pack.available/ale"]
+[submodule "ale"]
 	path = conf/pack.available/ale
 	url = https://github.com/dense-analysis/ale
-[submodule "conf/pack.available/ctrlp.vim"]
+[submodule "ctrlp.vim"]
 	path = conf/pack.available/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim
-[submodule "conf/pack.available/fzf"]
+[submodule "fzf"]
 	path = conf/pack.available/fzf
 	url = https://github.com/junegunn/fzf
-[submodule "conf/pack.available/fzf.vim"]
+[submodule "fzf.vim"]
 	path = conf/pack.available/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
-[submodule "conf/pack.available/nerdtree"]
+[submodule "nerdtree"]
 	path = conf/pack.available/nerdtree
 	url = https://github.com/scrooloose/nerdtree
-[submodule "conf/pack.available/pudb.vim"]
+[submodule "pudb.vim"]
 	path = conf/pack.available/pudb.vim
 	url = https://github.com/SkyLeach/pudb.vim
-[submodule "conf/pack.available/vim-gitgutter"]
+[submodule "vim-gitgutter"]
 	path = conf/pack.available/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
-[submodule "conf/pack.available/vim-indent-guides"]
+[submodule "vim-indent-guides"]
 	path = conf/pack.available/vim-indent-guides
 	url = https://github.com/nathanaelkane/vim-indent-guides
-[submodule "conf/pack.available/vim-multiple-cursors"]
+[submodule "vim-multiple-cursors"]
 	path = conf/pack.available/vim-multiple-cursors
 	url = https://github.com/terryma/vim-multiple-cursors
-[submodule "conf/pack.available/vim-polyglot"]
+[submodule "vim-polyglot"]
 	path = conf/pack.available/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
-[submodule "conf/pack.available/vim-sleuth"]
+[submodule "vim-sleuth"]
 	path = conf/pack.available/vim-sleuth
 	url = https://github.com/tpope/vim-sleuth
-[submodule "conf/pack.available/vim-surround"]
+[submodule "vim-surround"]
 	path = conf/pack.available/vim-surround
 	url = https://github.com/tpope/vim-surround
-[submodule "conf/pack.available/vim-orgmode"]
+[submodule "vim-orgmode"]
 	path = conf/pack.available/vim-orgmode
 	url = https://github.com/jceb/vim-orgmode.git
-[submodule "conf/pack.available/vim-colorschemes"]
+[submodule "vim-colorschemes"]
 	path = conf/pack.available/vim-colorschemes
 	url = https://github.com/flazz/vim-colorschemes.git
-[submodule "conf/pack.available/vim-airline"]
+[submodule "vim-airline"]
 	path = conf/pack.available/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
-[submodule "conf/pack.available/vim-airline-themes"]
+[submodule "vim-airline-themes"]
 	path = conf/pack.available/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
-[submodule "conf/pack.available/vim-fugitive"]
+[submodule "vim-fugitive"]
 	path = conf/pack.available/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "conf/pack.available/vim-signify"]
+[submodule "vim-signify"]
 	path = conf/pack.available/vim-signify
 	url = https://github.com/mhinz/vim-signify.git
-[submodule "conf/pack.available/vim-qlist"]
+[submodule "vim-qlist"]
 	path = conf/pack.available/vim-qlist
 	url = https://github.com/romainl/vim-qlist.git
-[submodule "conf/pack.available/vim-bufferline"]
+[submodule "vim-bufferline"]
 	path = conf/pack.available/vim-bufferline
 	url = https://github.com/bling/vim-bufferline.git
-[submodule "conf/pack.available/vim-plugin-minibufexpl"]
+[submodule "vim-plugin-minibufexpl"]
 	path = conf/pack.available/vim-plugin-minibufexpl
 	url = https://github.com/weynhamz/vim-plugin-minibufexpl.git
-[submodule "conf/pack.available/gundo.vim"]
+[submodule "gundo.vim"]
 	path = conf/pack.available/gundo.vim
 	url = https://github.com/sjl/gundo.vim.git
-[submodule "conf/pack.available/undotree"]
+[submodule "undotree"]
 	path = conf/pack.available/undotree
 	url = https://github.com/mbbill/undotree.git
-[submodule "conf/pack.available/tagbar"]
+[submodule "tagbar"]
 	path = conf/pack.available/tagbar
 	url = https://github.com/majutsushi/tagbar.git
-[submodule "conf/pack.available/taboo.vim"]
+[submodule "taboo.vim"]
 	path = conf/pack.available/taboo.vim
 	url = https://github.com/gcmt/taboo.vim.git
-[submodule "conf/pack.available/vim-ctrlspace"]
+[submodule "vim-ctrlspace"]
 	path = conf/pack.available/vim-ctrlspace
 	url = https://github.com/vim-ctrlspace/vim-ctrlspace.git
-[submodule "conf/pack.available/00-vimrc"]
+[submodule "00-vimrc"]
 	path = conf/pack.available/00-vimrc
 	url = git@github.com:osamuaoki/00-vimrc.git
-[submodule "conf/pack.available/vim-spell-under"]
+[submodule "vim-spell-under"]
 	path = conf/pack.available/vim-spell-under
 	url = git@github.com:osamuaoki/vim-spell-under.git
-[submodule "conf/pack.available/vim-better-whitespace"]
+[submodule "vim-better-whitespace"]
 	path = conf/pack.available/vim-better-whitespace
 	url = https://github.com/ntpeters/vim-better-whitespace.git
-[submodule "conf/pack.available/vim-speeddating"]
+[submodule "vim-speeddating"]
 	path = conf/pack.available/vim-speeddating
 	url = https://github.com/tpope/vim-speeddating.git
