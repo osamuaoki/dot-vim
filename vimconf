@@ -332,6 +332,12 @@ while [ -n "$1" ]; do
       git submodule update --init --recursive
       exit 0
       ;;
+    gp)
+      git submodule foreach git pull origin master
+      git add .
+      git commit -m "Pull all submodules"
+      exit 0
+      ;;
     r)
       "$PROG" up uo nm
       printf "Are you sure to reset all (y/N) ?"
