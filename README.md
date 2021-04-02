@@ -40,10 +40,13 @@ For select submodule repos I own and wish to push my changes, e.g.,
 
 ```
  $ cd ~/.vim/conf/pack.available/00-vimrc
+ $ git config --unset submodule.00-vimrc.update
  $ git config --add submodule.00-vimrc.update merge
  $ git remote set-url --delete --push origin DISABLED_FOR_PUSH
 
 ```
+
+or edit `~/.vim/.git/modules/00-vimrc/config`.
 
 TIP: Use `setfont` to set good-looking font for the linux console.
 
