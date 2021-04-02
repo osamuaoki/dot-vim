@@ -25,6 +25,7 @@ their cloned tracking repo if they need to push).
  $ git submodule update --init --recursive
  $ git submodule foreach 'git config --add submodule.$name.update rebase'
  $ git submodule foreach 'git remote set-url --push origin DISABLED_FOR_PUSH'
+ $ git config pull.rebase true
  $ vimconf a
 ```
 
