@@ -24,10 +24,14 @@ their cloned tracking repo if they need to push).
  $ cd ~/.vim
  $ git submodule update --init --recursive
  $ git submodule foreach 'git config --add submodule.$name.update rebase'
+ $ git submodule foreach 'git config pull.rebase true'
  $ git submodule foreach 'git remote set-url --push origin DISABLED_FOR_PUSH'
  $ git config pull.rebase true
  $ vimconf a
 ```
+
+This forces to pull always with rebase and stop pushing to someone
+else's repo accidentally even if you have write access right.
 
 If you clone this repo, you may wish to use something like the following
 `git clone` command instead to commit changes back to your github via `ssh`.
@@ -41,13 +45,15 @@ For select submodule repos I own and wish to push my changes, e.g.,
 
 ```
  $ cd ~/.vim/conf/pack.available/00-vimrc
- $ git config --unset submodule.00-vimrc.update
- $ git config --add submodule.00-vimrc.update merge
  $ git remote set-url --delete --push origin DISABLED_FOR_PUSH
 
 ```
 
-or edit `~/.vim/.git/modules/00-vimrc/config`.
+or edit `~/.vim/.git/modules/00-vimrc/config` which may be easier.
+
+This will allow pushing from `~/.vim/` but also from
+`~/.vim/conf/pack.available/00-vimrc/`.
+
 
 TIP: Use `setfont` to set good-looking font for the linux console.
 
