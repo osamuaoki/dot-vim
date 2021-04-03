@@ -54,6 +54,11 @@ or edit `~/.vim/.git/modules/00-vimrc/config` which may be easier.
 This will allow pushing from `~/.vim/` but also from
 `~/.vim/conf/pack.available/00-vimrc/`.
 
+Then let's fix all detached HEAD.  (Maybe there is a easier path...)
+
+```
+ $ git submodule foreach 'git checkout master'
+```
 
 TIP: Use `setfont` to set good-looking font for the linux console.
 
