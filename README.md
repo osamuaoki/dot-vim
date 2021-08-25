@@ -55,7 +55,13 @@ Then let's fix all detached HEAD.  (Maybe there is a easier path...)
 
 ## Adding usable plugin packages
 
-* Add them under `~/.vim/pack/gitsubmodules/opt/` as git-submodule
+* Add them under `~/.vim/pack/gitsubmodules/opt/` as git-submodule.
+  E.g.,
+
+```
+ $ git submodule add https://github.com/dense-analysis/ale pack/submodules/opt/ale
+```
+
 * Add a line with `packadd!` in `~/.vim/vimrc` to enable it
 
 ##  Last resort
@@ -75,7 +81,6 @@ Vim.
 For more, see:
 * [Re-learning Vim (1)](https://osamuaoki.github.io/en/2019/09/17/vim-learn-1/)
 * [Re-learning Vim (2)](https://osamuaoki.github.io/en/2019/09/24/vim-learn-2/)
-* [Re-learning Vim (3) XXX FIXME XXX](https://osamuaoki.github.io/en/2019/09/24/vim-learn-2/)
 
 
 <!-- vim: set sts=2 sw=2 expandtab ai si tw=72: -->

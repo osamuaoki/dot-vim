@@ -1,0 +1,107 @@
+*cheatsheet.txt*   Cheat sheet for key strokes etc.
+
+------------------------------------------------------------------------------
+Basics for normal mode:
+>
+ NORMAL MODE:        Goto BOF → gg      r Next Char
+ screen                   n N # ?ααα   e / +-- End of Word (non-alnum)
+ scroll        ai+wW({[<sp"'`↓  ^b    t / / +- Word Next (non-alnum)
+ ↓     Change c{motion} cc  c↑  ^u   n / / / + End of Word (space)
+ ↓     Delete d{motion} dd  d↑  H   e / / / / +Word Next (space)
+ +--+  Copy   y{motion} yy  y↑  {  C / / / / / +Till α, x  Delete char
+ |zt|  Put After/Before p / P   ( / / / / / / / Find α, r  Replace char
+ |^e|  "α  Use α as register    k/ / / / / / /  /  EOL, ~  Change case
+ |zz|     0 ^ Fα Tα gE B ge b h M l e w E W tα fα $    gd  Goto definiton
+ |^y| ↓↓↓ Split Window ↓↓↓      j ---- Line            ^]  Tag jump
+ |zb| ^W + ncsvhjkl=+-_<>|      ) ---- Sentence        ^t  Tag jump-back
+ +--+ Join lines       J        } ---- Paragraph       ^o  Jump back
+      Forward Backward Search   L ---- Bottom of Page  {visual}>  Indent →
+      n N /ααα ?ααα - Find ααα  ^d --- Prev 1/2 Page   {visual}<  Indent ←
+      n N *    # ---- Indicator ^f --- Next Page       {visual}=  Indent ⇆
+      , ; tα   Tα --- Till α    /ααα - Find ααα * n N  {visual}gq Format Text
+      , ; fα   Fα --- Find α    G ---- Goto EOF
+   Next Prev   %  --- Match     [{ ]} [[ ]] [] ][ Look for {}
+ Record: qα, End-Record: q, Play-Record: @α, Mark as α: mα, Jump to α: `α/'α
+ Undo: u, Redo: ^r, Repeat: . , Fold: Open zo/zO/zr/zR, Close zc/zC/zm/zM
+ Insert Mode: i/a Before/After Char, I/A Before/After Line, O/o above/below
+ Visual Mode: v Char V Line ^V Block, Replace Mode: R, Normal mode: <ESC>
+<
+
+How to remember odd screen scroll keys:
+ * ^b: Backward page
+ * ^u: Upward 1/2 page
+ * ^y: expose up 1 line == Yester(day)-line, next to ^u (Keep cursor)
+ * ^f: Forward  page
+ * ^d: Downward 1/2 page
+ * ^e: Expose down 1 line, next to ^d (Keep cursor)
+
+Interesting commands:
+ * ga Get Unicode point (HEX etc.)
+ * g8 Get Binary data HEX sequence
+ * ^G Get cursor Position
+ * {visual}g? ROT13
+
+
+Ex Mode commands:
+>
+:e φφφ :enew :w φφφ :wall :wq :q! :%s/ααα/βββ/gc :ls :bn :bp :bd :!
+:vsp :sp :diffs :n :vim :make :cf :term
+<
+_____________________________________________________________________________
+Basics of insert/replace mode
+>
+ INSERT/REPLACE MODE:
+ ^H    Backspace
+ ^W    Del Word
+ ^U    Rubout
+ ^R"   Paste Deleted/Yanked (useful in REPLACE)
+ <ESC>  normal mode
+<
+_____________________________________________________________________________
+
+>
+ Visual-block mode: :set virtualedit=block   or use $ at the widest line
+ Ascii art          :set virtualedit=all
+<
+_____________________________________________________________________________
+
+>
+ Local tricks
+ CapL  as <ESC> via GNOME
+ Q   as @q
+<
+
+Things to learn
+
+>
+ ` # $ % ^ * ( ) 0 _ - + w W e E t T I o O
+ { } [[ [] ][ ]] [m [M ]m ]M [( ]) [{ ]} |
+ A f F ge gE gg G g0 gm g^ g$ g_ g, g; gj gk gI h H j k l L ; '
+ z. z z- zz zt zb b B n N M , / ? -
+<
+
+>
+ vimgrep make ...
+<
+_____________________________________________________________________________
+US vs. JP keyboard
+
+>
+        US Keyboard                     JA Keyboard
+        ←←←←←→→→→→ XXX                  ←←←←←→→→→→ XXX
+        5432222345 555                  5432222345 555
+
+   ~    !@#$%^&*() _+             H/Z   !"#$%&'()  =~|
+   `    1234567890 -=   BS        KAN   1234567890 -^¥   BS
+
+        ↑↑↑↑↑↑↑↑↑↑ {}   |               ↑↑↑↑↑↑↑↑↑↑ `{    E
+  TAB   qwertyuiop []   \         TAB   qwertyuiop @[    n
+                                                         t
+        ↑↑↑↑↑↑↑↑↑: "              CapL  ↑↑↑↑↑↑↑↑↑+ *}    e
+  CapL  asdfghjkl; '  Enter       Eisu  asdfghjkl; :]    r
+
+        ↑↑↑↑↑↑↑<>?                      ↑↑↑↑↑↑↑<>? _
+  Sift  zxcvbnm,./    Shift       Sift  zxcvbnm,./ \   Shift
+<
+_____________________________________________________________________________
+" vim:set sts=2 sw=2 ai si et tw=78:
