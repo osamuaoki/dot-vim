@@ -19,10 +19,10 @@ their cloned tracking repo if they need to modify and keep by `push`).
  $ git clone https://github.com/osamuaoki/dot-vim ~/.vim
  $ cd ~/.vim
  $ git submodule update --init --recursive
- $ #git submodule foreach 'git config --add submodule.$name.update rebase'
- $ git submodule foreach 'git config --replace-all submodule.$name.update rebase'
+ $ git submodule foreach 'git config submodule.$name.update rebase'
  $ git submodule foreach 'git config pull.rebase true'
  $ git submodule foreach 'git remote set-url --push origin DISABLED_FOR_PUSH'
+ $ git submodule foreach 'git checkout master'
  $ git config pull.rebase true
 ```
 
