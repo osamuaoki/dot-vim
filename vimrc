@@ -164,4 +164,6 @@ let g:show_spaces_that_precede_tabs=1
 " Enable stripping white lines at EOF
 let g:strip_whitelines_at_eof=1
 
+""" gnupg in vim-scripts
+packadd! gnupg
 " vim: set sw=2 sts=2 et ft=vim :
