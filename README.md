@@ -8,6 +8,8 @@ in `~/.vim/vimrc` using the native package management of `packadd!`.
 * No network access required for the normal reconfiguration.
 * Minimal complication
 
+Don't use `~/.vimrc` since it can't be managed easily with `git`.
+
 ## Quick start
 
 This will set up basic configuration for my vim (Others may need to use
@@ -64,6 +66,9 @@ Then let's fix all detached HEAD.  (Maybe there is a easier path...)
 ```
 
 * Add a line with `packadd!` in `~/.vim/vimrc` to enable it
+
+Vim packages offered as Debian packages usually places package files in
+`*/opt/*` path.  So they can be added in the same way in ~/.vim/vimrc`.
 
 ##  Last resort
 
