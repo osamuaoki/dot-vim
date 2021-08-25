@@ -2,7 +2,7 @@
 
 This is a copy of my `~/.vim` managed by the native package management.
 
-Enaable and disable plugins by commenting out corresponding entry
+Enable and disable plugins by commenting out corresponding entry
 in `~/.vim/vimrc` using the native package management of `packadd!`.
 
 * No network access required for the normal reconfiguration.
@@ -19,7 +19,8 @@ their cloned tracking repo if they need to modify and keep by `push`).
  $ git clone https://github.com/osamuaoki/dot-vim ~/.vim
  $ cd ~/.vim
  $ git submodule update --init --recursive
- $ git submodule foreach 'git config --add submodule.$name.update rebase'
+ $ #git submodule foreach 'git config --add submodule.$name.update rebase'
+ $ git submodule foreach 'git config --replace-all submodule.$name.update rebase'
  $ git submodule foreach 'git config pull.rebase true'
  $ git submodule foreach 'git remote set-url --push origin DISABLED_FOR_PUSH'
  $ git config pull.rebase true
@@ -36,15 +37,15 @@ above `git clone` command with:
 ```
 
 For select submodule repos I own and wish to push my changes, e.g.,
-`securemodelines` , I do the following:
+`vim-spell-under` , I do the following:
 
 ```
- $ cd ~/.vim/pack/gitsubmodules/opt/securemodelines
+ $ cd ~/.vim/pack/gitsubmodules/opt/vim-spell-under
  $ git remote set-url --delete --push origin DISABLED_FOR_PUSH
 
 ```
 
-or edit `~/.vim/.git/modules/securemodelines/config` which may be easier.
+or edit `~/.vim/.git/modules/vim-spell-under/config` which may be easier.
 
 
 Then let's fix all detached HEAD.  (Maybe there is a easier path...)
@@ -74,7 +75,7 @@ something else and start Vim.
 Here are a few insightful recommendations for the best practices for
 Vim.
 
-* [Seven habits of effective text editing](https://www.moolenaar.net/habits.html)
+* [Seven habits of effective text editing](https://www.moolenaar.net/habits.html) by Bram Moolenaar
 * [#vim Recommendations](https://www.vi-improved.org/recommendations/)
 * [vim-galore](https://github.com/mhinz/vim-galore)
 

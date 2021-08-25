@@ -139,6 +139,7 @@ let g:indent_guides_enable_on_vim_startup = 1
 """  - for UCS/Unicode code point, use 'ga' in NORMAL MODE
 packadd! vim-airline
 packadd! vim-airline-themes
+""" use hack as GUI terminal font
 if $TERM ==# "linux"
 let g:airline_powerline_fonts = 0
 let g:airline_symbols_ascii = 1

@@ -1,0 +1,18 @@
+#!/bin/sh -e
+# vim:se sw=2 ts=2 sts=2 et ai tw=78:
+#
+
+git submodule update --init --recursive
+git submodule foreach 'git config --replace-all submodule.$name.update rebase'
+git submodule foreach 'git config pull.rebase true'
+git submodule foreach 'git remote set-url --push origin DISABLED_FOR_PUSH'
+git config pull.rebase true
+git config --add update rebase
+
+# I will push to vim-spell-under
+(
+  cd pack/gitsubmodules/opt/vim-spell-under ; \
+  git remote set-url --delete --push origin DISABLED_FOR_PUSH \
+)
+
+
