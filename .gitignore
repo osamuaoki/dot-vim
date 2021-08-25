@@ -1,9 +1,6 @@
 tags
-pack/vimconf/start/*
-conf/override.enabled
-conf/postconf.enabled
-conf/preconf.enabled
 spell/*
 *.swp
 .netrwhist
+*~
 

@@ -1,2 +1,0 @@
-" Debian package
-silversearcher-ag

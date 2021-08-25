@@ -1,2 +1,0 @@
-vim-gitbranch
-lightline-ale

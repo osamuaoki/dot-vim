@@ -1,4 +1,0 @@
-" vim: set sw=2 sts=2 et ft=vim:
-" Agressively run for realtime updates
-let g:signify_realtime = 1
-
