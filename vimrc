@@ -55,12 +55,13 @@ xnoremap Q :norm @q<cr>
 """ Use <ESC><ESC> as exit from terminal-job mode: Ctrl-W N (Ctrl-\ Ctrl-N)
 """   This allows me to press 2-<ESC> as a habit even in normal INSERT/REPLACE
 """   modes and to avoid hitting Ctrl-W in normal INSERT/REPLACE modes to
-"""   loose data.
+"""   loose data.  If you want 2 consecutive <Esc>s to go to terminal, type
+"""   them with more than a second between typing.
 tnoremap <Esc><Esc> <C-\><c-n>
 """ Use <SPACE> as leader instead of '\' (set again to make sure)
 """ In NORMAL mode, SPACE is useless.  This has to be before <leader> usage.
 let mapleader = ' '
-" Manual strip whitespace with <leader>s
+" Manual strip whitespace with <leader>s (vim-better-whitespace)
 nnoremap <leader>s :StripWhitespace<cr>
 " Remap for smarter command line <c-n>t<c-p>    (vim-galore)
 cnoremap <c-n>  <down>
@@ -81,13 +82,13 @@ endif
 "else
 "  set listchars=tab:>\ ,trail:#,extends:>,precedes:<,nbsp:=
 "endif
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" Basic precaution (we use bash so $USER is set)
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" Plugin configuration (add optional path to 'runtimepath'.)
+""" Plugins ('packadd!' adds optional path to 'runtimepath'.)
 """   - Use ':se rtp' to check 'runtimepath' in NORMAL
-"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Guard against modeline attack (modeline is off on Debian for user)
 """ enable ~/.vim/pack/gitsubmodules/opt/securemodelines
 if $USER == "root"
@@ -99,55 +100,13 @@ else
   packadd! securemodelines
 endif
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Syntax highlight and spellcheck to work together with dark color: murphy
 """ enable ~/.vim/pack/gitsubmodules/opt/vim-spell-under
 packadd! vim-spell-under
 let g:colors_name = 'murphy'
 
-""" enable /usr/share/vim/vim??/pack/dist/opt/matchit
-packadd! matchit
-
-""" enable /usr/share/vim/vim??/pack/dist/opt/vim-python-matchit
-packadd! vim-python-matchit
-
-""" enable /usr/share/vim/vim??/pack/dist/opt/vim-indent-guides
-packadd! vim-indent-guides
-let g:indent_guides_enable_on_vim_startup = 1
-
-""" enable /usr/share/vim/vim??/pack/dist/opt/orgmode
-"packadd! org-mode
-"let g:org_indent = 1
-
-""" enable /usr/share/vim/vim??/pack/dist/opt/qlist
-" packadd! qlist
-"
-""" Basic design: replace corresponding native `[I`, `]I`, `[D`, and `]D`
-"""
-""" NORMAL MODE
-"nmap <silent> [I <Plug>QlistIncludefromtop
-"nmap <silent> ]I <Plug>QlistIncludefromhere
-"nmap <silent> [D <Plug>QlistDefinefromtop
-"nmap <silent> ]D <Plug>QlistDefinefromhere
-""" VISUAL MODE
-"xmap <silent> [I <Plug>QlistIncludefromtopvisual
-"xmap <silent> ]I <Plug>QlistIncludefromherevisual
-"xmap <silent> [D <Plug>QlistDefinefromtopvisual
-"xmap <silent> ]D <Plug>QlistDefinefromherevisual
-
-""" enable /usr/share/vim/vim??/pack/dist/opt/vim-airline
-""" enable /usr/share/vim/vim??/pack/dist/opt/vim-airline-themes
-"""  - for checking UCS/Unicode code point, use 'ga' in NORMAL MODE
-packadd! vim-airline
-packadd! vim-airline-themes
-""" use hack as GUI terminal font
-if $TERM ==# "linux"
-  let g:airline_powerline_fonts = 0
-  let g:airline_symbols_ascii = 1
-else
-  let g:airline_powerline_fonts = 1
-endif
-" Skip FileType: utf-8[unix]
-let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ enable /usr/share/vim/vim??/pack/dist/opt/vim-better-whitespace
 packadd! vim-better-whitespace
 " Use better_whitespace display (better than `:set list`)
@@ -165,6 +124,65 @@ let g:show_spaces_that_precede_tabs=1
 " Enable stripping white lines at EOF
 let g:strip_whitelines_at_eof=1
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ gnupg in vim-scripts
 packadd! gnupg
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" enable /usr/share/vim/vim??/pack/dist/opt/matchit
+packadd! matchit
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" enable /usr/share/vim/vim??/pack/dist/opt/vim-python-matchit
+packadd! vim-python-matchit
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" enable /usr/share/vim/vim??/pack/dist/opt/vim-indent-guides
+packadd! vim-indent-guides
+let g:indent_guides_enable_on_vim_startup = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" enable /usr/share/vim/vim??/pack/dist/opt/orgmode
+"packadd! org-mode
+"let g:org_indent = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" enable /usr/share/vim/vim??/pack/dist/opt/qlist
+" packadd! qlist
+"
+"""" Basic design: replace corresponding native `[I`, `]I`, `[D`, and `]D`
+""""
+"""" NORMAL MODE
+"nmap <silent> [I <Plug>QlistIncludefromtop
+"nmap <silent> ]I <Plug>QlistIncludefromhere
+"nmap <silent> [D <Plug>QlistDefinefromtop
+"nmap <silent> ]D <Plug>QlistDefinefromhere
+"""" VISUAL MODE
+"xmap <silent> [I <Plug>QlistIncludefromtopvisual
+"xmap <silent> ]I <Plug>QlistIncludefromherevisual
+"xmap <silent> [D <Plug>QlistDefinefromtopvisual
+"xmap <silent> ]D <Plug>QlistDefinefromherevisual
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" enable /usr/share/vim/vim??/pack/dist/opt/vim-gitgutter
+"packadd! vim-gitgutter
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" enable /usr/share/vim/vim??/pack/dist/opt/vim-airline
+""" enable /usr/share/vim/vim??/pack/dist/opt/vim-airline-themes
+"""  - for checking UCS/Unicode code point, use 'ga' in NORMAL MODE
+packadd! vim-airline
+packadd! vim-airline-themes
+""" use hack as GUI terminal font
+if $TERM ==# "linux"
+  let g:airline_powerline_fonts = 0
+  let g:airline_symbols_ascii = 1
+else
+  let g:airline_powerline_fonts = 1
+endif
+" Skip FileType: utf-8[unix]
+let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
+
+
 " vim: set sw=2 sts=2 et ft=vim :
