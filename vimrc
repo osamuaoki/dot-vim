@@ -24,12 +24,10 @@ set nowrap                     " Don't wrap line
 set nopaste                    " Set-up buffer pasting
 set wildmenu                   " Enhance command-line completion with <Tab>
 set autoread                   " Read if it detects to be modified
-""" TAB key action etc.
-"set sw=2 sts=2 ts=2 et         " TAB=2
-set sw=4 sts=4 ts=4 et         " TAB=4
-"set sw=8 sts=8 ts=8 et         " TAB=8
 """ Search
 set incsearch                  " Incremental search ON
+"set ignorecase                " case insensitive search
+set smartcase                  " case insensitive search, except when using capital letters
 "set showmatch                  " show match while searching
 "set hlsearch                   " highlight searching
 """ Searching
@@ -38,19 +36,9 @@ set incsearch                  " Incremental search ON
 """ Map <C-L> (redraw screen) to also turn off search highlighting until the
 """ next search
 "nnoremap <C-L> :nohl<CR><C-L>
-"set ignorecase                " case insensitive search
 """ Display non-printable tabs and newlines
-"set smartcase                 " case insensitive search, except when using capital letters
 set encoding=utf-8          " encoding within editor
-"set encoding=iso-2022-jp   " encoding within editor
-"set encoding=euc-jp        " encoding within editor
-"set encoding=sjis          " encoding within editor
 set fileencodings=          " force to read with fileencoding
-""" Auto detect for Windows for file reading
-"set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default
-"set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
-" CR/LF convention auto detection order
-"set fileformats=unix,dos,mac
 """ performance tunes
 set scrolloff=1                " At least one extra line around cursor
 set sidescrolloff=5            " At least 5 extra columns around cursor
@@ -91,16 +79,20 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Basic precaution (we use bash so $USER is set)
 "
-if $USER == "root"
-  set noswapfile
-endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Plugin configuration (enable optional 'runtimepath'.)
 """   - Use ':se rtp' to check 'runtimepath' in NORMAL
 "
-""" Guard against modeline attack
+""" Guard against modeline attack (modeline is off on Debian for user)
 """ enable ~/.vim/pack/gitsubmodules/opt/securemodelines
-packadd! securemodelines
+if $USER == "root"
+  " modeline off for root
+  set noswapfile
+else
+  " safe on any platform
+  set nomodeline
+  packadd! securemodelines
+endif
 
 """ Syntax highlight and spellcheck to work together with dark color: murphy
 """ enable ~/.vim/pack/gitsubmodules/opt/vim-spell-under
@@ -136,15 +128,15 @@ let g:indent_guides_enable_on_vim_startup = 1
 
 """ enable /usr/share/vim/vim??/pack/dist/opt/vim-airline
 """ enable /usr/share/vim/vim??/pack/dist/opt/vim-airline-themes
-"""  - for UCS/Unicode code point, use 'ga' in NORMAL MODE
+"""  - for checking UCS/Unicode code point, use 'ga' in NORMAL MODE
 packadd! vim-airline
 packadd! vim-airline-themes
 """ use hack as GUI terminal font
 if $TERM ==# "linux"
-let g:airline_powerline_fonts = 0
-let g:airline_symbols_ascii = 1
+  let g:airline_powerline_fonts = 0
+  let g:airline_symbols_ascii = 1
 else
-let g:airline_powerline_fonts = 1
+  let g:airline_powerline_fonts = 1
 endif
 " Skip FileType: utf-8[unix]
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
