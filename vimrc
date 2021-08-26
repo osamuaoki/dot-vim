@@ -107,6 +107,9 @@ let g:colors_name = 'murphy'
 """ enable /usr/share/vim/vim??/pack/dist/opt/matchit
 packadd! matchit
 
+""" enable /usr/share/vim/vim??/pack/dist/opt/vim-python-matchit
+packadd! vim-python-matchit
+
 """ enable /usr/share/vim/vim??/pack/dist/opt/vim-indent-guides
 packadd! vim-indent-guides
 let g:indent_guides_enable_on_vim_startup = 1

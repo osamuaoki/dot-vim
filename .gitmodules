@@ -22,3 +22,6 @@
 [submodule "pack/gitsubmodules/opt/vim-indent-guides"]
 	path = pack/gitsubmodules/opt/vim-indent-guides
 	url = https://github.com/nathanaelkane/vim-indent-guides
+[submodule "pack/gitsubmodules/opt/vim-python-matchit"]
+	path = pack/gitsubmodules/opt/vim-python-matchit
+	url = git@github.com:osamuaoki/vim-python-matchit.git
