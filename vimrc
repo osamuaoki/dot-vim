@@ -52,6 +52,11 @@ set pastetoggle=<f2>           " Use <F2> for paste mode toggle
 " Remap for "Q". "qq" to record MACRO to 'q', "qq" to quit, "Q" to apply
 nnoremap Q @q
 xnoremap Q :norm @q<cr>
+""" Use <ESC><ESC> as exit from terminal-job mode: Ctrl-W N (Ctrl-\ Ctrl-N)
+"""   This allows me to press 2-<ESC> as a habit even in normal INSERT/REPLACE
+"""   modes and to avoid hitting Ctrl-W in normal INSERT/REPLACE modes to
+"""   loose data.
+tnoremap <Esc><Esc> <C-\><c-n>
 """ Use <SPACE> as leader instead of '\' (set again to make sure)
 """ In NORMAL mode, SPACE is useless.  This has to be before <leader> usage.
 let mapleader = ' '
@@ -80,7 +85,7 @@ endif
 """ Basic precaution (we use bash so $USER is set)
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" Plugin configuration (enable optional 'runtimepath'.)
+""" Plugin configuration (add optional path to 'runtimepath'.)
 """   - Use ':se rtp' to check 'runtimepath' in NORMAL
 "
 """ Guard against modeline attack (modeline is off on Debian for user)
