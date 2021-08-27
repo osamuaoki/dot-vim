@@ -16,3 +16,8 @@ git config pull.rebase true
 )
 
 
+# I will use main branch in vim-python-matchit
+(
+  cd pack/gitsubmodules/opt/vim-python-matchit ; \
+  git checkout main \
+)
