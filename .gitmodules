@@ -25,6 +25,7 @@
 [submodule "pack/gitsubmodules/opt/vim-python-matchit"]
 	path = pack/gitsubmodules/opt/vim-python-matchit
 	url = git@github.com:osamuaoki/vim-python-matchit.git
+	branch = main
 [submodule "pack/gitsubmodules/opt/vim-gitgutter"]
 	path = pack/gitsubmodules/opt/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
