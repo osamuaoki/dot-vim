@@ -73,24 +73,35 @@ if has("autocmd")
     \   exe "normal! g'\"" |
     \ endif
 endif
-""" Normally, we don't need this.  Use "ga" to identify Unicode code
+""" uncomment to use list
 "set list             " display non-printable tabs and newlines
-"if has('multi_byte') && &encoding ==# 'utf-8'
-"  set listchars=eol:¶,tab:⇄\ ,trail:␣,extends:↦,precedes:↤,nbsp:␣
-"  "set listchars=eol:↲,tab:⇔\ ,trail:␣,extends:»,precedes:«,nbsp:␣
-"  "set listchars=eol:↲,tab:▶\ ,trail:□,extends:▶,precedes:◀,nbsp:□
-"else
-"  set listchars=tab:>\ ,trail:#,extends:>,precedes:<,nbsp:=
-"endif
+""" Normally, we don't need this.  Use "ga" to identify Unicode code
+if &list
+  if has('multi_byte') && &encoding ==# 'utf-8'
+    set listchars=eol:¶,tab:⇄\ ,trail:␣,extends:↦,precedes:↤,nbsp:␣
+    "set listchars=eol:↲,tab:⇔\ ,trail:␣,extends:»,precedes:«,nbsp:␣
+    "set listchars=eol:↲,tab:▶\ ,trail:□,extends:▶,precedes:◀,nbsp:□
+  else
+    set listchars=tab:>\ ,trail:#,extends:>,precedes:<,nbsp:=
+  endif
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Plugins ('packadd!' adds optional path to 'runtimepath'.)
 """   - Use ':se rtp' to check 'runtimepath' in NORMAL
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Uncomment to disable ale by faking as loaded
+let g:loaded_ale_dont_use_this_in_other_plugins_please = 1
+
+" Uncomment to disable qlist by faking as loaded
+"let g:loaded_qlist = 1
+
+" Uncomment to disable airline by faking as loaded
+"let g:loaded_airline = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Guard against modeline attack (modeline is off on Debian for user)
-""" enable ~/.vim/pack/gitsubmodules/opt/securemodelines
+""" enable pack/github/opt/securemodelines
 if $USER == "root"
   " modeline off for root
   set noswapfile
@@ -102,30 +113,33 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Syntax highlight and spellcheck to work together with dark color: murphy
-""" enable ~/.vim/pack/gitsubmodules/opt/vim-spell-under
+""" enable pack/github/opt/vim-spell-under
 packadd! vim-spell-under
 let g:colors_name = 'murphy'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" enable /usr/share/vim/vim??/pack/dist/opt/vim-better-whitespace
-packadd! vim-better-whitespace
-" Use better_whitespace display (better than `:set list`)
-let g:better_whitespace_enabled=1
-" blacklist this plugin for specific file types
-" DEFAULT: let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown']
-" Almost no blacklist
-let g:better_whitespace_filetypes_blacklist=['diff']
-" Disable skipping to strip whitespace
-let g:strip_max_file_size=0
-" Don't auto strip whitespace
-let g:strip_whitespace_on_save=0
-" Highlight space characters that appear before or in-between tabs
-let g:show_spaces_that_precede_tabs=1
-" Enable stripping white lines at EOF
-let g:strip_whitelines_at_eof=1
+""" enable pack/github/opt/vim-better-whitespace
+if ! &list
+  packadd! vim-better-whitespace
+  " Use better_whitespace display (better than `:set list`)
+  let g:better_whitespace_enabled=1
+  " blacklist this plugin for specific file types
+  " DEFAULT: let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown']
+  " Almost no blacklist
+  let g:better_whitespace_filetypes_blacklist=['diff']
+  " Disable skipping to strip whitespace
+  let g:strip_max_file_size=0
+  " Don't auto strip whitespace
+  let g:strip_whitespace_on_save=0
+  " Highlight space characters that appear before or in-between tabs
+  let g:show_spaces_that_precede_tabs=1
+  " Enable stripping white lines at EOF
+  let g:strip_whitelines_at_eof=1
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ gnupg in vim-scripts
+""" enable /usr/share/vim/vimfiles/pack/dist-bundle/opt/gnupg
 packadd! gnupg
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -133,56 +147,63 @@ packadd! gnupg
 packadd! matchit
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" enable /usr/share/vim/vim??/pack/dist/opt/vim-python-matchit
+""" enable pack/github/opt/vim-python-matchit
 packadd! vim-python-matchit
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" enable /usr/share/vim/vim??/pack/dist/opt/vim-indent-guides
+""" enable pack/github/opt/vim-indent-guides
 packadd! vim-indent-guides
 let g:indent_guides_enable_on_vim_startup = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""" enable /usr/share/vim/vim??/pack/dist/opt/orgmode
+"""" enable pack/github/opt/orgmode
 "packadd! org-mode
 "let g:org_indent = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""" enable /usr/share/vim/vim??/pack/dist/opt/qlist
-" packadd! qlist
-"
-"""" Basic design: replace corresponding native `[I`, `]I`, `[D`, and `]D`
-""""
-"""" NORMAL MODE
-"nmap <silent> [I <Plug>QlistIncludefromtop
-"nmap <silent> ]I <Plug>QlistIncludefromhere
-"nmap <silent> [D <Plug>QlistDefinefromtop
-"nmap <silent> ]D <Plug>QlistDefinefromhere
-"""" VISUAL MODE
-"xmap <silent> [I <Plug>QlistIncludefromtopvisual
-"xmap <silent> ]I <Plug>QlistIncludefromherevisual
-"xmap <silent> [D <Plug>QlistDefinefromtopvisual
-"xmap <silent> ]D <Plug>QlistDefinefromherevisual
-
+"""" enable pack/github/opt/qlist
+if ! (exists('g:loaded_ale_dont_use_this_in_other_plugins_please') && g:loaded_ale_dont_use_this_in_other_plugins_please)
+  packadd! ale
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""" enable /usr/share/vim/vim??/pack/dist/opt/vim-gitgutter
+"""" enable pack/github/opt/qlist
+if ! (exists('g:loaded_qlist') && g:loaded_qlist)
+  packadd! qlist
+  """" Basic design: replace corresponding native `[I`, `]I`, `[D`, and `]D`
+  """"
+  """" NORMAL MODE
+  nmap <silent> [I <Plug>QlistIncludefromtop
+  nmap <silent> ]I <Plug>QlistIncludefromhere
+  nmap <silent> [D <Plug>QlistDefinefromtop
+  nmap <silent> ]D <Plug>QlistDefinefromhere
+  """" VISUAL MODE
+  xmap <silent> [I <Plug>QlistIncludefromtopvisual
+  xmap <silent> ]I <Plug>QlistIncludefromherevisual
+  xmap <silent> [D <Plug>QlistDefinefromtopvisual
+  xmap <silent> ]D <Plug>QlistDefinefromherevisual
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" enable pack/github/opt/vim-gitgutter
 "packadd! vim-gitgutter
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" enable /usr/share/vim/vim??/pack/dist/opt/vim-airline
-""" enable /usr/share/vim/vim??/pack/dist/opt/vim-airline-themes
+""" enable pack/github/opt/vim-airline
+""" enable pack/github/opt/vim-airline-themes
 """  - for checking UCS/Unicode code point, use 'ga' in NORMAL MODE
-packadd! vim-airline
-packadd! vim-airline-themes
-""" use hack as GUI terminal font
-if $TERM ==# "linux"
-  let g:airline_powerline_fonts = 0
-  let g:airline_symbols_ascii = 1
-else
-  let g:airline_powerline_fonts = 1
+if ! (exists('g:loaded_airline') && g:loaded_airline)
+  packadd! vim-airline
+  packadd! vim-airline-themes
+  """ use hack as GUI terminal font
+  if $TERM ==# "linux"
+    let g:airline_powerline_fonts = 0
+    let g:airline_symbols_ascii = 1
+  else
+    let g:airline_powerline_fonts = 1
+  endif
+  " Skip FileType: utf-8[unix]
+  let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 endif
-" Skip FileType: utf-8[unix]
-let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
-
 
 " vim: set sw=2 sts=2 et ft=vim :

@@ -1,31 +1,34 @@
 [submodule "pack/gitsubmodules/opt/vim-spell-under"]
-	path = pack/gitsubmodules/opt/vim-spell-under
+	path = pack/github/opt/vim-spell-under
 	url = git@github.com:osamuaoki/vim-spell-under.git
 [submodule "pack/gitsubmodules/opt/securemodelines"]
-	path = pack/gitsubmodules/opt/securemodelines
+	path = pack/github/opt/securemodelines
 	url = https://github.com/ciaranm/securemodelines
 [submodule "pack/gitsubmodules/opt/qlist"]
-	path = pack/gitsubmodules/opt/qlist
+	path = pack/github/opt/qlist
 	url = https://github.com/romainl/vim-qlist.git
 [submodule "pack/gitsubmodules/opt/orgmode"]
-	path = pack/gitsubmodules/opt/orgmode
+	path = pack/github/opt/orgmode
 	url = https://github.com/jceb/vim-orgmode.git
 [submodule "pack/gitsubmodules/opt/vim-airline"]
-	path = pack/gitsubmodules/opt/vim-airline
+	path = pack/github/opt/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
 [submodule "pack/gitsubmodules/opt/vim-airline-themes"]
-	path = pack/gitsubmodules/opt/vim-airline-themes
+	path = pack/github/opt/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
 [submodule "pack/gitsubmodules/opt/vim-better-whitespace"]
-	path = pack/gitsubmodules/opt/vim-better-whitespace
+	path = pack/github/opt/vim-better-whitespace
 	url = https://github.com/ntpeters/vim-better-whitespace.git
 [submodule "pack/gitsubmodules/opt/vim-indent-guides"]
-	path = pack/gitsubmodules/opt/vim-indent-guides
+	path = pack/github/opt/vim-indent-guides
 	url = https://github.com/nathanaelkane/vim-indent-guides
 [submodule "pack/gitsubmodules/opt/vim-python-matchit"]
-	path = pack/gitsubmodules/opt/vim-python-matchit
+	path = pack/github/opt/vim-python-matchit
 	url = git@github.com:osamuaoki/vim-python-matchit.git
 	branch = main
 [submodule "pack/gitsubmodules/opt/vim-gitgutter"]
-	path = pack/gitsubmodules/opt/vim-gitgutter
+	path = pack/github/opt/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
+[submodule "pack/submodules/opt/ale"]
+	path = pack/github/opt/ale
+	url = https://github.com/dense-analysis/ale.git
