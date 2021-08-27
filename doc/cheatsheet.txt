@@ -1,5 +1,22 @@
 *cheatsheet.txt*   Cheat sheet for key strokes etc.
 
+Interesting commands:
+ * ga Get Unicode point (HEX etc.)
+ * g8 Get Binary data HEX sequence
+ * ^G Get cursor Position
+ * {visual}g? ROT13
+
+KB MACRO:
+ * “qq” to start recording MACRO
+ * “qq” to quit recording MACRO
+ * “Q” to apply MACRO
+
+Sure NORMAL MODE (including TERMINAL-NORMAL MODE):
+ * Esc Esc
+
+F1: Help
+F2: pastetoggle
+
 ------------------------------------------------------------------------------
 Basics for normal mode:
 >
@@ -40,7 +57,6 @@ Interesting commands:
  * g8 Get Binary data HEX sequence
  * ^G Get cursor Position
  * {visual}g? ROT13
-
 
 Ex Mode commands:
 >
