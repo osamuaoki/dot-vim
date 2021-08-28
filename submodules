@@ -14,6 +14,3 @@ git config pull.rebase true
   cd pack/gitsubmodules/opt/vim-spell-under ; \
   git remote set-url --delete --push origin DISABLED_FOR_PUSH \
 )
-  
-
-

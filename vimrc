@@ -61,8 +61,8 @@ tnoremap <Esc><Esc> <C-\><c-n>
 """ Use <SPACE> as leader instead of '\' (set again to make sure)
 """ In NORMAL mode, SPACE is useless.  This has to be before <leader> usage.
 let mapleader = ' '
-" Manual strip whitespace with <leader>s (vim-better-whitespace)
-nnoremap <leader>s :StripWhitespace<cr>
+" Manual strip whitespace with <leader><leader> (vim-better-whitespace)
+nnoremap <leader><leader> :StripWhitespace<cr>
 " Remap for smarter command line <c-n>t<c-p>    (vim-galore)
 cnoremap <c-n>  <down>
 cnoremap <c-p>  <up>
@@ -196,8 +196,17 @@ endif
 """" enable pack/github/opt/fzf
 """" enable pack/github/opt/fzf.vim
 """"  install fzf Debian package
-"packadd! fzf
-"packadd! fzf.vim
+packadd! fzf
+packadd! fzf.vim
+" Fzf
+nnoremap <leader>f         :Files<CR>
+nnoremap <leader>b         :Buffers<CR>
+nnoremap <leader>m         :Maps<CR>
+"nnoremap <leader>h        :History<CR>
+"nnoremap <leader>c        :Colors<CR>
+"nnoremap <leader>l        :Lines<CR>
+"nnoremap <leader><leader> :GFiles<CR>
+"nnoremap <leader>g        :Ag! <C-R><C-W><CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
