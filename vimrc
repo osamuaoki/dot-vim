@@ -11,6 +11,7 @@ set spelllang=en_us            " Spell check language as en_us
 set spell                      " Enable spell check
 set autoindent                 " Copy indent from current line
 set smartindent                " More than autoindent (Drop/Pop after {/})
+set smarttab                    "
 set backspace=indent,eol,start " Back space through everything
 """ 'statusline' used when airline is inactive
 set statusline=%<%f%m%r%h%w%=%y[U+%04B]%2l/%2L=%P,%2c%V
@@ -47,32 +48,6 @@ set formatoptions+=j           " Delete comment character when joining commented
 set ttimeoutlen=500            " Time out in ms, 1/2 of default 1000
 set viminfo=!,'100,<5000,s100,h " Bigger copy buffer etc. Default '100,<50,s10,h
 "set number                    " add linenumber
-"""
-set pastetoggle=<f2>           " Use <F2> for paste mode toggle
-" Remap for "Q". "qq" to record MACRO to 'q', "qq" to quit, "Q" to apply
-nnoremap Q @q
-xnoremap Q :norm @q<cr>
-""" Use <ESC><ESC> as exit from terminal-job mode: Ctrl-W N (Ctrl-\ Ctrl-N)
-"""   This allows me to press 2-<ESC> as a habit even in normal INSERT/REPLACE
-"""   modes and to avoid hitting Ctrl-W in normal INSERT/REPLACE modes to
-"""   loose data.  If you want 2 consecutive <Esc>s to go to terminal, type
-"""   them with more than a second between typing.
-tnoremap <Esc><Esc> <C-\><c-n>
-""" Use <SPACE> as leader instead of '\' (set again to make sure)
-""" In NORMAL mode, SPACE is useless.  This has to be before <leader> usage.
-let mapleader = ' '
-" Manual strip whitespace with <leader><leader> (vim-better-whitespace)
-nnoremap <leader><leader> :StripWhitespace<cr>
-" Remap for smarter command line <c-n>t<c-p>    (vim-galore)
-cnoremap <c-n>  <down>
-cnoremap <c-p>  <up>
-""" Retain cursor position
-if has("autocmd")
-    autocmd BufReadPost *
-    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-    \   exe "normal! g'\"" |
-    \ endif
-endif
 """ uncomment to use list
 "set list             " display non-printable tabs and newlines
 """ If list'' is enabled, vim-better-whitespace is not loaded
@@ -85,22 +60,19 @@ else
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" Plugins ('packadd!' adds optional path to 'runtimepath'.)
-"""   - Use ':se rtp' to check 'runtimepath' in NORMAL
+""" mini Scripts
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Uncomment to disable ale by faking as loaded
-"let g:loaded_ale_dont_use_this_in_other_plugins_please = 1
-if $ALE =~ '^[Nn]'
-  " disable ALE by setting environment $ALE to N*
-  let g:loaded_ale_dont_use_this_in_other_plugins_please = 1
+""" Retain cursor position
+if has("autocmd")
+  autocmd BufReadPost *
+        \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+        \   exe "normal! g'\"" |
+        \ endif
 endif
 
-" Uncomment to disable qlist by faking as loaded
-"let g:loaded_qlist = 1
-
-" Uncomment to disable airline by faking as loaded
-"let g:loaded_airline = 1
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" Plugins ('packadd!' adds optional path to 'runtimepath'.)
+"""   - Use ':se rtp' to check 'runtimepath' in NORMAL
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Guard against modeline attack (modeline is off on Debian for user)
 """ enable pack/github/opt/securemodelines
@@ -163,34 +135,42 @@ let g:indent_guides_enable_on_vim_startup = 1
 "let g:org_indent = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""" enable pack/github/opt/qlist
-if ! (exists('g:loaded_ale_dont_use_this_in_other_plugins_please') && g:loaded_ale_dont_use_this_in_other_plugins_please)
-  packadd! ale
-  let g:ale_linters = {'python': ['flake8']} " RED (Use this)
-  "let g:ale_linters = {'python': ['flake8', 'pylint']} "
-  "let g:ale_linters = {'python': ['pylint']} " YELLOW (MANY)
-  "let g:ale_linters = {'python': ['mypy']}
-  "packadd! vim-lsp
-  "packadd! vim-lsp-ale
+"""" enable pack/github/opt/ale
+packadd! ale
+if $ALE =~ '^[Nn]'
+  " disable ALE by setting environment $ALE to N*
+  let g:ale_enabled = 0 " initially disable ALE.
 endif
+"let g:ale_enabled = 0 " initially disable ALE.
+" ---- if enabled, linters are ON upon writing file
+let g:ale_lint_on_text_changed = 'never' " No linters upon change
+let g:ale_lint_on_enter = 0 " No linters upon opening a file
+let g:ale_lint_on_insert_leave = 0 " No linters upon leaving INSERT
+"let g:ale_pattern_options = {'\.min.js$': {'ale_enabled': 0}} " No linters on minified JS
+let g:ale_linters = {'python': ['flake8']} " RED (Use this, fast)
+"let g:ale_linters = {'python': ['flake8', 'pylint']} "
+"let g:ale_linters = {'python': ['pylint']} " YELLOW (MANY)
+"let g:ale_linters = {'python': ['mypy']}
+""" Think about LSP later (not used now)
+"packadd! vim-lsp
+"packadd! vim-lsp-ale
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """" enable pack/github/opt/qlist
-if ! (exists('g:loaded_qlist') && g:loaded_qlist)
-  packadd! qlist
-  """" Basic design: replace corresponding native `[I`, `]I`, `[D`, and `]D`
-  """"
-  """" NORMAL MODE
-  nmap <silent> [I <Plug>QlistIncludefromtop
-  nmap <silent> ]I <Plug>QlistIncludefromhere
-  nmap <silent> [D <Plug>QlistDefinefromtop
-  nmap <silent> ]D <Plug>QlistDefinefromhere
-  """" VISUAL MODE
-  xmap <silent> [I <Plug>QlistIncludefromtopvisual
-  xmap <silent> ]I <Plug>QlistIncludefromherevisual
-  xmap <silent> [D <Plug>QlistDefinefromtopvisual
-  xmap <silent> ]D <Plug>QlistDefinefromherevisual
-endif
+packadd! qlist
+""" XXX let g:qlist_enabled = 0 " initially disable gitgutter
+"""" Basic design: replace corresponding native `[I`, `]I`, `[D`, and `]D`
+""""
+"""" NORMAL MODE
+nmap <silent> [I <Plug>QlistIncludefromtop
+nmap <silent> ]I <Plug>QlistIncludefromhere
+nmap <silent> [D <Plug>QlistDefinefromtop
+nmap <silent> ]D <Plug>QlistDefinefromhere
+"""" VISUAL MODE
+xmap <silent> [I <Plug>QlistIncludefromtopvisual
+xmap <silent> ]I <Plug>QlistIncludefromherevisual
+xmap <silent> [D <Plug>QlistDefinefromtopvisual
+xmap <silent> ]D <Plug>QlistDefinefromherevisual
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """" enable pack/github/opt/fzf
@@ -198,37 +178,142 @@ endif
 """"  install fzf Debian package
 packadd! fzf
 packadd! fzf.vim
-" Fzf
-nnoremap <leader>f         :Files<CR>
-nnoremap <leader>b         :Buffers<CR>
-nnoremap <leader>m         :Maps<CR>
-"nnoremap <leader>h        :History<CR>
-"nnoremap <leader>c        :Colors<CR>
-"nnoremap <leader>l        :Lines<CR>
-"nnoremap <leader><leader> :GFiles<CR>
-"nnoremap <leader>g        :Ag! <C-R><C-W><CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""" enable pack/github/opt/vim-gitgutter
-"packadd! vim-gitgutter
+"""" enable pack/github/opt/vim-gitgutter (Git)
+"""" enable pack/github/opt/vim-repeat    (Repeat .)
+packadd! vim-gitgutter
+packadd! vim-repeat
+let g:gitgutter_enabled = 0 " initially disable gitgutter
+" hank jump ']c' '[c'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ enable pack/github/opt/vim-airline
 """ enable pack/github/opt/vim-airline-themes
 """  - for checking UCS/Unicode code point, use 'ga' in NORMAL MODE
-if ! (exists('g:loaded_airline') && g:loaded_airline)
-  packadd! vim-airline
-  packadd! vim-airline-themes
-  """ use hack as GUI terminal font
-  if $TERM ==# "linux"
-    let g:airline_powerline_fonts = 0
-    let g:airline_symbols_ascii = 1
-  else
-    let g:airline_powerline_fonts = 1
-  endif
-  " Skip FileType: utf-8[unix]
-  let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
+packadd! vim-airline
+packadd! vim-airline-themes
+""" use hack as GUI terminal font
+if $TERM ==# "linux"
+  let g:airline_powerline_fonts = 0
+  let g:airline_symbols_ascii = 1
+else
+  let g:airline_powerline_fonts = 1
 endif
+" Skip FileType: utf-8[unix]
+let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" Key mapping
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remap for smarter command line <c-n> <c-p>    (vim-galore)
+" EMACS style cursor moves for COMMAND MODE (shell-like)
+cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
+cnoremap <C-B> <Left>
+cnoremap <C-F> <Right>
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+""" Not-so-good XXX XXX XXX
+"cnoremap <C-D> <Del>
+""" INSERT MODE
+"inoremap <C-D> <Del>
+
+""" PASTE MODE toggle
+set pastetoggle=<f2>           " Use <F2> for paste mode toggle
+
+""" Key Board MACRO with q and Q
+""" Remap for "Q". "qq" to record MACRO to 'q', "qq" to quit, "Q" to apply
+nnoremap Q @q
+xnoremap Q :norm @q<cr>
+
+""" Use <SPACE> as leader instead of '\' (set again to make sure)
+""" In NORMAL mode, SPACE is useless.  This has to be before <leader> usage.
+let mapleader = ' '
+
+""" Highlight word below (https://qiita.com/itmammoth/items/312246b4b7688875d023)
+nnoremap <silent> <leader><leader> "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
+"nnoremap <silent> <leader><leader> :let @/ = '\<' . expand('<cword>') . '\>'<CR>:set hlsearch<CR>
+""" Turn-off highlight and refresh screen as usual with <C-L>
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+""" Change all (with confirmation), use <C-r>z to insert original
+nmap # <space><space>:%s/<C-r>///gc<Left><Left><Left>
+""" VISUAL MODE
+xnoremap <silent> <leader><leader> mz:call <SID>set_vsearch()<CR>:set hlsearch<CR>`z
+xnoremap * :<C-u>call <SID>set_vsearch()<CR>/<C-r>/<CR>
+xmap # <Space>:%s/<C-r>///gc<Left><Left><Left>
+"""
+function! s:set_vsearch()
+  silent normal gv"zy
+  let @/ = '\V' . substitute(escape(@z, '/\'), '\n', '\\n', 'g')
+endfunction
+
+""" ??? INSERT MODE swap ch[-2],ch[-1]
+inoremap <C-t> <Esc><Left>"zx"zpa
+
+""" no z-register alternative
+
+" Manual strip whitespace with <leader>s (vim-better-whitespace)
+nnoremap <leader>s :StripWhitespace<cr>
+
+" TAB
+nnoremap <leader>1         1gt<CR>
+nnoremap <leader>2         2gt<CR>
+nnoremap <leader>3         3gt<CR>
+nnoremap <leader>4         4gt<CR>
+nnoremap <leader>5         5gt<CR>
+nnoremap <leader>6         6gt<CR>
+nnoremap <leader>7         7gt<CR>
+nnoremap <leader>8         8gt<CR>
+nnoremap <leader>9         9gt<CR>
+
+" NORMAL <-> TERM
+""" Use space-return to open terminal on current window
+nnoremap <leader><CR>      :term ++curwin<CR>
+""" Use <ESC><ESC> as exit from terminal-job mode: Ctrl-W N (Ctrl-\ Ctrl-N)
+"""   This allows me to press 2-<ESC> as a habit even in normal INSERT/REPLACE
+"""   modes and to avoid hitting Ctrl-W in normal INSERT/REPLACE modes to
+"""   loose data.  If you want 2 consecutive <Esc>s to go to terminal, type
+"""   them with more than a second between typing.
+tnoremap <Esc><Esc> <C-\><C-N>
+
+""" ALE: toggle _ALE activity
+nnoremap <leader>a         :ALEToggle<CR>
+
+""" Git-gutter: toggle G_it activity
+nnoremap <leader>i         :GitGutterToggle<CR>
+" preview hunk with <Leader>hp
+" move to the preview window, e.g. :wincmd P / <C-W> P
+" undo hanks with <Leader>hu
+""" Followngs ... I don't know what to do
+" ic operates on all lines in the current hunk.
+" ac operates on all lines in the current hunk and any trailing empty lines.
+
+""" Fzf: CTRL-T:openTAB, CTRL-X:split-H, CTRL-V:split-V
+nnoremap <leader>b         :Buffers<CR>
+nnoremap <leader>c         :Colors<CR>
+nnoremap <leader>f         :Files<CR>
+nnoremap <leader>G         :GFiles<CR>
+nnoremap <leader>g         :GFiles?<CR>
+nnoremap <leader>m         :Maps<CR>
+nnoremap <leader>t         :Tags<CR>
+nnoremap <leader>v         :History<CR>
+nnoremap <leader>x         :Commands<CR>
+nnoremap <leader>/         :History/<CR>
+nnoremap <leader>:         :History:<CR>
+
+nnoremap <leader>B         :Btags<CR>
+nnoremap <leader>H         :Helptags<CR>
+nnoremap <leader>M         :Marks<CR>
+nnoremap <leader>T         :Filetypes<CR>
+nnoremap <leader>W         :Windows<CR>
+
+nnoremap <leader>w         :wall<CR>
+
+""" Vim _line indent formatter
+nnoremap <leader>l         gg=G
+
+""" Vim folding disabled (Open all folds) (I can't remember all z-things)
+nnoremap <leader>z         zR
 
 " vim: set sw=2 sts=2 et ft=vim :

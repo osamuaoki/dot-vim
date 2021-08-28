@@ -44,3 +44,6 @@
 [submodule "pack/github/opt/vim-lsp-ale"]
 	path = pack/github/opt/vim-lsp-ale
 	url = https://github.com/rhysd/vim-lsp-ale.git
+[submodule "pack/github/opt/vim-repeat"]
+	path = pack/github/opt/vim-repeat
+	url = https://github.com/tpope/vim-repeat.git

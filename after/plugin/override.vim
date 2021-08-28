@@ -24,6 +24,9 @@
 " CR/LF convention auto detection order
 "set fileformats=unix,dos,mac
 
+" U+E0A3 is missing recently, so here are the alternatives
+"let g:airline_symbols.colnr = '→'
+let g:airline_symbols.colnr = ''
 
 " This must be the last setting. (light enough to run every time now)
 silent! helptags ALL
