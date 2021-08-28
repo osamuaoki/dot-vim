@@ -75,15 +75,13 @@ if has("autocmd")
 endif
 """ uncomment to use list
 "set list             " display non-printable tabs and newlines
-""" Normally, we don't need this.  Use "ga" to identify Unicode code
-if &list
-  if has('multi_byte') && &encoding ==# 'utf-8'
-    set listchars=eol:¶,tab:⇄\ ,trail:␣,extends:↦,precedes:↤,nbsp:␣
-    "set listchars=eol:↲,tab:⇔\ ,trail:␣,extends:»,precedes:«,nbsp:␣
-    "set listchars=eol:↲,tab:▶\ ,trail:□,extends:▶,precedes:◀,nbsp:□
-  else
-    set listchars=tab:>\ ,trail:#,extends:>,precedes:<,nbsp:=
-  endif
+""" If list'' is enabled, vim-better-whitespace is not loaded
+if has('multi_byte') && &encoding ==# 'utf-8'
+  set listchars=eol:¶,tab:⇄\ ,trail:␣,extends:↦,precedes:↤,nbsp:␣
+  "set listchars=eol:↲,tab:⇔\ ,trail:␣,extends:»,precedes:«,nbsp:␣
+  "set listchars=eol:↲,tab:▶\ ,trail:□,extends:▶,precedes:◀,nbsp:□
+else
+  set listchars=tab:>\ ,trail:#,extends:>,precedes:<,nbsp:=
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -91,7 +89,11 @@ endif
 """   - Use ':se rtp' to check 'runtimepath' in NORMAL
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Uncomment to disable ale by faking as loaded
-let g:loaded_ale_dont_use_this_in_other_plugins_please = 1
+"let g:loaded_ale_dont_use_this_in_other_plugins_please = 1
+if $ALE =~ '^[Nn]'
+  " disable ALE by setting environment $ALE to N*
+  let g:loaded_ale_dont_use_this_in_other_plugins_please = 1
+endif
 
 " Uncomment to disable qlist by faking as loaded
 "let g:loaded_qlist = 1
@@ -164,6 +166,12 @@ let g:indent_guides_enable_on_vim_startup = 1
 """" enable pack/github/opt/qlist
 if ! (exists('g:loaded_ale_dont_use_this_in_other_plugins_please') && g:loaded_ale_dont_use_this_in_other_plugins_please)
   packadd! ale
+  let g:ale_linters = {'python': ['flake8']} " RED (Use this)
+  "let g:ale_linters = {'python': ['flake8', 'pylint']} "
+  "let g:ale_linters = {'python': ['pylint']} " YELLOW (MANY)
+  "let g:ale_linters = {'python': ['mypy']}
+  "packadd! vim-lsp
+  "packadd! vim-lsp-ale
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -184,6 +192,14 @@ if ! (exists('g:loaded_qlist') && g:loaded_qlist)
   xmap <silent> ]D <Plug>QlistDefinefromherevisual
 endif
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" enable pack/github/opt/fzf
+"""" enable pack/github/opt/fzf.vim
+""""  install fzf Debian package
+"packadd! fzf
+"packadd! fzf.vim
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """" enable pack/github/opt/vim-gitgutter
 "packadd! vim-gitgutter
