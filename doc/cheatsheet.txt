@@ -17,6 +17,16 @@ Sure NORMAL MODE (including TERMINAL-NORMAL MODE):
 F1: Help
 F2: pastetoggle
 
+ENACS; COMMAND MODE
+cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
+cnoremap <C-B> <Left>
+cnoremap <C-F> <Right>
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+"cnoremap <C-D> <Del>
+"inoremap <C-D> <Del>
+
 ------------------------------------------------------------------------------
 Basics for normal mode:
 >
