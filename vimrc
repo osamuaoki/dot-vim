@@ -1,8 +1,9 @@
 """ Initialize Vim
 """
-"""  Configure Vim by commenting in/out lines in these files:
-"""    * ~/.vim/vimrc                          (this file)
-"""    * ~/.vim/after/plugin/override.vim      (parsed last)
+"""  Configure Vim by adjusting values and commenting in/out lines:
+"""    * ~/.vim/vimrc                        (this file)
+"""    * ~/.vim/gvimrc                       (for gvim, parsed after this)
+"""    * ~/.vim/after/plugin/override.vim    (parsed after normal runtimepath)
 """
 """ basic customization
 filetype plugin indent on      " filetype aware behavior
@@ -28,7 +29,7 @@ set autoread                   " Read if it detects to be modified
 """ Search
 set incsearch                  " Incremental search ON
 "set ignorecase                " case insensitive search
-set smartcase                  " case insensitive search, except when using capital letters
+set smartcase    " case insensitive search, except when using capital letters
 "set showmatch                  " show match while searching
 "set hlsearch                   " highlight searching
 """ Searching
@@ -61,7 +62,6 @@ if has('multi_byte') && &encoding ==# 'utf-8'
 else
   set listchars=tab:>\ ,trail:#,extends:>,precedes:<,nbsp:=
 endif
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ mini Scripts
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -291,7 +291,7 @@ nnoremap <leader>i         :GitGutterToggle<CR>
 " preview hunk with <Leader>hp
 " move to the preview window, e.g. :wincmd P / <C-W> P
 " undo hanks with <Leader>hu
-""" Followngs ... I don't know what to do
+""" Followngs ... I don't know what to do (use after 'd'?)
 " ic operates on all lines in the current hunk.
 " ac operates on all lines in the current hunk and any trailing empty lines.
 
@@ -302,6 +302,10 @@ nnoremap <leader>f         :Files<CR>
 nnoremap <leader>G         :GFiles<CR>
 nnoremap <leader>g         :GFiles?<CR>
 nnoremap <leader>m         :Maps<CR>
+"""   'ag' is 1 order of magnitude slower
+"""   'ug' seems to be about the same speed as 'rg' (SMP aware)
+"""   'rg' git aware _--> Install 'ripgrep and use it with <leader>r
+nnoremap <leader>r         :Rg<CR>
 nnoremap <leader>t         :Tags<CR>
 nnoremap <leader>v         :History<CR>
 nnoremap <leader>x         :Commands<CR>
