@@ -45,7 +45,10 @@ set scrolloff=1                " At least one extra line around cursor
 set sidescrolloff=5            " At least 5 extra columns around cursor
 set display+=lastline          " Display truncated as "@@@"
 set formatoptions+=j           " Delete comment character when joining commented lines
-set ttimeoutlen=500            " Time out in ms, 1/2 of default 1000
+set timeoutlen=500             " Mapping delay in ms, 1/2 of default 1000
+"set timeoutlen=10000          " TEST: slow Mapping delay in ms
+set ttimeoutlen=10             " Keycode delay in ms, 1/10 of default 100
+"set ttimeoutlen=10000         " TEST: slow Keycode delay in ms
 set viminfo=!,'100,<5000,s100,h " Bigger copy buffer etc. Default '100,<50,s10,h
 "set number                    " add linenumber
 """ uncomment to use list
@@ -179,6 +182,15 @@ xmap <silent> ]D <Plug>QlistDefinefromherevisual
 packadd! fzf
 packadd! fzf.vim
 
+""" This avoid crashing fzf menu running in terminal
+au TerminalOpen * set ft=terminal
+au FileType fzf silent! tunmap <buffer> <Esc>
+au FileType terminal tnoremap <buffer> <Esc> <c-\><c-n>
+""" Just in case impatient ... for slow delay
+"""   https://vi.stackexchange.com/questions/2614/why-does-this-esc-normal-mode-mapping-affect-startup
+"""   https://vi.stackexchange.com/questions/24925/usage-of-timeoutlen-and-ttimeoutlen
+au FileType terminal tnoremap <buffer> <Esc><Esc> <c-\><c-n>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """" enable pack/github/opt/vim-gitgutter (Git)
 """" enable pack/github/opt/vim-repeat    (Repeat .)
@@ -270,12 +282,6 @@ nnoremap <leader>9         9gt<CR>
 " NORMAL <-> TERM
 """ Use space-return to open terminal on current window
 nnoremap <leader><CR>      :term ++curwin<CR>
-""" Use <ESC><ESC> as exit from terminal-job mode: Ctrl-W N (Ctrl-\ Ctrl-N)
-"""   This allows me to press 2-<ESC> as a habit even in normal INSERT/REPLACE
-"""   modes and to avoid hitting Ctrl-W in normal INSERT/REPLACE modes to
-"""   loose data.  If you want 2 consecutive <Esc>s to go to terminal, type
-"""   them with more than a second between typing.
-tnoremap <Esc><Esc> <C-\><C-N>
 
 """ ALE: toggle _ALE activity
 nnoremap <leader>a         :ALEToggle<CR>
