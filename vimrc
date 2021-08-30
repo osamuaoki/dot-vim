@@ -32,12 +32,6 @@ set incsearch                  " Incremental search ON
 set smartcase    " case insensitive search, except when using capital letters
 "set showmatch                  " show match while searching
 "set hlsearch                   " highlight searching
-""" Searching
-"nnoremap / /\v
-"vnoremap / /\v
-""" Map <C-L> (redraw screen) to also turn off search highlighting until the
-""" next search
-"nnoremap <C-L> :nohl<CR><C-L>
 """ Display non-printable tabs and newlines
 set encoding=utf-8          " encoding within editor
 set fileencodings=          " force to read with fileencoding
@@ -46,7 +40,7 @@ set scrolloff=1                " At least one extra line around cursor
 set sidescrolloff=5            " At least 5 extra columns around cursor
 set display+=lastline          " Display truncated as "@@@"
 set formatoptions+=j           " Delete comment character when joining commented lines
-set timeoutlen=500             " Mapping delay in ms, 1/2 of default 1000
+set timeoutlen=1000             " Mapping delay in ms, default 1000
 "set timeoutlen=10000          " TEST: slow Mapping delay in ms
 set ttimeoutlen=10             " Keycode delay in ms, 1/10 of default 100
 "set ttimeoutlen=10000         " TEST: slow Keycode delay in ms
@@ -183,13 +177,22 @@ packadd! fzf
 packadd! fzf.vim
 
 """ This avoid crashing fzf menu running in terminal
-au TerminalOpen * set ft=terminal
-au FileType fzf silent! tunmap <buffer> <Esc>
-au FileType terminal tnoremap <buffer> <Esc> <c-\><c-n>
-""" Just in case impatient ... for slow delay
+""" <Esc><Esc> is just in case impatient for slow keycode delay
 """   https://vi.stackexchange.com/questions/2614/why-does-this-esc-normal-mode-mapping-affect-startup
 """   https://vi.stackexchange.com/questions/24925/usage-of-timeoutlen-and-ttimeoutlen
-au FileType terminal tnoremap <buffer> <Esc><Esc> <c-\><c-n>
+fun! RemapTerminalEsc()
+    if &ft =~ 'fzf'
+      silent! tunmap <buffer> <Esc>
+    else
+      tnoremap <buffer> <Esc> <c-\><c-n>
+      tnoremap <buffer> <Esc><Esc> <c-\><c-n>
+    endif
+endfun
+
+augroup vimrc
+  autocmd!
+  autocmd BufEnter * silent! call RemapTerminalEsc()
+augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """" enable pack/github/opt/vim-gitgutter (Git)
@@ -218,18 +221,24 @@ let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Key mapping
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap for smarter command line <c-n> <c-p>    (vim-galore)
-" EMACS style cursor moves for COMMAND MODE (shell-like)
-cnoremap <C-P> <Up>
-cnoremap <C-N> <Down>
-cnoremap <C-B> <Left>
-cnoremap <C-F> <Right>
+" Remap for smarter command line (vim commandline-editting, vim-galore)
+" Shell/EMACS style cursor moves for COMMAND MODE
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
-""" Not-so-good XXX XXX XXX
-"cnoremap <C-D> <Del>
+cnoremap <C-F> <Right>
+cnoremap <C-B> <Left>
+cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
+cnoremap <C-D> <Del>
+""" No need since this is given
+"cnoremap <C-H> <BS>
 """ INSERT MODE
-"inoremap <C-D> <Del>
+" Limited Shell/EMACS style cursor moves for INSERT MODE
+inoremap <C-F> <Right>
+inoremap <C-B> <Left>
+inoremap <C-D> <Del>
+""" No need since this is given
+"inoremap <C-H> <BS>
 
 """ PASTE MODE toggle
 set pastetoggle=<f2>           " Use <F2> for paste mode toggle
@@ -243,6 +252,16 @@ xnoremap Q :norm @q<cr>
 """ In NORMAL mode, SPACE is useless.  This has to be before <leader> usage.
 let mapleader = ' '
 
+""" Search always with very magic mode (:h /magic)
+"""   This is more ERE(Perl/Python)-like but not quite
+" https://vim.fandom.com/wiki/Simplifying_regular_expressions_using_magic_and_no-magic
+nnoremap / /\v
+xnoremap / /\v
+cnoremap %s/ %smagic/
+cnoremap \>s/ \>smagic/
+nnoremap :g/ :g/\v
+nnoremap :g// :g//
+""" NORMAL MODE
 """ Highlight word below (https://qiita.com/itmammoth/items/312246b4b7688875d023)
 nnoremap <silent> <leader><leader> "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
 "nnoremap <silent> <leader><leader> :let @/ = '\<' . expand('<cword>') . '\>'<CR>:set hlsearch<CR>
@@ -251,6 +270,7 @@ nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 """ Change all (with confirmation), use <C-r>z to insert original
 nmap # <space><space>:%s/<C-r>///gc<Left><Left><Left>
 """ VISUAL MODE
+""" Highlight word below (https://qiita.com/itmammoth/items/312246b4b7688875d023)
 xnoremap <silent> <leader><leader> mz:call <SID>set_vsearch()<CR>:set hlsearch<CR>`z
 xnoremap * :<C-u>call <SID>set_vsearch()<CR>/<C-r>/<CR>
 xmap # <Space>:%s/<C-r>///gc<Left><Left><Left>
