@@ -6,14 +6,9 @@
 """    * ~/.vim/after/plugin/override.vim    (parsed after normal runtimepath)
 """
 """ basic customization
-filetype plugin indent on      " filetype aware behavior
-syntax enable                  " Syntax highlight
 set spelllang=en_us            " Spell check language as en_us
 set spell                      " Enable spell check
-set autoindent                 " Copy indent from current line
 set smartindent                " More than autoindent (Drop/Pop after {/})
-set smarttab                    "
-set backspace=indent,eol,start " Back space through everything
 """ 'statusline' used when airline is inactive
 set statusline=%<%f%m%r%h%w%=%y[U+%04B]%2l/%2L=%P,%2c%V
 """ more customization
@@ -21,14 +16,9 @@ set hidden                     " open another file without saving
 set noerrorbells               " Disable audible bells
 set novisualbell               " Disable visual bells
 set t_vb=                      " Disable visual bells (termcap)
-set laststatus=2               " Always show status line
 set nowrap                     " Don't wrap line
 set nopaste                    " Set-up buffer pasting
-set wildmenu                   " Enhance command-line completion with <Tab>
-set autoread                   " Read if it detects to be modified
 """ Search
-set incsearch                  " Incremental search ON
-"set ignorecase                " case insensitive search
 set smartcase    " case insensitive search, except when using capital letters
 "set showmatch                  " show match while searching
 "set hlsearch                   " highlight searching
@@ -36,26 +26,8 @@ set smartcase    " case insensitive search, except when using capital letters
 set encoding=utf-8          " encoding within editor
 set fileencodings=          " force to read with fileencoding
 """ performance tunes
-set scrolloff=1                " At least one extra line around cursor
-set sidescrolloff=5            " At least 5 extra columns around cursor
-set display+=lastline          " Display truncated as "@@@"
-set formatoptions+=j           " Delete comment character when joining commented lines
-set timeoutlen=1000             " Mapping delay in ms, default 1000
-"set timeoutlen=10000          " TEST: slow Mapping delay in ms
-set ttimeoutlen=10             " Keycode delay in ms, 1/10 of default 100
-"set ttimeoutlen=10000         " TEST: slow Keycode delay in ms
 set viminfo=!,'100,<5000,s100,h " Bigger copy buffer etc. Default '100,<50,s10,h
 "set number                    " add linenumber
-""" uncomment to use list
-"set list             " display non-printable tabs and newlines
-""" If list'' is enabled, vim-better-whitespace is not loaded
-if has('multi_byte') && &encoding ==# 'utf-8'
-  set listchars=eol:¶,tab:⇄\ ,trail:␣,extends:↦,precedes:↤,nbsp:␣
-  "set listchars=eol:↲,tab:⇔\ ,trail:␣,extends:»,precedes:«,nbsp:␣
-  "set listchars=eol:↲,tab:▶\ ,trail:□,extends:▶,precedes:◀,nbsp:□
-else
-  set listchars=tab:>\ ,trail:#,extends:>,precedes:<,nbsp:=
-endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ mini Scripts
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -70,6 +42,11 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Plugins ('packadd!' adds optional path to 'runtimepath'.)
 """   - Use ':se rtp' to check 'runtimepath' in NORMAL
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" enable pack/github/opt/vim-sensible
+packadd! vim-sensible
+""" matchit is loaded by putting on the RTP
+""" You may think of `runtime! plugin/sensible.vim`
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Guard against modeline attack (modeline is off on Debian for user)
 """ enable pack/github/opt/securemodelines
@@ -116,10 +93,6 @@ packadd! gnupg
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ enable /usr/share/vim/vim??/pack/dist/opt/matchit
 packadd! matchit
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" enable pack/github/opt/vim-python-matchit
-packadd! vim-python-matchit
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ enable pack/github/opt/vim-indent-guides
@@ -284,7 +257,7 @@ nnoremap <leader>s :%s/<C-r>//<C-r>z/gc<Left><Left><Left>
 """ # and * like action can be done by / and ?
 
 """ Turn-off highlight and refresh screen as usual with <C-L>
-nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+" vim-sensible.vim takes care
 
 " Manual strip/delete whitespace with <leader>d (vim-better-whitespace)
 nnoremap <leader>d :StripWhitespace<cr>
