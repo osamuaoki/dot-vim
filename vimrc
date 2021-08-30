@@ -177,6 +177,7 @@ packadd! fzf
 packadd! fzf.vim
 
 """ This avoid crashing fzf menu running in terminal
+"""   https://github.com/junegunn/fzf.vim/issues/544
 """ <Esc><Esc> is just in case impatient for slow keycode delay
 """   https://vi.stackexchange.com/questions/2614/why-does-this-esc-normal-mode-mapping-affect-startup
 """   https://vi.stackexchange.com/questions/24925/usage-of-timeoutlen-and-ttimeoutlen
