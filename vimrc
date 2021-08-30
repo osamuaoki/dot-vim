@@ -240,6 +240,8 @@ inoremap <C-B> <Left>
 inoremap <C-D> <Del>
 """ No need since this is given
 "inoremap <C-H> <BS>
+""" INSERT MODE swap ch[-2],ch[-1]
+inoremap <C-t> <Esc><Left>"zx"zpa
 
 """ PASTE MODE toggle
 set pastetoggle=<f2>           " Use <F2> for paste mode toggle
@@ -253,62 +255,50 @@ xnoremap Q :norm @q<cr>
 """ In NORMAL mode, SPACE is useless.  This has to be before <leader> usage.
 let mapleader = ' '
 
-""" Search always with very magic mode (:h /magic)
-"""   This is more ERE(Perl/Python)-like but not quite
-" https://vim.fandom.com/wiki/Simplifying_regular_expressions_using_magic_and_no-magic
-nnoremap / /\v
-xnoremap / /\v
-cnoremap %s/ %smagic/
-cnoremap \>s/ \>smagic/
-nnoremap :g/ :g/\v
-nnoremap :g// :g//
-""" NORMAL MODE
-""" Highlight word below (https://qiita.com/itmammoth/items/312246b4b7688875d023)
-nnoremap <silent> <leader><leader> "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
-"nnoremap <silent> <leader><leader> :let @/ = '\<' . expand('<cword>') . '\>'<CR>:set hlsearch<CR>
-""" Turn-off highlight and refresh screen as usual with <C-L>
-nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
-""" Change all (with confirmation), use <C-r>z to insert original
-nmap # <space><space>:%s/<C-r>///gc<Left><Left><Left>
-""" VISUAL MODE
-""" Highlight word below (https://qiita.com/itmammoth/items/312246b4b7688875d023)
-xnoremap <silent> <leader><leader> mz:call <SID>set_vsearch()<CR>:set hlsearch<CR>`z
-xnoremap * :<C-u>call <SID>set_vsearch()<CR>/<C-r>/<CR>
-xmap # <Space>:%s/<C-r>///gc<Left><Left><Left>
-"""
+nnoremap <leader>w          :wall<CR>
+
+""" Vim _line indent formatter
+nnoremap <leader>=         gg=G
+
+""" Vim folding disabled (Open all folds) (I can't remember all z-things)
+nnoremap <leader>z         zR
+
+""" # and * are interesting but it just moves only
+
+""" Highlight all where # and * takes to (NORMAL)
+nnoremap <silent> <leader><leader> "zyiw:let @/ = '\<' . @z . '\>' <CR>:set hlsearch<CR>
+""" Change all (with confirmation)
+
 function! s:set_vsearch()
+  " reselect the previous Visual area and put it into z-register
   silent normal gv"zy
+  " escape backslash and NL put it into search pattern
   let @/ = '\V' . substitute(escape(@z, '/\'), '\n', '\\n', 'g')
 endfunction
 
-""" ??? INSERT MODE swap ch[-2],ch[-1]
-inoremap <C-t> <Esc><Left>"zx"zpa
+""" Highlight all VISUAL selected exact string
+xnoremap <silent> <leader><leader> mz:call <SID>set_vsearch()<CR>:set hlsearch<CR>`z
 
-""" no z-register alternative
+""" Change all (with confirmation) @z @/ used
+nnoremap <leader>s :%s/<C-r>//<C-r>z/gc<Left><Left><Left>
+""" # and * like action can be done by / and ?
 
-" Manual strip whitespace with <leader>s (vim-better-whitespace)
-nnoremap <leader>s :StripWhitespace<cr>
+""" Turn-off highlight and refresh screen as usual with <C-L>
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 
-" TAB
-nnoremap <leader>1         1gt<CR>
-nnoremap <leader>2         2gt<CR>
-nnoremap <leader>3         3gt<CR>
-nnoremap <leader>4         4gt<CR>
-nnoremap <leader>5         5gt<CR>
-nnoremap <leader>6         6gt<CR>
-nnoremap <leader>7         7gt<CR>
-nnoremap <leader>8         8gt<CR>
-nnoremap <leader>9         9gt<CR>
+" Manual strip/delete whitespace with <leader>d (vim-better-whitespace)
+nnoremap <leader>d :StripWhitespace<cr>
 
-" NORMAL <-> TERM
-""" Use space-return to open terminal on current window
+""" NORMAL -> TERM: open terminal on current window
 nnoremap <leader><CR>      :term ++curwin<CR>
+""" See FZF above how TERM -> NORMAL: exit TERMINAL with <Esc>
 
 """ ALE: toggle _ALE activity
-nnoremap <leader>a         :ALEToggle<CR>
+nnoremap <leader>a        :ALEToggle<CR>
 
 """ Git-gutter: toggle G_it activity
-nnoremap <leader>i         :GitGutterToggle<CR>
+nnoremap <leader>gg        :GitGutterToggle<CR>
+""" Since other commands are <Leader>h*, I picked <Leader>hh
 " preview hunk with <Leader>hp
 " move to the preview window, e.g. :wincmd P / <C-W> P
 " undo hanks with <Leader>hu
@@ -317,11 +307,14 @@ nnoremap <leader>i         :GitGutterToggle<CR>
 " ac operates on all lines in the current hunk and any trailing empty lines.
 
 """ Fzf: CTRL-T:openTAB, CTRL-X:split-H, CTRL-V:split-V
+"
+"""   Already used <leader> commands: a gg s d w z = <Space> <Cr>
+"                           not used: eijklnopquy
 nnoremap <leader>b         :Buffers<CR>
 nnoremap <leader>c         :Colors<CR>
 nnoremap <leader>f         :Files<CR>
-nnoremap <leader>G         :GFiles<CR>
-nnoremap <leader>g         :GFiles?<CR>
+nnoremap <leader>gl        :GFiles<CR>
+nnoremap <leader>gs        :GFiles?<CR>
 nnoremap <leader>m         :Maps<CR>
 """   'ag' is 1 order of magnitude slower
 """   'ug' seems to be about the same speed as 'rg' (SMP aware)
@@ -333,18 +326,24 @@ nnoremap <leader>x         :Commands<CR>
 nnoremap <leader>/         :History/<CR>
 nnoremap <leader>:         :History:<CR>
 
-nnoremap <leader>B         :Btags<CR>
-nnoremap <leader>H         :Helptags<CR>
-nnoremap <leader>M         :Marks<CR>
-nnoremap <leader>T         :Filetypes<CR>
-nnoremap <leader>W         :Windows<CR>
+""" Not so useful (may change)
+nnoremap <leader>ht         :Helptags<CR>
+nnoremap <leader>mr         :Marks<CR>
+nnoremap <leader>wn         :Windows<CR>
 
-nnoremap <leader>w         :wall<CR>
+""" Doesn't seem to work
+"nnoremap <leader>B         :Btags<CR>
+"nnoremap <leader>T         :Filetypes<CR>
 
-""" Vim _line indent formatter
-nnoremap <leader>l         gg=G
-
-""" Vim folding disabled (Open all folds) (I can't remember all z-things)
-nnoremap <leader>z         zR
+" TAB
+nnoremap <leader>1         1gt<CR>
+nnoremap <leader>2         2gt<CR>
+nnoremap <leader>3         3gt<CR>
+nnoremap <leader>4         4gt<CR>
+nnoremap <leader>5         5gt<CR>
+nnoremap <leader>6         6gt<CR>
+nnoremap <leader>7         7gt<CR>
+nnoremap <leader>8         8gt<CR>
+nnoremap <leader>9         9gt<CR>
 
 " vim: set sw=2 sts=2 et ft=vim :
