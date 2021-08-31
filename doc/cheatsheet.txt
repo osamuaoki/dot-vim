@@ -1,34 +1,46 @@
 *cheatsheet.txt*   Cheat sheet for key strokes etc.
 
-Interesting commands:
+asd
+
+Interesting commands in NORMAL mode:
  * ga Get Unicode point (HEX etc.)
  * g8 Get Binary data HEX sequence
  * ^G Get cursor Position
  * {visual}g? ROT13
 
 KB MACRO:
- * “qq” to start recording MACRO
- * “qq” to quit recording MACRO
- * “Q” to apply MACRO
+ * “qq” to start recording MACRO in NORMAL mode
+ * “q” to quit recording MACRO in NORMAL mode
+ * “Q” to apply MACRO in NORMAL mode
 
 Sure NORMAL MODE (including TERMINAL-NORMAL MODE):
  * Esc Esc
 
-F1: Help
-F2: pastetoggle
+F1:  Help
+F2:  pastetoggle
+F6:  ひらがな
+F7:  カタカナ
+F8:  半角ｶﾀｶﾅ
+F9:  全角英数字
+F10: 半角英数字
+shift-space ローマ字かな入力（変換キー同様）
+ctrl-space  英数ダイレクト入力（無変換キー同様）
 
-ENACS; COMMAND MODE
-cnoremap <C-P> <Up>
-cnoremap <C-N> <Down>
-cnoremap <C-B> <Left>
-cnoremap <C-F> <Right>
-cnoremap <C-A> <Home>
-cnoremap <C-E> <End>
-"cnoremap <C-D> <Del>
-"inoremap <C-D> <Del>
+Shell/ENACS-like cursor pad key access
+
+                   COMMAND    INSERT     NORMAL
+<C-H> <BS>             Yes       Yes        Yes
+<C-D> <Del>           *Yes      *Yes         No
+<C-B> <Left>          *Yes      *Yes         No
+<C-F> <Right>         *Yes      *Yes         No
+<C-P> <Up>            *Yes        No         No
+<C-N> <Down>          *Yes        No         No
+<C-A> <Home>          *Yes        No         No
+<C-E> <End>           *Yes        No         No
+-- Here, '*' means user mapping
 
 ------------------------------------------------------------------------------
-Basics for normal mode:
+Keyboard usage hints (NORMAL MODE)
 >
  NORMAL MODE:        Goto BOF → gg      r Next Char
  screen                   n N # ?ααα   e / +-- End of Word (non-alnum)
@@ -46,7 +58,7 @@ Basics for normal mode:
       n N /ααα ?ααα - Find ααα  ^d --- Prev 1/2 Page   {visual}<  Indent ←
       n N *    # ---- Indicator ^f --- Next Page       {visual}=  Indent ⇆
       , ; tα   Tα --- Till α    /ααα - Find ααα * n N  {visual}gq Format Text
-      , ; fα   Fα --- Find α    G ---- Goto EOF
+      , ; fα   Fα --- Find α    G ---- Goto EOF        α=β for reformat α→β
    Next Prev   %  --- Match     [{ ]} [[ ]] [] ][ Look for {}
  Record: qα, End-Record: q, Play-Record: @α, Mark as α: mα, Jump to α: `α/'α
  Undo: u, Redo: ^r, Repeat: . , Fold: Open zo/zO/zr/zR, Close zc/zC/zm/zM

@@ -5,6 +5,8 @@
 """    * ~/.vim/gvimrc                       (for gvim, parsed after this)
 """    * ~/.vim/after/plugin/override.vim    (parsed after normal runtimepath)
 """
+" Enable airline (1: enable 150ms starup, 0: disable 50ms startup)
+let airline_enable=1
 """ basic customization
 set spelllang=en_us            " Spell check language as en_us
 set spell                      " Enable spell check
@@ -29,8 +31,22 @@ set fileencodings=          " force to read with fileencoding
 set viminfo=!,'100,<5000,s100,h " Bigger copy buffer etc. Default '100,<50,s10,h
 "set number                    " add linenumber
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" mini Scripts
+""" mini scripts (use vim's native feature)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" Use :grep
+if executable("rg")
+  " port https://www.vi-improved.org/recommendations/ to rg
+  set grepprg=rg\ --no-heading\ --color=never\ --ignore-case\ --column
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
+""" Start netrw if started as 'vim'-only without filename
+" Augroup VimStartup:
+augroup VimStartup
+  au!
+  au VimEnter * if expand("%") == "" | e . | endif
+augroup END
+
 """ Retain cursor position
 if has("autocmd")
   autocmd BufReadPost *
@@ -180,32 +196,23 @@ let g:gitgutter_enabled = 0 " initially disable gitgutter
 """ enable pack/github/opt/vim-airline
 """ enable pack/github/opt/vim-airline-themes
 """  - for checking UCS/Unicode code point, use 'ga' in NORMAL MODE
-packadd! vim-airline
-packadd! vim-airline-themes
-""" use hack as GUI terminal font
-if $TERM ==# "linux"
-  let g:airline_powerline_fonts = 0
-  let g:airline_symbols_ascii = 1
-else
-  let g:airline_powerline_fonts = 1
+if airline_enable
+  packadd! vim-airline
+  packadd! vim-airline-themes
+  "" use hack as GUI terminal font
+  if $TERM ==# "linux"
+    let g:airline_powerline_fonts = 0
+    let g:airline_symbols_ascii = 1
+  else
+    let g:airline_powerline_fonts = 1
+  endif
+  " Skip FileType: utf-8[unix]
+  let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 endif
-" Skip FileType: utf-8[unix]
-let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Key mapping
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remap for smarter command line (vim commandline-editting, vim-galore)
-" Shell/EMACS style cursor moves for COMMAND MODE
-cnoremap <C-A> <Home>
-cnoremap <C-E> <End>
-cnoremap <C-F> <Right>
-cnoremap <C-B> <Left>
-cnoremap <C-P> <Up>
-cnoremap <C-N> <Down>
-cnoremap <C-D> <Del>
-""" No need since this is given
-"cnoremap <C-H> <BS>
 """ INSERT MODE
 " Limited Shell/EMACS style cursor moves for INSERT MODE
 inoremap <C-F> <Right>
@@ -213,8 +220,20 @@ inoremap <C-B> <Left>
 inoremap <C-D> <Del>
 """ No need since this is given
 "inoremap <C-H> <BS>
-""" INSERT MODE swap ch[-2],ch[-1]
-inoremap <C-t> <Esc><Left>"zx"zpa
+" Shell/EMACS style cursor moves for COMMAND MODE
+cnoremap <C-F> <Right>
+cnoremap <C-B> <Left>
+cnoremap <C-D> <Del>
+""" No need since this is given
+"cnoremap <C-H> <BS>
+" Extra Shell/EMACS style cursor moves for COMMAND MODE (If no conflicts)
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
+
+""" INSERT MODE swap ch[-2],ch[-1] -- not worth to override bz=
+"inoremap <C-t> <Esc>xpa
 
 """ PASTE MODE toggle
 set pastetoggle=<f2>           " Use <F2> for paste mode toggle
@@ -230,6 +249,7 @@ xnoremap Q :norm @q<cr>
 """   demands
 let mapleader = ' '
 
+""" may be better typing :wa|q
 nnoremap <leader>wq        :wall<CR>:q<CR>
 
 """ Vim _line indent formatter, (I may change)

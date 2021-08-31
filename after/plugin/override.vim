@@ -24,10 +24,13 @@
 " CR/LF convention auto detection order
 "set fileformats=unix,dos,mac
 
+if exists('g:airline_symbols')
 " U+E0A3 is missing in hack, so here are the alternatives
 "let g:airline_symbols.colnr = '→'
 let g:airline_symbols.colnr = ''
+endif
 
+""" Keyboard timing
 "set timeoutlen=1000             " Mapping delay in ms, default 1000
 "set timeoutlen=10000          " TEST: slow Mapping delay in ms
 "set ttimeoutlen=10             " Keycode delay in ms, 1/10 of default 100
@@ -43,7 +46,7 @@ if ! exists('g:loaded_better_whitespace_plugin')
   endif
 endif
 " This must be the last setting. (light enough to run every time now)
-silent! helptags ALL
+"""""""""""""""""" silent! helptags ALL
 " filler to avoid the line above being recognized as a modeline
 " filler
 " filler
