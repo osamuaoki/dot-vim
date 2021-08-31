@@ -220,21 +220,24 @@ inoremap <C-t> <Esc><Left>"zx"zpa
 set pastetoggle=<f2>           " Use <F2> for paste mode toggle
 
 """ Key Board MACRO with q and Q
-""" Remap for "Q". "qq" to record MACRO to 'q', "qq" to quit, "Q" to apply
+""" Remap for "Q". "qq" to record MACRO to 'q', "q" to quit, "Q" to apply
 nnoremap Q @q
 xnoremap Q :norm @q<cr>
 
 """ Use <SPACE> as leader instead of '\' (set again to make sure)
 """ In NORMAL mode, SPACE is useless.  This has to be before <leader> usage.
+"""   Let's use this with mostly 2 chars combination to avoid colliding
+"""   demands
 let mapleader = ' '
 
-nnoremap <leader>w          :wall<CR>
+nnoremap <leader>wq        :wall<CR>:q<CR>
 
-""" Vim _line indent formatter
+""" Vim _line indent formatter, (I may change)
 nnoremap <leader>=         gg=G
 
-""" Vim folding disabled (Open all folds) (I can't remember all z-things)
-nnoremap <leader>z         zR
+""" Vim folding disabled (Open all folds)
+"""  I can't remember all z-things, just a temporary relief
+nnoremap <leader>z         zO
 
 """ # and * are interesting but it just moves only
 
@@ -253,21 +256,21 @@ endfunction
 xnoremap <silent> <leader><leader> mz:call <SID>set_vsearch()<CR>:set hlsearch<CR>`z
 
 """ Change all (with confirmation) @z @/ used
-nnoremap <leader>s :%s/<C-r>//<C-r>z/gc<Left><Left><Left>
+nnoremap <leader>sb :%s/<C-r>//<C-r>z/gc<Left><Left><Left>
 """ # and * like action can be done by / and ?
 
 """ Turn-off highlight and refresh screen as usual with <C-L>
 " vim-sensible.vim takes care
 
 " Manual strip/delete whitespace with <leader>d (vim-better-whitespace)
-nnoremap <leader>d :StripWhitespace<cr>
+nnoremap <leader>sw :StripWhitespace<cr>
 
 """ NORMAL -> TERM: open terminal on current window
 nnoremap <leader><CR>      :term ++curwin<CR>
 """ See FZF above how TERM -> NORMAL: exit TERMINAL with <Esc>
 
 """ ALE: toggle _ALE activity
-nnoremap <leader>a        :ALEToggle<CR>
+nnoremap <leader>al        :ALEToggle<CR>
 
 """ Git-gutter: toggle G_it activity
 nnoremap <leader>gg        :GitGutterToggle<CR>
@@ -283,21 +286,21 @@ nnoremap <leader>gg        :GitGutterToggle<CR>
 "
 """   Already used <leader> commands: a gg s d w z = <Space> <Cr>
 "                           not used: eijklnopquy
-nnoremap <leader>b         :Buffers<CR>
-nnoremap <leader>c         :Colors<CR>
-nnoremap <leader>f         :Files<CR>
-nnoremap <leader>gl        :GFiles<CR>
-nnoremap <leader>gs        :GFiles?<CR>
-nnoremap <leader>m         :Maps<CR>
+nnoremap <leader>fb         :Buffers<CR>
+nnoremap <leader>fc         :Colors<CR>
+nnoremap <leader>ff         :Files<CR>
+nnoremap <leader>gl         :GFiles<CR>
+nnoremap <leader>gs         :GFiles?<CR>
+nnoremap <leader>ff         :Maps<CR>
 """   'ag' is 1 order of magnitude slower
 """   'ug' seems to be about the same speed as 'rg' (SMP aware)
 """   'rg' git aware _--> Install 'ripgrep and use it with <leader>r
-nnoremap <leader>r         :Rg<CR>
-nnoremap <leader>t         :Tags<CR>
-nnoremap <leader>v         :History<CR>
-nnoremap <leader>x         :Commands<CR>
-nnoremap <leader>/         :History/<CR>
-nnoremap <leader>:         :History:<CR>
+nnoremap <leader>fr         :Rg<CR>
+nnoremap <leader>ft         :Tags<CR>
+nnoremap <leader>fv         :History<CR>
+nnoremap <leader>fx         :Commands<CR>
+nnoremap <leader>f/         :History/<CR>
+nnoremap <leader>f:         :History:<CR>
 
 """ Not so useful (may change)
 nnoremap <leader>ht         :Helptags<CR>
