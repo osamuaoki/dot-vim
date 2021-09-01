@@ -30,10 +30,11 @@ set fileencodings=          " force to read with fileencoding
 """ performance tunes
 set viminfo=!,'100,<5000,s100,h " Bigger copy buffer etc. Default '100,<50,s10,h
 "set number                    " add linenumber
+"set list                       " enable list feature (better to be off)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ mini scripts (use vim's native feature)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" Use :grep
+""" Use faster 'rg' for :grep
 if executable("rg")
   " port https://www.vi-improved.org/recommendations/ to rg
   set grepprg=rg\ --no-heading\ --color=never\ --ignore-case\ --column
@@ -47,7 +48,7 @@ augroup VimStartup
   au VimEnter * if expand("%") == "" | e . | endif
 augroup END
 
-""" Retain cursor position
+""" Retain cursor position: $VIMRUNTIME/vimrc_example.vim
 if has("autocmd")
   autocmd BufReadPost *
         \ if line("'\"") > 0 && line ("'\"") <= line("$") |
@@ -58,14 +59,15 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Plugins ('packadd!' adds optional path to 'runtimepath'.)
 """   - Use ':se rtp' to check 'runtimepath' in NORMAL
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" enable pack/github/opt/vim-sensible
-packadd! vim-sensible
-""" matchit is loaded by putting on the RTP
-""" You may think of `runtime! plugin/sensible.vim`
+""" packages from vim: /usr/share/vim/vim??/pack/dist/opt/*
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" Guard against modeline attack (modeline is off on Debian for user)
-""" enable pack/github/opt/securemodelines
+packadd! matchit
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" packages from vim-scripts: /usr/share/vim/vimfiles/pack/dist-bundle/opt/*
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if $USER == "root"
   " modeline off for root
   set noswapfile
@@ -75,14 +77,29 @@ else
   packadd! securemodelines
 endif
 
+" Simple but useful
+packadd! winmanager
+packadd! bufexplorer
+
+" If XML is not detected, ':set ft=xml'
+packadd! xmledit
+
+packadd! po
+
+
+packadd! gnupg
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" packages from github: pack/github/opt/*
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+packadd! vim-sensible
+""" You may think of `runtime! plugin/sensible.vim` to run here
+
 """ Syntax highlight and spellcheck to work together with dark color: murphy
-""" enable pack/github/opt/vim-spell-under
 packadd! vim-spell-under
 let g:colors_name = 'murphy'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" enable pack/github/opt/vim-better-whitespace
 if ! &list
   packadd! vim-better-whitespace
   " Use better_whitespace display (better than `:set list`)
@@ -101,27 +118,12 @@ if ! &list
   let g:strip_whitelines_at_eof=1
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" gnupg in vim-scripts
-""" enable /usr/share/vim/vimfiles/pack/dist-bundle/opt/gnupg
-packadd! gnupg
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" enable /usr/share/vim/vim??/pack/dist/opt/matchit
-packadd! matchit
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" enable pack/github/opt/vim-indent-guides
 packadd! vim-indent-guides
 let g:indent_guides_enable_on_vim_startup = 1
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""" enable pack/github/opt/orgmode
 "packadd! org-mode
 "let g:org_indent = 1
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""" enable pack/github/opt/ale
 packadd! ale
 if $ALE =~ '^[Nn]'
   " disable ALE by setting environment $ALE to N*
@@ -141,8 +143,7 @@ let g:ale_linters = {'python': ['flake8']} " RED (Use this, fast)
 "packadd! vim-lsp
 "packadd! vim-lsp-ale
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""" enable pack/github/opt/qlist
+
 packadd! qlist
 """ XXX let g:qlist_enabled = 0 " initially disable gitgutter
 """" Basic design: replace corresponding native `[I`, `]I`, `[D`, and `]D`
@@ -158,13 +159,9 @@ xmap <silent> ]I <Plug>QlistIncludefromherevisual
 xmap <silent> [D <Plug>QlistDefinefromtopvisual
 xmap <silent> ]D <Plug>QlistDefinefromherevisual
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""" enable pack/github/opt/fzf
-"""" enable pack/github/opt/fzf.vim
-""""  install fzf Debian package
+""""  XXX REQUIRED DEBs XXX fzf ripgrep
 packadd! fzf
 packadd! fzf.vim
-
 """ This avoid crashing fzf menu running in terminal
 """   https://github.com/junegunn/fzf.vim/issues/544
 """ <Esc><Esc> is just in case impatient for slow keycode delay
@@ -178,24 +175,18 @@ fun! RemapTerminalEsc()
       tnoremap <buffer> <Esc><Esc> <c-\><c-n>
     endif
 endfun
-
+"""
 augroup vimrc
   autocmd!
   autocmd BufEnter * silent! call RemapTerminalEsc()
 augroup END
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""" enable pack/github/opt/vim-gitgutter (Git)
-"""" enable pack/github/opt/vim-repeat    (Repeat .)
-packadd! vim-gitgutter
-packadd! vim-repeat
+packadd! vim-gitgutter    " for Git
+packadd! vim-repeat       " for Repeat with '.'
 let g:gitgutter_enabled = 0 " initially disable gitgutter
 " hank jump ']c' '[c'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" enable pack/github/opt/vim-airline
-""" enable pack/github/opt/vim-airline-themes
-"""  - for checking UCS/Unicode code point, use 'ga' in NORMAL MODE
+""" For checking UCS/Unicode code point, use 'ga' in NORMAL MODE
 if airline_enable
   packadd! vim-airline
   packadd! vim-airline-themes
@@ -209,6 +200,7 @@ if airline_enable
   " Skip FileType: utf-8[unix]
   let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 endif
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Key mapping
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -249,9 +241,6 @@ xnoremap Q :norm @q<cr>
 """   demands
 let mapleader = ' '
 
-""" may be better typing :wa|q
-nnoremap <leader>wq        :wall<CR>:q<CR>
-
 """ Vim _line indent formatter, (I may change)
 nnoremap <leader>=         gg=G
 
@@ -272,12 +261,12 @@ function! s:set_vsearch()
   let @/ = '\V' . substitute(escape(@z, '/\'), '\n', '\\n', 'g')
 endfunction
 
-""" Highlight all VISUAL selected exact string
+""" Highlight all VISUAL selected exact string to @/-register
 xnoremap <silent> <leader><leader> mz:call <SID>set_vsearch()<CR>:set hlsearch<CR>`z
+""" # and * like action can be done by '/' and '?' with '<C-r>/' (initially)
 
 """ Change all (with confirmation) @z @/ used
 nnoremap <leader>sb :%s/<C-r>//<C-r>z/gc<Left><Left><Left>
-""" # and * like action can be done by / and ?
 
 """ Turn-off highlight and refresh screen as usual with <C-L>
 " vim-sensible.vim takes care
@@ -287,7 +276,34 @@ nnoremap <leader>sw :StripWhitespace<cr>
 
 """ NORMAL -> TERM: open terminal on current window
 nnoremap <leader><CR>      :term ++curwin<CR>
-""" See FZF above how TERM -> NORMAL: exit TERMINAL with <Esc>
+""" See FZF above how TERM -> NORMAL is done safely with <Esc>
+
+""" WinManager: toggle _winmanager activity
+" use recommended key bindings with CTRL-W to
+" override CTRL-W CTRL-T   Move cursor to top-left window.
+"  CTRL-W t remains unchanged
+nnoremap <c-W><c-T>         :WMToggle<CR>
+nnoremap <leader>wm         :WMToggle<CR>
+" use recommended key bindings with CTRL-W to
+" override CTRL-W CTRL-F plit current window in two.  Edit file name under cursor.
+"  CTRL-W f remains unchanged
+nnoremap <c-W><c-F>         :FirstExplorerWindow<CR>
+nnoremap <leader>wf         :FirstExplorerWindow<CR>
+" use recommended key bindings with CTRL-W to
+" override CTRL-W CTRL-W   Without count: move cursor to window below/right of current one.
+"  CTRL-W b remains unchanged
+nnoremap <c-W><c-B>         :BottomExplorerWindow<CR>
+nnoremap <leader>wb         :BottomExplorerWindow<CR>
+
+""" BufExplorer
+""" To start exploring in the current window
+""" XXX NOT_USEFUL XXX nnoremap <Leader>be         :BufExplorer<CR>
+""" To toggle bufexplorer on or off in the current window
+nnoremap <Leader>bt         :ToggleBufExplorer<CR>
+""" To start exploring in a newly split horizontal window
+nnoremap <Leader>bs         :BufExplorerHorizontalSplit<CR>
+""" To start exploring in a newly split vertical window
+nnoremap <Leader>bv         :BufExplorerVerticalSplit<CR>
 
 """ ALE: toggle _ALE activity
 nnoremap <leader>al        :ALEToggle<CR>
@@ -298,7 +314,7 @@ nnoremap <leader>gg        :GitGutterToggle<CR>
 " preview hunk with <Leader>hp
 " move to the preview window, e.g. :wincmd P / <C-W> P
 " undo hanks with <Leader>hu
-""" Followngs ... I don't know what to do (use after 'd'?)
+""" Followngs seems to be used after 'd' etc)
 " ic operates on all lines in the current hunk.
 " ac operates on all lines in the current hunk and any trailing empty lines.
 
@@ -317,19 +333,19 @@ nnoremap <leader>ff         :Maps<CR>
 """   'rg' git aware _--> Install 'ripgrep and use it with <leader>r
 nnoremap <leader>fr         :Rg<CR>
 nnoremap <leader>ft         :Tags<CR>
+nnoremap <leader>fT         :Filetypes<CR>
 nnoremap <leader>fv         :History<CR>
 nnoremap <leader>fx         :Commands<CR>
 nnoremap <leader>f/         :History/<CR>
 nnoremap <leader>f:         :History:<CR>
 
 """ Not so useful (may change)
-nnoremap <leader>ht         :Helptags<CR>
-nnoremap <leader>mr         :Marks<CR>
-nnoremap <leader>wn         :Windows<CR>
+nnoremap <leader>fh         :Helptags<CR>
+nnoremap <leader>fm         :Marks<CR>
+nnoremap <leader>fw         :Windows<CR>
 
 """ Doesn't seem to work
-"nnoremap <leader>B         :Btags<CR>
-"nnoremap <leader>T         :Filetypes<CR>
+"nnoremap <leader>fB         :Btags<CR>
 
 " TAB
 nnoremap <leader>1         1gt<CR>
