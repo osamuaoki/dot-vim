@@ -29,16 +29,16 @@ Shift-Space ローマ字かな入力  （変換キー同様）
 Ctrl-Space  英数ダイレクト入力（無変換キー同様）
 
 CONTROL codes:
-                               REPLACE
-                    COMMAND    INSERT   NORMAL     (use)
+        Shell       TERMINAL  REPLACE
+        Emacs       COMMAND   INSERT    NORMAL      (use)
 <C-H>  <BS>         Yes       Yes       Yes
-<C-D>  <Del>       *Yes      *Yes       (scrl-down/2) x
-<C-B>  <Left>      *Yes      *Yes       (scrl-up)     h
-<C-F>  <Right>     *Yes      *Yes       (pagedown)    l
-<C-P>  <Up>        *Yes       No        (up)          k
-<C-N>  <Down>      *Yes       No        (nl)          j
-<C-A>  <Home>      *Yes       No        (add number)  0
-<C-E>  <End>       *Yes       No        (scrl-down)   $
+<C-D>  <Del>       *Yes       No        (scrl-down/2) x
+<C-B>  <Left>      *Yes       No        (scrl-up)     h
+<C-F>  <Right>     *Yes       No        (pagedown)    l
+<C-P>  <Up>         No        No        (up)          k
+<C-N>  <Down>       No        No        (nl)          j
+<C-A>  <Home>       No        No        (add number)  0
+<C-E>  <End>        No        No        (scrl-down)   $
 <C-W>  Erase_word   Yes       Yes       (window)
 <C-U>  Rubout       Yes       Yes       (scrl-up)
 <Esc>               NORMAL    NORMAL    NORMAL

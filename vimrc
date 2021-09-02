@@ -125,10 +125,6 @@ let g:indent_guides_enable_on_vim_startup = 1
 "let g:org_indent = 1
 
 packadd! ale
-if $ALE =~ '^[Nn]'
-  " disable ALE by setting environment $ALE to N*
-  let g:ale_enabled = 0 " initially disable ALE.
-endif
 "let g:ale_enabled = 0 " initially disable ALE.
 " ---- if enabled, linters are ON upon writing file
 let g:ale_lint_on_text_changed = 'never' " No linters upon change
@@ -139,6 +135,7 @@ let g:ale_linters = {'python': ['flake8']} " RED (Use this, fast)
 "let g:ale_linters = {'python': ['flake8', 'pylint']} "
 "let g:ale_linters = {'python': ['pylint']} " YELLOW (MANY)
 "let g:ale_linters = {'python': ['mypy']}
+
 """ Think about LSP later (not used now)
 "packadd! vim-lsp
 "packadd! vim-lsp-ale
@@ -149,33 +146,33 @@ packadd! qlist
 """" Basic design: replace corresponding native `[I`, `]I`, `[D`, and `]D`
 """"
 """" NORMAL MODE
-nmap <silent> [I <Plug>QlistIncludefromtop
-nmap <silent> ]I <Plug>QlistIncludefromhere
-nmap <silent> [D <Plug>QlistDefinefromtop
-nmap <silent> ]D <Plug>QlistDefinefromhere
-"""" VISUAL MODE
-xmap <silent> [I <Plug>QlistIncludefromtopvisual
-xmap <silent> ]I <Plug>QlistIncludefromherevisual
-xmap <silent> [D <Plug>QlistDefinefromtopvisual
-xmap <silent> ]D <Plug>QlistDefinefromherevisual
+"nmap <silent> [I <Plug>QlistIncludefromtop
+"nmap <silent> ]I <Plug>QlistIncludefromhere
+"nmap <silent> [D <Plug>QlistDefinefromtop
+"nmap <silent> ]D <Plug>QlistDefinefromhere
+""""" VISUAL MODE
+"xmap <silent> [I <Plug>QlistIncludefromtopvisual
+"xmap <silent> ]I <Plug>QlistIncludefromherevisual
+"xmap <silent> [D <Plug>QlistDefinefromtopvisual
+"xmap <silent> ]D <Plug>QlistDefinefromherevisual
 
 """"  XXX REQUIRED DEBs XXX fzf ripgrep
 packadd! fzf
 packadd! fzf.vim
+
 """ This avoid crashing fzf menu running in terminal
 """   https://github.com/junegunn/fzf.vim/issues/544
-""" <Esc><Esc> is just in case impatient for slow keycode delay
 """   https://vi.stackexchange.com/questions/2614/why-does-this-esc-normal-mode-mapping-affect-startup
 """   https://vi.stackexchange.com/questions/24925/usage-of-timeoutlen-and-ttimeoutlen
+
 fun! RemapTerminalEsc()
     if &ft =~ 'fzf'
       silent! tunmap <buffer> <Esc>
     else
-      tnoremap <buffer> <Esc> <c-\><c-n>
-      tnoremap <buffer> <Esc><Esc> <c-\><c-n>
+      " If <Esc> is typed slowly, it can skip this.  (compromise)
+      silent! tnoremap <buffer> <Esc><Esc> <c-\><c-n>
     endif
 endfun
-"""
 augroup vimrc
   autocmd!
   autocmd BufEnter * silent! call RemapTerminalEsc()
@@ -205,27 +202,18 @@ endif
 """ Key mapping
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remap for smarter command line (vim commandline-editing, vim-galore)
-""" INSERT MODE
-" Limited Shell/EMACS style cursor moves for INSERT MODE
-inoremap <C-F> <Right>
-inoremap <C-B> <Left>
-inoremap <C-D> <Del>
-""" No need since this is given
-"inoremap <C-H> <BS>
 " Shell/EMACS style cursor moves for COMMAND MODE
 cnoremap <C-F> <Right>
 cnoremap <C-B> <Left>
 cnoremap <C-D> <Del>
 """ No need since this is given
 "cnoremap <C-H> <BS>
-" Extra Shell/EMACS style cursor moves for COMMAND MODE (If no conflicts found)
-cnoremap <C-A> <Home>
-cnoremap <C-E> <End>
-cnoremap <C-P> <Up>
-cnoremap <C-N> <Down>
-
-""" INSERT MODE swap ch[-2],ch[-1] -- not worth to override bz=
-"inoremap <C-t> <Esc>xpa
+" Shell/EMACS style cursor moves for TERMINAL-JOB MODE
+tnoremap <C-F> <Right>
+tnoremap <C-B> <Left>
+tnoremap <C-D> <Del>
+""" No need since this is given
+"tnoremap <C-H> <BS>
 
 """ Key Board MACRO with q and Q
 """ Remap for "Q". "qq" to record MACRO to 'q', "q" to quit, "Q" to apply
@@ -261,14 +249,13 @@ nnoremap <leader>=         gg=G
 """  I can't remember all z-things, just a temporary relief
 nnoremap <leader>z         zO
 
-"""" Highlight all where # and * takes to (NORMAL) (yank word below)
+"""" Select a word below cursor and set search/replace/highlight (NORMAL)
 nnoremap <silent> <leader><leader> yiw:let @/ = '\<' . '<C-R>"' . '\>' <CR>:set hlsearch<CR>
 
-""" Highlight all VISUAL selected exact string to @/ register
-""" (Don't include ' in it)
-xnoremap <silent> <leader><leader> y:let @/ = '\V' . escape( '<C-R>"', '\')<CR>:set hlsearch<CR>
+"""" Select highlighted section and set search/replace/highlight (VISUAL)
+xnoremap <silent> <leader><leader> y:let @/ = '\V' . escape('<C-R>"', '\')<CR>:set hlsearch<CR>
 
-""" Substitute All (with confirmation) template (deal odd chars manually)
+""" Substitute-All template (with manual setting and confirmation)
 nnoremap <leader>sa :%s%<C-r>/%<C-r>"%gc<Left><Left><Left>
 
 """ Turn-off highlight and refresh screen as usual with <C-L>
@@ -307,30 +294,8 @@ nnoremap <leader>9         9gt<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """" <leader> + 2 chars
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-function! s:set_spell_syntax()
-  " cycle 4132
-  if &spell == 0 && ! exists('g:syntax_on')
-    set nospell
-    syntax enable
-    echom '1) spell off->off, syntax NA -> enable'
-  elseif &spell != 0 && ! exists('g:syntax_on')
-    set spell
-    syntax enable
-    echom '2) spell on -> on, syntax NA -> enable'
-  elseif &spell == 0 && exists('g:syntax_on') && g:syntax_on != 0
-    set spell
-    syntax off
-    echom '3) spell off->on, syntax on=1->off'
-  else " &spell != 0 && exists('g:syntax_on') && g:syntax_on != 0
-    set nospell
-    syntax off
-    echom '4) spell on -> off, syntax on=1 -> off'
-  endif
-endfunction
-
-" Rotate spell/syntax mode
-nnoremap <leader>ss :call <SID>set_spell_syntax()<CR>
+"" Rotate spell/syntax mode (default)
+"nmap <leader>ss <Plug>RotateSpellSyntax
 
 " Manual strip/delete whitespace on end of line with <leader>l (vim-better-whitespace)
 nnoremap <leader>sw :StripWhitespace<cr>
