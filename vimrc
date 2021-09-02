@@ -84,8 +84,8 @@ packadd! bufexplorer
 " If XML is not detected, ':set ft=xml'
 packadd! xmledit
 
+" If XML is not detected, ':set ft=po' ?
 packadd! po
-
 
 packadd! gnupg
 
@@ -204,7 +204,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Key mapping
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap for smarter command line (vim commandline-editting, vim-galore)
+" Remap for smarter command line (vim commandline-editing, vim-galore)
 """ INSERT MODE
 " Limited Shell/EMACS style cursor moves for INSERT MODE
 inoremap <C-F> <Right>
@@ -218,7 +218,7 @@ cnoremap <C-B> <Left>
 cnoremap <C-D> <Del>
 """ No need since this is given
 "cnoremap <C-H> <BS>
-" Extra Shell/EMACS style cursor moves for COMMAND MODE (If no conflicts)
+" Extra Shell/EMACS style cursor moves for COMMAND MODE (If no conflicts found)
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 cnoremap <C-P> <Up>
@@ -227,19 +227,22 @@ cnoremap <C-N> <Down>
 """ INSERT MODE swap ch[-2],ch[-1] -- not worth to override bz=
 "inoremap <C-t> <Esc>xpa
 
-""" PASTE MODE toggle
-set pastetoggle=<f2>           " Use <F2> for paste mode toggle
-
 """ Key Board MACRO with q and Q
 """ Remap for "Q". "qq" to record MACRO to 'q', "q" to quit, "Q" to apply
 nnoremap Q @q
 xnoremap Q :norm @q<cr>
 
 """ Use <SPACE> as leader instead of '\' (set again to make sure)
-""" In NORMAL mode, SPACE is useless.  This has to be before <leader> usage.
-"""   Let's use this with mostly 2 chars combination to avoid colliding
-"""   demands
+""" In NORMAL mode, SPACE is useless and good to be used for mapleader.
+""" Let's use <SPACE> with mostly 2-char combinations to avoid colliding
+""" demands.  Frequent commands use repeated key sequences.
+
 let mapleader = ' '
+
+""" PASTE MODE toggle
+" Use ' p' in NORMAL MODE for paste mode toggle
+"set pastetoggle=<f2>           " Use <F2> for paste mode toggle
+set pastetoggle=<leader>p
 
 """ Vim _line indent formatter, (I may change)
 nnoremap <leader>=         gg=G
@@ -248,65 +251,67 @@ nnoremap <leader>=         gg=G
 """  I can't remember all z-things, just a temporary relief
 nnoremap <leader>z         zO
 
-""" # and * are interesting but it just moves only
+"""" Highlight all where # and * takes to (NORMAL) (yank word below)
+nnoremap <silent> <leader><leader> yiw:let @/ = '\<' . '<C-R>"' . '\>' <CR>:set hlsearch<CR>
 
-""" Highlight all where # and * takes to (NORMAL)
-nnoremap <silent> <leader><leader> "zyiw:let @/ = '\<' . @z . '\>' <CR>:set hlsearch<CR>
-""" Change all (with confirmation)
+""" Highlight all VISUAL selected exact string to @/ register
+""" (Don't include ' in it)
+xnoremap <silent> <leader><leader> y:let @/ = '\V' . escape( '<C-R>"', '\')<CR>:set hlsearch<CR>
 
-function! s:set_vsearch()
-  " reselect the previous Visual area and put it into z-register
-  silent normal gv"zy
-  " escape backslash and NL put it into search pattern
-  let @/ = '\V' . substitute(escape(@z, '/\'), '\n', '\\n', 'g')
+""" Substitute All (with confirmation) template (deal odd chars manually)
+nnoremap <leader>sa :%s%<C-r>/%<C-r>"%gc<Left><Left><Left>
+
+function! s:set_spell_syntax()
+  " cycle 4132
+  if &spell == 0 && ! exists('g:syntax_on')
+    set nospell
+    syntax enable
+    echom '1) spell off->off, syntax NA -> enable'
+  elseif &spell != 0 && ! exists('g:syntax_on')
+    set spell
+    syntax enable
+    echom '2) spell on -> on, syntax NA -> enable'
+  elseif &spell == 0 && exists('g:syntax_on') && g:syntax_on != 0
+    set spell
+    syntax off
+    echom '3) spell off->on, syntax on=1->off'
+  else " &spell != 0 && exists('g:syntax_on') && g:syntax_on != 0
+    set nospell
+    syntax off
+    echom '4) spell on -> off, syntax on=1 -> off'
+  endif
 endfunction
 
-""" Highlight all VISUAL selected exact string to @/-register
-xnoremap <silent> <leader><leader> mz:call <SID>set_vsearch()<CR>:set hlsearch<CR>`z
-""" # and * like action can be done by '/' and '?' with '<C-r>/' (initially)
-
-""" Change all (with confirmation) @z @/ used
-nnoremap <leader>sb :%s/<C-r>//<C-r>z/gc<Left><Left><Left>
+" Rotate spell/syntax mode
+nnoremap <leader>s :call <SID>set_spell_syntax()<CR>
 
 """ Turn-off highlight and refresh screen as usual with <C-L>
 " vim-sensible.vim takes care
 
-" Manual strip/delete whitespace with <leader>d (vim-better-whitespace)
-nnoremap <leader>sw :StripWhitespace<cr>
+" Manual strip/delete whitespace on end of line with <leader>l (vim-better-whitespace)
+nnoremap <leader>l :StripWhitespace<cr>
 
 """ NORMAL -> TERM: open terminal on current window
 nnoremap <leader><CR>      :term ++curwin<CR>
 """ See FZF above how TERM -> NORMAL is done safely with <Esc>
 
 """ WinManager: toggle _winmanager activity
-" use recommended key bindings with CTRL-W to
-" override CTRL-W CTRL-T   Move cursor to top-left window.
-"  CTRL-W t remains unchanged
-nnoremap <c-W><c-T>         :WMToggle<CR>
-nnoremap <leader>wm         :WMToggle<CR>
-" use recommended key bindings with CTRL-W to
-" override CTRL-W CTRL-F plit current window in two.  Edit file name under cursor.
-"  CTRL-W f remains unchanged
-nnoremap <c-W><c-F>         :FirstExplorerWindow<CR>
+nnoremap <leader>ww         :WMToggle<CR>
 nnoremap <leader>wf         :FirstExplorerWindow<CR>
-" use recommended key bindings with CTRL-W to
-" override CTRL-W CTRL-W   Without count: move cursor to window below/right of current one.
-"  CTRL-W b remains unchanged
-nnoremap <c-W><c-B>         :BottomExplorerWindow<CR>
 nnoremap <leader>wb         :BottomExplorerWindow<CR>
 
 """ BufExplorer
 """ To start exploring in the current window
 """ XXX NOT_USEFUL XXX nnoremap <Leader>be         :BufExplorer<CR>
-""" To toggle bufexplorer on or off in the current window
-nnoremap <Leader>bt         :ToggleBufExplorer<CR>
-""" To start exploring in a newly split horizontal window
+""" Toggle bufexplorer on or off in the current window
+nnoremap <Leader>bb         :ToggleBufExplorer<CR>
+""" Start exploring in a newly split horizontal window
 nnoremap <Leader>bs         :BufExplorerHorizontalSplit<CR>
-""" To start exploring in a newly split vertical window
+""" Start exploring in a newly split vertical window
 nnoremap <Leader>bv         :BufExplorerVerticalSplit<CR>
 
 """ ALE: toggle _ALE activity
-nnoremap <leader>al        :ALEToggle<CR>
+nnoremap <leader>aa        :ALEToggle<CR>
 
 """ Git-gutter: toggle G_it activity
 nnoremap <leader>gg        :GitGutterToggle<CR>
@@ -314,23 +319,22 @@ nnoremap <leader>gg        :GitGutterToggle<CR>
 " preview hunk with <Leader>hp
 " move to the preview window, e.g. :wincmd P / <C-W> P
 " undo hanks with <Leader>hu
-""" Followngs seems to be used after 'd' etc)
+""" Followings seems to be used after 'd' etc)
 " ic operates on all lines in the current hunk.
 " ac operates on all lines in the current hunk and any trailing empty lines.
 
+""" FZF are somewhat too much but I will keep it just in case I need it.
 """ Fzf: CTRL-T:openTAB, CTRL-X:split-H, CTRL-V:split-V
-"
-"""   Already used <leader> commands: a gg s d w z = <Space> <Cr>
-"                           not used: eijklnopquy
+"""      Assign mostly <leader>-f? commands
 nnoremap <leader>fb         :Buffers<CR>
 nnoremap <leader>fc         :Colors<CR>
 nnoremap <leader>ff         :Files<CR>
 nnoremap <leader>gl         :GFiles<CR>
 nnoremap <leader>gs         :GFiles?<CR>
-nnoremap <leader>ff         :Maps<CR>
+nnoremap <leader>fm         :Maps<CR>
 """   'ag' is 1 order of magnitude slower
 """   'ug' seems to be about the same speed as 'rg' (SMP aware)
-"""   'rg' git aware _--> Install 'ripgrep and use it with <leader>r
+"""   'rg' git aware _--> Install 'ripgrep' and use it
 nnoremap <leader>fr         :Rg<CR>
 nnoremap <leader>ft         :Tags<CR>
 nnoremap <leader>fT         :Filetypes<CR>
@@ -341,7 +345,7 @@ nnoremap <leader>f:         :History:<CR>
 
 """ Not so useful (may change)
 nnoremap <leader>fh         :Helptags<CR>
-nnoremap <leader>fm         :Marks<CR>
+nnoremap <leader>fM         :Marks<CR>
 nnoremap <leader>fw         :Windows<CR>
 
 """ Doesn't seem to work
