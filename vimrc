@@ -142,25 +142,25 @@ let g:ale_linters = {'python': ['flake8']} " RED (Use this, fast)
 
 
 packadd! qlist
-""" XXX let g:qlist_enabled = 0 " initially disable gitgutter
-"""" Basic design: replace corresponding native `[I`, `]I`, `[D`, and `]D`
-""""
-"""" NORMAL MODE
-"nmap <silent> [I <Plug>QlistIncludefromtop
-"nmap <silent> ]I <Plug>QlistIncludefromhere
-"nmap <silent> [D <Plug>QlistDefinefromtop
-"nmap <silent> ]D <Plug>QlistDefinefromhere
-""""" VISUAL MODE
-"xmap <silent> [I <Plug>QlistIncludefromtopvisual
-"xmap <silent> ]I <Plug>QlistIncludefromherevisual
-"xmap <silent> [D <Plug>QlistDefinefromtopvisual
-"xmap <silent> ]D <Plug>QlistDefinefromherevisual
+""" XXX let g:qlist_enabled = 0 " initially disable this
+""" Basic design: replace corresponding native `[I`, `]I`, `[D`, and `]D`
+"""
+""" NORMAL MODE
+nmap <silent> [I <Plug>QlistIncludefromtop
+nmap <silent> ]I <Plug>QlistIncludefromhere
+nmap <silent> [D <Plug>QlistDefinefromtop
+nmap <silent> ]D <Plug>QlistDefinefromhere
+"""" VISUAL MODE
+xmap <silent> [I <Plug>QlistIncludefromtopvisual
+xmap <silent> ]I <Plug>QlistIncludefromherevisual
+xmap <silent> [D <Plug>QlistDefinefromtopvisual
+xmap <silent> ]D <Plug>QlistDefinefromherevisual
 
 """"  XXX REQUIRED DEBs XXX fzf ripgrep
 packadd! fzf
 packadd! fzf.vim
 
-""" This avoid crashing fzf menu running in terminal
+""" This avoid crashing fzf menu running in terminal with escape
 """   https://github.com/junegunn/fzf.vim/issues/544
 """   https://vi.stackexchange.com/questions/2614/why-does-this-esc-normal-mode-mapping-affect-startup
 """   https://vi.stackexchange.com/questions/24925/usage-of-timeoutlen-and-ttimeoutlen

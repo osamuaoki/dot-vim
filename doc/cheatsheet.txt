@@ -29,24 +29,24 @@ Shift-Space ローマ字かな入力  （変換キー同様）
 Ctrl-Space  英数ダイレクト入力（無変換キー同様）
 
 CONTROL codes:
-        Shell       TERMINAL  REPLACE
-        Emacs       COMMAND   INSERT    NORMAL      (use)
-<C-H>  <BS>         Yes       Yes       Yes
-<C-D>  <Del>       *Yes       No        (scrl-down/2) x
-<C-B>  <Left>      *Yes       No        (scrl-up)     h
-<C-F>  <Right>     *Yes       No        (pagedown)    l
-<C-P>  <Up>         No        No        (up)          k
-<C-N>  <Down>       No        No        (nl)          j
-<C-A>  <Home>       No        No        (add number)  0
-<C-E>  <End>        No        No        (scrl-down)   $
-<C-W>  Erase_word   Yes       Yes       (window)
-<C-U>  Rubout       Yes       Yes       (scrl-up)
-<Esc>               NORMAL    NORMAL    NORMAL
-<C-R>               ----      Ins_reg   Redo
 
-                              Register:
-                               '/'     search pattern
-                               '"'     delete or yank
+          Shell        _________VIM________________________
+          Emacs        TERMINAL  REPLACE   NORMAL      (use)
+                                 INSERT                (vim)
+<C-H>    <BS>          Yes       Yes       Yes
+<C-D>    <Del>        *Yes       No        (scrl-down/2) x
+<C-B>    <Left>       *Yes       No        (scrl-up)     h
+<C-F>    <Right>      *Yes       No        (pagedown)    l
+<C-P>    <Up>          No        No        (up)          k
+<C-N>    <Down>        No        No        (nl)          j
+<C-A>    <Home>        No        No        (add number)  0
+<C-E>    <End>         No        No        (scrl-down)   $
+<C-W>    Erase_word    Yes       Yes       (window)
+<C-U>    Rubout        Yes       Yes       (scrl-up)
+<Esc>                  NORMAL    NORMAL    NORMAL
+<C-R>    (history)     ----      Ins_reg   Redo
+
+    Register: '/' search pattern, '"' delete or yank
 
    -- Here, '*' means user mapping required
 ------------------------------------------------------------------------------
