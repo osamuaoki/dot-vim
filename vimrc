@@ -166,12 +166,12 @@ packadd! fzf.vim
 """   https://vi.stackexchange.com/questions/24925/usage-of-timeoutlen-and-ttimeoutlen
 
 fun! RemapTerminalEsc()
-    if &ft =~ 'fzf'
-      silent! tunmap <buffer> <Esc>
-    else
-      " If <Esc> is typed slowly, it can skip this.  (compromise)
-      silent! tnoremap <buffer> <Esc><Esc> <c-\><c-n>
-    endif
+  if &ft =~ 'fzf'
+    silent! tunmap <buffer> <Esc>
+  else
+    " If <Esc> is typed slowly, it can skip this.  (compromise)
+    silent! tnoremap <buffer> <Esc><Esc> <c-\><c-n>
+  endif
 endfun
 augroup vimrc
   autocmd!
