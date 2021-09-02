@@ -239,10 +239,20 @@ xnoremap Q :norm @q<cr>
 
 let mapleader = ' '
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" <leader> + 1 char
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 """ PASTE MODE toggle
 " Use ' p' in NORMAL MODE for paste mode toggle
 "set pastetoggle=<f2>           " Use <F2> for paste mode toggle
 set pastetoggle=<leader>p
+
+""" Window move (without CTRL-W ... Dangerous for INSERT mode)
+nnoremap <leader>h <C-W>h
+nnoremap <leader>j <C-W>j
+nnoremap <leader>k <C-W>k
+nnoremap <leader>l <C-W>l
 
 """ Vim _line indent formatter, (I may change)
 nnoremap <leader>=         gg=G
@@ -260,6 +270,43 @@ xnoremap <silent> <leader><leader> y:let @/ = '\V' . escape( '<C-R>"', '\')<CR>:
 
 """ Substitute All (with confirmation) template (deal odd chars manually)
 nnoremap <leader>sa :%s%<C-r>/%<C-r>"%gc<Left><Left><Left>
+
+""" Turn-off highlight and refresh screen as usual with <C-L>
+" vim-sensible.vim takes care
+
+""" NORMAL -> TERM: open terminal on current window
+nnoremap <leader><CR>      :term ++curwin<CR>
+""" See FZF above how TERM -> NORMAL is done safely with <Esc>
+
+""" WinManager: toggle _winmanager activity
+nnoremap <leader>w         :WMToggle<CR>
+"nnoremap <leader>wf         :FirstExplorerWindow<CR>
+"nnoremap <leader>wb         :BottomExplorerWindow<CR>
+
+""" BufExplorer
+""" To start exploring in the current window
+nnoremap <Leader>b         :ToggleBufExplorer<CR>
+""" Start exploring in a newly split horizontal window
+"nnoremap <Leader>bs         :BufExplorerHorizontalSplit<CR>
+""" Start exploring in a newly split vertical window
+"nnoremap <Leader>bv         :BufExplorerVerticalSplit<CR>
+""" XXX NOT_USEFUL XXX nnoremap <Leader>be         :BufExplorer<CR>
+""" Toggle bufexplorer on or off in the current window
+
+" TAB
+nnoremap <leader>1         1gt<CR>
+nnoremap <leader>2         2gt<CR>
+nnoremap <leader>3         3gt<CR>
+nnoremap <leader>4         4gt<CR>
+nnoremap <leader>5         5gt<CR>
+nnoremap <leader>6         6gt<CR>
+nnoremap <leader>7         7gt<CR>
+nnoremap <leader>8         8gt<CR>
+nnoremap <leader>9         9gt<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" <leader> + 2 chars
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! s:set_spell_syntax()
   " cycle 4132
@@ -283,32 +330,10 @@ function! s:set_spell_syntax()
 endfunction
 
 " Rotate spell/syntax mode
-nnoremap <leader>s :call <SID>set_spell_syntax()<CR>
-
-""" Turn-off highlight and refresh screen as usual with <C-L>
-" vim-sensible.vim takes care
+nnoremap <leader>ss :call <SID>set_spell_syntax()<CR>
 
 " Manual strip/delete whitespace on end of line with <leader>l (vim-better-whitespace)
-nnoremap <leader>l :StripWhitespace<cr>
-
-""" NORMAL -> TERM: open terminal on current window
-nnoremap <leader><CR>      :term ++curwin<CR>
-""" See FZF above how TERM -> NORMAL is done safely with <Esc>
-
-""" WinManager: toggle _winmanager activity
-nnoremap <leader>ww         :WMToggle<CR>
-nnoremap <leader>wf         :FirstExplorerWindow<CR>
-nnoremap <leader>wb         :BottomExplorerWindow<CR>
-
-""" BufExplorer
-""" To start exploring in the current window
-""" XXX NOT_USEFUL XXX nnoremap <Leader>be         :BufExplorer<CR>
-""" Toggle bufexplorer on or off in the current window
-nnoremap <Leader>bb         :ToggleBufExplorer<CR>
-""" Start exploring in a newly split horizontal window
-nnoremap <Leader>bs         :BufExplorerHorizontalSplit<CR>
-""" Start exploring in a newly split vertical window
-nnoremap <Leader>bv         :BufExplorerVerticalSplit<CR>
+nnoremap <leader>sw :StripWhitespace<cr>
 
 """ ALE: toggle _ALE activity
 nnoremap <leader>aa        :ALEToggle<CR>
@@ -324,6 +349,8 @@ nnoremap <leader>gg        :GitGutterToggle<CR>
 " ac operates on all lines in the current hunk and any trailing empty lines.
 
 """ FZF are somewhat too much but I will keep it just in case I need it.
+""" I don't think I can remember all these ...
+"""
 """ Fzf: CTRL-T:openTAB, CTRL-X:split-H, CTRL-V:split-V
 """      Assign mostly <leader>-f? commands
 nnoremap <leader>fb         :Buffers<CR>
@@ -350,16 +377,5 @@ nnoremap <leader>fw         :Windows<CR>
 
 """ Doesn't seem to work
 "nnoremap <leader>fB         :Btags<CR>
-
-" TAB
-nnoremap <leader>1         1gt<CR>
-nnoremap <leader>2         2gt<CR>
-nnoremap <leader>3         3gt<CR>
-nnoremap <leader>4         4gt<CR>
-nnoremap <leader>5         5gt<CR>
-nnoremap <leader>6         6gt<CR>
-nnoremap <leader>7         7gt<CR>
-nnoremap <leader>8         8gt<CR>
-nnoremap <leader>9         9gt<CR>
 
 " vim: set sw=2 sts=2 et ft=vim :
