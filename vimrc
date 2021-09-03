@@ -167,7 +167,7 @@ packadd! fzf.vim
 
 fun! RemapTerminalEsc()
   if &ft =~ 'fzf'
-    silent! tunmap <buffer> <Esc>
+    silent! tunmap <buffer> <Esc><Esc>
   else
     " If <Esc> is typed slowly, it can skip this.  (compromise)
     silent! tnoremap <buffer> <Esc><Esc> <c-\><c-n>
@@ -206,19 +206,21 @@ endif
 cnoremap <C-F> <Right>
 cnoremap <C-B> <Left>
 cnoremap <C-D> <Del>
-""" No need since this is given
-"cnoremap <C-H> <BS>
 " Shell/EMACS style cursor moves for TERMINAL-JOB MODE
 tnoremap <C-F> <Right>
 tnoremap <C-B> <Left>
 tnoremap <C-D> <Del>
-""" No need since this is given
-"tnoremap <C-H> <BS>
 
 """ Key Board MACRO with q and Q
 """ Remap for "Q". "qq" to record MACRO to 'q', "q" to quit, "Q" to apply
 nnoremap Q @q
 xnoremap Q :norm @q<cr>
+
+nnoremap <F2> @2
+xnoremap <F2> :norm @2<cr>
+
+nnoremap <F3> @3
+xnoremap <F3> :norm @3<cr>
 
 """ Use <SPACE> as leader instead of '\' (set again to make sure)
 """ In NORMAL mode, SPACE is useless and good to be used for mapleader.
@@ -280,6 +282,9 @@ nnoremap <Leader>b         :ToggleBufExplorer<CR>
 """ XXX NOT_USEFUL XXX nnoremap <Leader>be         :BufExplorer<CR>
 """ Toggle bufexplorer on or off in the current window
 
+" Strip whitespace on EOL (vim-better-whitespace)
+nnoremap <leader>e :StripWhitespace<cr>
+
 " TAB
 nnoremap <leader>1         1gt<CR>
 nnoremap <leader>2         2gt<CR>
@@ -296,9 +301,6 @@ nnoremap <leader>9         9gt<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" Rotate spell/syntax mode (default)
 "nmap <leader>ss <Plug>RotateSpellSyntax
-
-" Manual strip/delete whitespace on end of line with <leader>l (vim-better-whitespace)
-nnoremap <leader>sw :StripWhitespace<cr>
 
 """ ALE: toggle _ALE activity
 nnoremap <leader>aa        :ALEToggle<CR>
