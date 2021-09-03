@@ -211,6 +211,11 @@ tnoremap <C-F> <Right>
 tnoremap <C-B> <Left>
 tnoremap <C-D> <Del>
 
+""" Offer original <C-F> to start COMMAND NORMAL HISTORY MODE
+""" can be started from CTRL-O
+""" (another unused CONTROL character alternative is CTRL-X)
+exe "set cedit=\<C-O>"
+
 """ Key Board MACRO with q and Q
 """ Remap for "Q". "qq" to record MACRO to 'q', "q" to quit, "Q" to apply
 nnoremap Q @q
@@ -257,8 +262,8 @@ nnoremap <silent> <leader><leader> yiw:let @/ = '\<' . '<C-R>"' . '\>' <CR>:set 
 """" Select highlighted section and set search/replace/highlight (VISUAL)
 xnoremap <silent> <leader><leader> y:let @/ = '\V' . escape('<C-R>"', '\')<CR>:set hlsearch<CR>
 
-""" Substitute-All template (with manual setting and confirmation)
-nnoremap <leader>sa :%s%<C-r>/%<C-r>"%gc<Left><Left><Left>
+""" Replace-All template (with manual setting and confirmation)
+nnoremap <leader>r :%s%<C-r>/%<C-r>"%gc<Left><Left><Left>
 
 """ Turn-off highlight and refresh screen as usual with <C-L>
 " vim-sensible.vim takes care
