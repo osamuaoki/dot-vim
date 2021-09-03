@@ -5,8 +5,20 @@
 """    * ~/.vim/gvimrc                       (for gvim, parsed after this)
 """    * ~/.vim/after/plugin/override.vim    (parsed after normal runtimepath)
 """
-" Enable airline (1: enable 150ms starup, 0: disable 50ms startup)
-let airline_enable=1
+" Enable airline (1: enable, 0: disable)
+let airline_enable=0
+
+" Benchmark
+"    air    type  after     VE    START
+"      0       f     57    115      142
+"      0       d     60    196      204
+"      1       f    162    224      271
+"      1       d    164    303      326
+" Minimum                       142 ms
+" Loading directory takes about  50 ms more
+" Loading airline   takes about 130 ms more
+" Maximum                       332 ms
+
 """ basic customization
 set spelllang=en_us            " Spell check language as en_us
 set spell                      " Enable spell check

@@ -2,13 +2,25 @@
 
 This is a copy of my `~/.vim` managed by the native package management.
 
-Enable and disable plugins by commenting out corresponding entry
-in `~/.vim/vimrc` using the native package management of `packadd!`.
+## Key features
 
-* No network access required for the normal reconfiguration.
-* Minimal complication
+* IDE like access to buffer and file selections
+* Spellcheck and syntax doesn't interfere each other
+* Sure NORMAL mode with `<Esc><Esc>` (terminal)
+* Simple search and highlight function with `<SPACE><SPACE>`
+* Clean screen (Ale, GitGutter, FZF.VIM capable but hidden)
+* Safe window selection moves without using risky CTRL-W
+* Shell like CTRL-ASCII access to `<Left>`, `<Right>`, `<DEl>`.
+* Minimal key binding overrides
+* Fast 150 ms or 300 ms startup time (without/with airline)
+* Use baremetal Vim8 feature only (no package manager)
 
-Don't use `~/.vimrc` since it can't be managed easily with `git`.
+For inner details on why and how I chose to set up, see:
+
+* [Re-learning Vim (1)](https://osamuaoki.github.io/en/2019/09/17/vim-learn-1/)
+* [Re-learning Vim (2)](https://osamuaoki.github.io/en/2019/09/24/vim-learn-2/)
+
+I don't use `~/.vimrc` since it can't be managed easily with `git`.
 
 ## Quick start
 
@@ -77,16 +89,11 @@ something else and start Vim.
 
 ## Further customization idea
 
-Here are a few insightful recommendations for the best practices for
-Vim.
+Here are a few insightful recommendations for the best practices I
+referenced for setting up Vim.
 
 * [Seven habits of effective text editing](https://www.moolenaar.net/habits.html) by Bram Moolenaar
 * [#vim Recommendations](https://www.vi-improved.org/recommendations/)
 * [vim-galore](https://github.com/mhinz/vim-galore)
-
-For more, see:
-* [Re-learning Vim (1)](https://osamuaoki.github.io/en/2019/09/17/vim-learn-1/)
-* [Re-learning Vim (2)](https://osamuaoki.github.io/en/2019/09/24/vim-learn-2/)
-
 
 <!-- vim: set sts=2 sw=2 expandtab ai si tw=72: -->
