@@ -6,19 +6,28 @@
 """    * ~/.vim/after/plugin/override.vim    (parsed after normal runtimepath)
 """
 " Enable airline (1: enable, 0: disable)
-let airline_enable=0
+let airline_enable=1
 
 " Benchmark
 "    air    type  after     VE    START
-"      0       f     57    115      142
-"      0       d     60    196      204
-"      1       f    162    224      271
-"      1       d    164    303      326
+"      0       f     57    115      142 vim
+"      0       d     60    196      204 vim
+"      1       f    162    224      271 vim
+"      1       d    164    303      326 vim
+"      0       f     86    108      133 neovim
+"      1       f     98    120      159 neovim
+" vim (file+directory)
 " Minimum                       142 ms
 " Loading directory takes about  50 ms more
 " Loading airline   takes about 130 ms more
 " Maximum                       332 ms
-
+"
+" neovim (file)
+" Minimum                       133 ms
+" Loading airline   takes about  26 ms more
+" Maximum                       159 ms
+"
+"
 """ basic customization
 set spelllang=en_us            " Spell check language as en_us
 set spell                      " Enable spell check
@@ -53,12 +62,8 @@ if executable("rg")
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
-""" Start netrw if started as 'vim'-only without filename
-" Augroup VimStartup:
-augroup VimStartup
-  au!
-  au VimEnter * if expand("%") == "" | e . | endif
-augroup END
+""" Start netrw file browser by starting (n)vi(m) with
+""" "vi ." from shell or ":e ." from vi COMMAND mode.
 
 """ Retain cursor position: $VIMRUNTIME/vimrc_example.vim
 if has("autocmd")
@@ -154,8 +159,12 @@ let g:ale_linters = {'python': ['flake8']} " RED (Use this, fast)
 
 
 packadd! qlist
-""" XXX let g:qlist_enabled = 0 " initially disable this
 """ Basic design: replace corresponding native `[I`, `]I`, `[D`, and `]D`
+""" `[I` and `]I` display all lines that contain the keyword under the cursor
+""" with quick list.
+"""
+""" `[D` and `]D` display all lines that define MACRO under the cursor
+""" with quick list.
 """
 """ NORMAL MODE
 nmap <silent> [I <Plug>QlistIncludefromtop
@@ -218,14 +227,29 @@ endif
 cnoremap <C-F> <Right>
 cnoremap <C-B> <Left>
 cnoremap <C-D> <Del>
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
 " Shell/EMACS style cursor moves for TERMINAL-JOB MODE
 tnoremap <C-F> <Right>
 tnoremap <C-B> <Left>
 tnoremap <C-D> <Del>
-
-""" Offer original <C-F> to start COMMAND NORMAL HISTORY MODE
-""" can be started from CTRL-O
-""" (another unused CONTROL character alternative is CTRL-X)
+tnoremap <C-A> <Home>
+tnoremap <C-E> <End>
+tnoremap <C-P> <Up>
+tnoremap <C-N> <Down>
+" Shell/EMACS style cursor moves for INSERT+REPLACE MODE (Ignore conflict)
+inoremap <C-F> <Right>
+inoremap <C-B> <Left>
+inoremap <C-D> <Del>
+""" Use NORMAL mode for large moves (Leave these for completion etc.)
+" inoremap <C-A> <Home>
+" inoremap <C-E> <End>
+" inoremap <C-P> <Up>
+" inoremap <C-N> <Down>
+""" Offer original <C-F> function to start COMMAND NORMAL HISTORY MODE
+""" from unused CTRL-O (mc like)
 exe "set cedit=\<C-O>"
 
 """ Key Board MACRO with q and Q
@@ -322,12 +346,19 @@ nnoremap <leader>9         9gt<CR>
 """ ALE: toggle _ALE activity
 nnoremap <leader>aa        :ALEToggle<CR>
 
+""" Basically confine GitGutter and Fzf to use only
+""" <leader>g* and <leader>f*
+
 """ Git-gutter: toggle G_it activity
 nnoremap <leader>gg        :GitGutterToggle<CR>
-""" Since other commands are <Leader>h*, I picked <Leader>hh
+""" I want to keep <Leader>h* clean. So override
 " preview hunk with <Leader>hp
 " move to the preview window, e.g. :wincmd P / <C-W> P
 " undo hanks with <Leader>hu
+nmap <leader>gp <Plug>(GitGutterPreviewHunk)
+nmap <leader>gh <Plug>(GitGutterStageHunk)
+nmap <leader>gu <Plug>(GitGutterUndoHunk)
+
 """ Followings seems to be used after 'd' etc)
 " ic operates on all lines in the current hunk.
 " ac operates on all lines in the current hunk and any trailing empty lines.

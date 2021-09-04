@@ -21,7 +21,7 @@ NORMAL MODE:
     * <LEADER>e           map to StripWhitespace at EOL
 
 TERMINAL-NORMAL MODE:
- * Esc Esc    Sure NORMAL MODE (map for CTRL-W CTRL-N)
+ * Esc Esc    Sure NORMAL MODE (map for CTRL-\ CTRL-N except fzf)
 
 INSERT MODE
   * F1:  Help
@@ -34,26 +34,26 @@ INSERT MODE
   * Shift-Space ローマ字かな入力  （変換キー同様）
   * Ctrl-Space  英数ダイレクト入力（無変換キー同様）
 
-CONTROL codes: (avoid reassign, use <LEADER> in NRMAL)
 >
-          Shell        _________VIM________________________
-          Emacs        COMMAND   REPLACE   NORMAL__________ 
-                       TERMINAL  INSERT               [use]
-<C-H>    <BS>          Yes       Yes       Yes
-<C-D>    <Del>        *Yes       No        (scrl-down/2) x
-<C-B>    <Left>       *Yes       No        (scrl-up)     h
-<C-F>    <Right>      *Yes       No        (pagedown)    l
-<C-P>    <Up>          No        No        (up)          k
-<C-N>    <Down>        No        No        (nl)          j
-<C-A>    <Home>        No        No        (add number)  0
-<C-E>    <End>         No        No        (scrl-down)   $
-<C-W>    Erase_word    Yes       Yes       (window)
-<C-U>    Rubout        Yes       Yes       (scrl-up)
-<Esc>                  NORMAL    NORMAL    NORMAL
-<C-R>    (history)     ----      Ins_reg   Redo
+  CONTROL codes: (avoid reassign, use <LEADER> in NORMAL)
+            Shell        _______VIM_______   ___________
+            Emacs        COMMAND   REPLACE   Use this in
+                         TERMINAL  INSERT    NORMAL
+  <C-H>    <BS>          Yes       Yes       hx  or  hc
+  <C-D>    <Del>        *Yes      %Yes       x   or  c
+  <C-B>    <Left>       *Yes      %Yes       h
+  <C-F>    <Right>      *Yes      %Yes       l
+  <C-A>    <Home>       %Yes      ?No                I
+  <C-E>    <End>        %Yes      ?No                A
+  <C-P>    <Up>         %Yes      ?No        k
+  <C-N>    <Down>       %Yes      ?No        j
+  <C-W>    Erase_word    Yes       Yes       diw or  ciw
+  <C-U>    Rubout        Yes       Yes       d0  or  c0
+  <Esc>                  NORMAL    NORMAL    NORMAL
+  <C-R>    (history)     ----      Ins_reg   Redo
 <
   * Register: '/' search pattern, '"' delete or yank
-  * Here, '*' means user mapping required
+  * User mapping: *Yes=must, %Yes=maybe, ?No=maybe_no
 ------------------------------------------------------------------------------
 Keyboard usage hints (NORMAL MODE)
 >
