@@ -12,8 +12,10 @@ This is a copy of my `~/.vim` managed by the native package management.
 * Safe window selection moves without using risky CTRL-W
 * Shell like CTRL-ASCII access to `<Left>`, `<Right>`, `<DEl>`.
 * Minimal key binding overrides
-* Fast 150 ms or 300 ms startup time (without/with airline)
+* VIM: Fast 150 ms or 300 ms startup time (without/with airline)
+  * NEOVIM: 150 ms either way
 * Use baremetal Vim8 feature only (no package manager)
+* Symlink `~/.config/nvim -> ../.vim` for Neovim
 
 For inner details on why and how I chose to set up, see:
 
