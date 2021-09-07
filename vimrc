@@ -52,7 +52,7 @@ set fileencodings=          " force to read with fileencoding
 set viminfo=!,'100,<5000,s100,h " Bigger copy buffer etc. Default '100,<50,s10,h
 "set number                    " add linenumber
 "set list                       " enable list feature (better to be off)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 """ mini scripts (use vim's native feature)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Use faster 'rg' for :grep
@@ -148,7 +148,7 @@ let g:ale_lint_on_text_changed = 'never' " No linters upon change
 let g:ale_lint_on_enter = 0 " No linters upon opening a file
 let g:ale_lint_on_insert_leave = 0 " No linters upon leaving INSERT
 "let g:ale_pattern_options = {'\.min.js$': {'ale_enabled': 0}} " No linters on minified JS
-let g:ale_linters = {'python': ['flake8']} " RED (Use this, fast)
+let g:ale_linters = {'python' : ['flake8']} " RED (Use this, fast)
 "let g:ale_linters = {'python': ['flake8', 'pylint']} "
 "let g:ale_linters = {'python': ['pylint']} " YELLOW (MANY)
 "let g:ale_linters = {'python': ['mypy']}
@@ -229,16 +229,16 @@ cnoremap <C-B> <Left>
 cnoremap <C-D> <Del>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
-cnoremap <C-P> <Up>
-cnoremap <C-N> <Down>
+"cnoremap <C-P> <Up>
+"cnoremap <C-N> <Down>
 " Shell/EMACS style cursor moves for TERMINAL-JOB MODE
 tnoremap <C-F> <Right>
 tnoremap <C-B> <Left>
 tnoremap <C-D> <Del>
 tnoremap <C-A> <Home>
 tnoremap <C-E> <End>
-tnoremap <C-P> <Up>
-tnoremap <C-N> <Down>
+"tnoremap <C-P> <Up>
+"tnoremap <C-N> <Down>
 " Shell/EMACS style cursor moves for INSERT+REPLACE MODE (Ignore conflict)
 inoremap <C-F> <Right>
 inoremap <C-B> <Left>

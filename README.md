@@ -1,6 +1,13 @@
 # dot-vim
 
-This is a copy of my `~/.vim` managed by the native package management.
+This is a copy of my `~/.vim` managed by the native package management,
+targetting for vim 8.
+
+Somehow, even with the same configuration in vimL, neovim is faster
+(almost half with airline).  It may be some parallel execution feature
+of neovim.
+
+I am now moving to neovim/lua combination.  So I may not update this.
 
 ## Key features
 

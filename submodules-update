@@ -1,8 +1,0 @@
-#!/bin/sh -e
-# vim:se sw=2 ts=2 sts=2 et ai tw=78:
-#
-
-git submodule foreach 'git pull'
-git add .
-git commit -m "update: $(date -u --iso=sec)"
-
