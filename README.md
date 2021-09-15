@@ -7,7 +7,15 @@ Somehow, even with the same configuration in vimL, neovim is faster
 (almost half with airline).  It may be some parallel execution feature
 of neovim.
 
-I am now moving to neovim/lua combination.  So I may not update this.
+I am now moving to neovim/lua combination.
+
+* https://github.com/osamuaoki/dot-nvim (lua based)
+* https://github.com/osamuaoki/NvChad   (lua based, nvim 0.5 experimental/2021
+  required)
+
+So I may not update this as often.  But this will be my good baseline
+and backup vimL based setting whenever I see problem in my latest
+nvim+lua system..
 
 ## Key features
 
