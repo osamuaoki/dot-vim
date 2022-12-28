@@ -95,16 +95,16 @@ else
 endif
 
 " Simple but useful
-packadd! winmanager
-packadd! bufexplorer
+"packadd! winmanager
+"packadd! bufexplorer
 
 " If XML is not detected, ':set ft=xml'
-packadd! xmledit
+"packadd! xmledit
 
 " If XML is not detected, ':set ft=po' ?
-packadd! po
+"packadd! po
 
-packadd! gnupg
+"packadd! gnupg
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ packages from github: pack/github/opt/*
