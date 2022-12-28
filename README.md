@@ -1,25 +1,16 @@
 # dot-vim
 
+As of 2022-12-28, I use NeoVim (v0.8.1 upstream deb) with lua based
+AstroNvim (v2.10.1) as my primary editor.
+
 This is a copy of my `~/.vim` managed by the native package management,
-targetting for vim 8.
+targetting for vim 8 and vim 9.
 
-Somehow, even with the same configuration in vimL, neovim is faster
-(almost half with airline).  It may be some parallel execution feature
-of neovim.
-
-I am now moving to neovim/lua combination.
-
-* https://github.com/osamuaoki/dot-nvim (lua based)
-* https://github.com/osamuaoki/NvChad   (lua based, nvim 0.5 experimental/2021
-  required)
-
-So I may not update this as often.  But this will be my good baseline
-and backup vimL based setting whenever I see problem in my latest
-nvim+lua system..
+I am not updating this any more.  This is still my backup vimL based vim
+setting whenever I see problem in my latest nvim+lua system..
 
 ## Key features
 
-* IDE like access to buffer and file selections
 * Spellcheck and syntax doesn't interfere each other
 * Sure NORMAL mode with `<Esc><Esc>` (terminal)
 * Simple search and highlight function with `<SPACE><SPACE>`
@@ -27,10 +18,7 @@ nvim+lua system..
 * Safe window selection moves without using risky CTRL-W
 * Shell like CTRL-ASCII access to `<Left>`, `<Right>`, `<DEl>`.
 * Minimal key binding overrides
-* VIM: Fast 150 ms or 300 ms startup time (without/with airline)
-  * NEOVIM: 150 ms either way
 * Use baremetal Vim8 feature only (no package manager)
-* Symlink `~/.config/nvim -> ../.vim` for Neovim
 
 For inner details on why and how I chose to set up, see:
 
@@ -102,7 +90,7 @@ Vim packages offered as Debian packages usually places package files in
 ##  Last resort
 
 When you broke your Vim start up code, simply rename `~/.vim` to
-something else and start Vim.
+something else and start Vim or start it with `vim -u NORC`.
 
 ## Further customization idea
 
