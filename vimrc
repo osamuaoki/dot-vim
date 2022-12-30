@@ -8,26 +8,6 @@
 " Enable airline (1: enable, 0: disable)
 let airline_enable=1
 
-" Benchmark
-"    air    type  after     VE    START
-"      0       f     57    115      142 vim
-"      0       d     60    196      204 vim
-"      1       f    162    224      271 vim
-"      1       d    164    303      326 vim
-"      0       f     86    108      133 neovim
-"      1       f     98    120      159 neovim
-" vim (file+directory)
-" Minimum                       142 ms
-" Loading directory takes about  50 ms more
-" Loading airline   takes about 130 ms more
-" Maximum                       332 ms
-"
-" neovim (file)
-" Minimum                       133 ms
-" Loading airline   takes about  26 ms more
-" Maximum                       159 ms
-"
-"
 """ basic customization
 set spelllang=en_us            " Spell check language as en_us
 set spell                      " Enable spell check
@@ -90,8 +70,6 @@ if $USER == "root"
   set noswapfile
 else
   " safe on any platform
-  set nomodeline
-  packadd! securemodelines
 endif
 
 " Simple but useful
@@ -138,71 +116,7 @@ endif
 packadd! vim-indent-guides
 let g:indent_guides_enable_on_vim_startup = 1
 
-"packadd! org-mode
-"let g:org_indent = 1
-
-packadd! ale
-"let g:ale_enabled = 0 " initially disable ALE.
-" ---- if enabled, linters are ON upon writing file
-let g:ale_lint_on_text_changed = 'never' " No linters upon change
-let g:ale_lint_on_enter = 0 " No linters upon opening a file
-let g:ale_lint_on_insert_leave = 0 " No linters upon leaving INSERT
-"let g:ale_pattern_options = {'\.min.js$': {'ale_enabled': 0}} " No linters on minified JS
-let g:ale_linters = {'python' : ['flake8']} " RED (Use this, fast)
-"let g:ale_linters = {'python': ['flake8', 'pylint']} "
-"let g:ale_linters = {'python': ['pylint']} " YELLOW (MANY)
-"let g:ale_linters = {'python': ['mypy']}
-
-""" Think about LSP later (not used now)
-"packadd! vim-lsp
-"packadd! vim-lsp-ale
-
-
-packadd! qlist
-""" Basic design: replace corresponding native `[I`, `]I`, `[D`, and `]D`
-""" `[I` and `]I` display all lines that contain the keyword under the cursor
-""" with quick list.
-"""
-""" `[D` and `]D` display all lines that define MACRO under the cursor
-""" with quick list.
-"""
-""" NORMAL MODE
-nmap <silent> [I <Plug>QlistIncludefromtop
-nmap <silent> ]I <Plug>QlistIncludefromhere
-nmap <silent> [D <Plug>QlistDefinefromtop
-nmap <silent> ]D <Plug>QlistDefinefromhere
-"""" VISUAL MODE
-xmap <silent> [I <Plug>QlistIncludefromtopvisual
-xmap <silent> ]I <Plug>QlistIncludefromherevisual
-xmap <silent> [D <Plug>QlistDefinefromtopvisual
-xmap <silent> ]D <Plug>QlistDefinefromherevisual
-
-""""  XXX REQUIRED DEBs XXX fzf ripgrep
-packadd! fzf
-packadd! fzf.vim
-
-""" This avoid crashing fzf menu running in terminal with escape
-"""   https://github.com/junegunn/fzf.vim/issues/544
-"""   https://vi.stackexchange.com/questions/2614/why-does-this-esc-normal-mode-mapping-affect-startup
-"""   https://vi.stackexchange.com/questions/24925/usage-of-timeoutlen-and-ttimeoutlen
-
-fun! RemapTerminalEsc()
-  if &ft =~ 'fzf'
-    silent! tunmap <buffer> <Esc><Esc>
-  else
-    " If <Esc> is typed slowly, it can skip this.  (compromise)
-    silent! tnoremap <buffer> <Esc><Esc> <c-\><c-n>
-  endif
-endfun
-augroup vimrc
-  autocmd!
-  autocmd BufEnter * silent! call RemapTerminalEsc()
-augroup END
-
-packadd! vim-gitgutter    " for Git
 packadd! vim-repeat       " for Repeat with '.'
-let g:gitgutter_enabled = 0 " initially disable gitgutter
-" hank jump ']c' '[c'
 
 """ For checking UCS/Unicode code point, use 'ga' in NORMAL MODE
 if airline_enable
@@ -219,54 +133,18 @@ if airline_enable
   let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" Key mapping
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap for smarter command line (vim commandline-editing, vim-galore)
-" Shell/EMACS style cursor moves for COMMAND MODE
-cnoremap <C-F> <Right>
-cnoremap <C-B> <Left>
-cnoremap <C-D> <Del>
-cnoremap <C-A> <Home>
-cnoremap <C-E> <End>
-"cnoremap <C-P> <Up>
-"cnoremap <C-N> <Down>
-" Shell/EMACS style cursor moves for TERMINAL-JOB MODE
-tnoremap <C-F> <Right>
-tnoremap <C-B> <Left>
-tnoremap <C-D> <Del>
-tnoremap <C-A> <Home>
-tnoremap <C-E> <End>
-"tnoremap <C-P> <Up>
-"tnoremap <C-N> <Down>
-" Shell/EMACS style cursor moves for INSERT+REPLACE MODE (Ignore conflict)
-inoremap <C-F> <Right>
-inoremap <C-B> <Left>
-inoremap <C-D> <Del>
-""" Use NORMAL mode for large moves (Leave these for completion etc.)
-" inoremap <C-A> <Home>
-" inoremap <C-E> <End>
-" inoremap <C-P> <Up>
-" inoremap <C-N> <Down>
-""" Offer original <C-F> function to start COMMAND NORMAL HISTORY MODE
-""" from unused CTRL-O (mc like)
-exe "set cedit=\<C-O>"
+""" Window move (without CTRL-W to avoid CTRL-W used in insert mode)
+nnoremap <C-H> <C-W>h
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-L> <C-W>l
 
 """ Key Board MACRO with q and Q
 """ Remap for "Q". "qq" to record MACRO to 'q', "q" to quit, "Q" to apply
 nnoremap Q @q
-xnoremap Q :norm @q<cr>
-
-nnoremap <F2> @2
-xnoremap <F2> :norm @2<cr>
-
-nnoremap <F3> @3
-xnoremap <F3> :norm @3<cr>
 
 """ Use <SPACE> as leader instead of '\' (set again to make sure)
 """ In NORMAL mode, SPACE is useless and good to be used for mapleader.
-""" Let's use <SPACE> with mostly 2-char combinations to avoid colliding
-""" demands.  Frequent commands use repeated key sequences.
 
 let mapleader = ' '
 
@@ -274,123 +152,14 @@ let mapleader = ' '
 """" <leader> + 1 char
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-""" PASTE MODE toggle
+""" PASTE MODE toggle (needed only for vim. not needed in nvim)
 " Use ' p' in NORMAL MODE for paste mode toggle
-"set pastetoggle=<f2>           " Use <F2> for paste mode toggle
 set pastetoggle=<leader>p
-
-""" Window move (without CTRL-W ... Dangerous for INSERT mode)
-nnoremap <leader>h <C-W>h
-nnoremap <leader>j <C-W>j
-nnoremap <leader>k <C-W>k
-nnoremap <leader>l <C-W>l
-
-""" Vim _line indent formatter, (I may change)
-nnoremap <leader>=         gg=G
-
-""" Vim folding disabled (Open all folds)
-"""  I can't remember all z-things, just a temporary relief
-nnoremap <leader>z         zO
-
-"""" Select a word below cursor and set search/replace/highlight (NORMAL)
-nnoremap <silent> <leader><leader> yiw:let @/ = '\<' . '<C-R>"' . '\>' <CR>:set hlsearch<CR>
-
-"""" Select highlighted section and set search/replace/highlight (VISUAL)
-xnoremap <silent> <leader><leader> y:let @/ = '\V' . escape('<C-R>"', '\')<CR>:set hlsearch<CR>
-
-""" Replace-All template (with manual setting and confirmation)
-nnoremap <leader>r :%s%<C-r>/%<C-r>"%gc<Left><Left><Left>
-
-""" Turn-off highlight and refresh screen as usual with <C-L>
-" vim-sensible.vim takes care
 
 """ NORMAL -> TERM: open terminal on current window
 nnoremap <leader><CR>      :term ++curwin<CR>
-""" See FZF above how TERM -> NORMAL is done safely with <Esc>
-
-""" WinManager: toggle _winmanager activity
-nnoremap <leader>w         :WMToggle<CR>
-"nnoremap <leader>wf         :FirstExplorerWindow<CR>
-"nnoremap <leader>wb         :BottomExplorerWindow<CR>
-
-""" BufExplorer
-""" To start exploring in the current window
-nnoremap <Leader>b         :ToggleBufExplorer<CR>
-""" Start exploring in a newly split horizontal window
-"nnoremap <Leader>bs         :BufExplorerHorizontalSplit<CR>
-""" Start exploring in a newly split vertical window
-"nnoremap <Leader>bv         :BufExplorerVerticalSplit<CR>
-""" XXX NOT_USEFUL XXX nnoremap <Leader>be         :BufExplorer<CR>
-""" Toggle bufexplorer on or off in the current window
 
 " Strip whitespace on EOL (vim-better-whitespace)
 nnoremap <leader>e :StripWhitespace<cr>
 
-" TAB
-nnoremap <leader>1         1gt<CR>
-nnoremap <leader>2         2gt<CR>
-nnoremap <leader>3         3gt<CR>
-nnoremap <leader>4         4gt<CR>
-nnoremap <leader>5         5gt<CR>
-nnoremap <leader>6         6gt<CR>
-nnoremap <leader>7         7gt<CR>
-nnoremap <leader>8         8gt<CR>
-nnoremap <leader>9         9gt<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""" <leader> + 2 chars
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" Rotate spell/syntax mode (default)
-"nmap <leader>ss <Plug>RotateSpellSyntax
-
-""" ALE: toggle _ALE activity
-nnoremap <leader>aa        :ALEToggle<CR>
-
-""" Basically confine GitGutter and Fzf to use only
-""" <leader>g* and <leader>f*
-
-""" Git-gutter: toggle G_it activity
-nnoremap <leader>gg        :GitGutterToggle<CR>
-""" I want to keep <Leader>h* clean. So override
-" preview hunk with <Leader>hp
-" move to the preview window, e.g. :wincmd P / <C-W> P
-" undo hanks with <Leader>hu
-nmap <leader>gp <Plug>(GitGutterPreviewHunk)
-nmap <leader>gh <Plug>(GitGutterStageHunk)
-nmap <leader>gu <Plug>(GitGutterUndoHunk)
-
-""" Followings seems to be used after 'd' etc)
-" ic operates on all lines in the current hunk.
-" ac operates on all lines in the current hunk and any trailing empty lines.
-
-""" FZF are somewhat too much but I will keep it just in case I need it.
-""" I don't think I can remember all these ...
-"""
-""" Fzf: CTRL-T:openTAB, CTRL-X:split-H, CTRL-V:split-V
-"""      Assign mostly <leader>-f? commands
-nnoremap <leader>fb         :Buffers<CR>
-nnoremap <leader>fc         :Colors<CR>
-nnoremap <leader>ff         :Files<CR>
-nnoremap <leader>gl         :GFiles<CR>
-nnoremap <leader>gs         :GFiles?<CR>
-nnoremap <leader>fm         :Maps<CR>
-"""   'ag' is 1 order of magnitude slower
-"""   'ug' seems to be about the same speed as 'rg' (SMP aware)
-"""   'rg' git aware _--> Install 'ripgrep' and use it
-nnoremap <leader>fr         :Rg<CR>
-nnoremap <leader>ft         :Tags<CR>
-nnoremap <leader>fT         :Filetypes<CR>
-nnoremap <leader>fv         :History<CR>
-nnoremap <leader>fx         :Commands<CR>
-nnoremap <leader>f/         :History/<CR>
-nnoremap <leader>f:         :History:<CR>
-
-""" Not so useful (may change)
-nnoremap <leader>fh         :Helptags<CR>
-nnoremap <leader>fM         :Marks<CR>
-nnoremap <leader>fw         :Windows<CR>
-
-""" Doesn't seem to work
-"nnoremap <leader>fB         :Btags<CR>
-
-" vim: set sw=2 sts=2 et ft=vim :
+" vim:set sw=2 sts=2 et ft=vim :
