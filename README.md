@@ -7,23 +7,22 @@ This is a copy of my `~/.vim` managed by the native package management,
 targetting for vim 8 and vim 9.
 
 I am not updating this any more.  This is still my backup vimL based vim
-setting whenever I see problem in my latest nvim+lua system..
+setting whenever I see problem in my latest nvim+lua system.
 
 ## Key features
 
-* Spellcheck and syntax doesn't interfere each other
-* Sure NORMAL mode with `<Esc><Esc>` (terminal)
-* Simple search and highlight function with `<SPACE><SPACE>`
-* Clean screen (Ale, GitGutter, FZF.VIM capable but hidden)
-* Safe window selection moves without using risky CTRL-W
-* Shell like CTRL-ASCII access to `<Left>`, `<Right>`, `<DEl>`.
-* Minimal key binding overrides
-* Use baremetal Vim8 feature only (no package manager)
-
-For inner details on why and how I chose to set up, see:
+In order to make minimalist customization, I have removed many
+customization tricks mentioned in my old posts.
 
 * [Re-learning Vim (1)](https://osamuaoki.github.io/en/2019/09/17/vim-learn-1/)
 * [Re-learning Vim (2)](https://osamuaoki.github.io/en/2019/09/24/vim-learn-2/)
+
+Remaining features are:
+
+* Minimal key binding overrides
+* Use baremetal Vim8 feature only (no package manager)
+* Spellcheck and syntax doesn't interfere each other (vim-spell-under)
+* Window selection moves with CTRL-{H,J,K,L}
 
 I don't use `~/.vimrc` since it can't be managed easily with `git`.
 
@@ -77,7 +76,7 @@ Then let's fix all detached HEAD.  (Maybe there is a easier path...)
 
 * Add them under `~/.vim/pack/gitsubmodules/opt/` as git-submodule.
   E.g.,
-
+ZZ
 ```
  $ git submodule add https://github.com/dense-analysis/ale pack/submodules/opt/ale
 ```
@@ -101,4 +100,4 @@ referenced for setting up Vim.
 * [#vim Recommendations](https://www.vi-improved.org/recommendations/)
 * [vim-galore](https://github.com/mhinz/vim-galore)
 
-<!-- vim: set sts=2 sw=2 expandtab ai si tw=72: -->
+<!-- vim:set sts=2 sw=2 expandtab ai si tw=72: -->
