@@ -1,22 +1,19 @@
 # dot-vim
 
-As of 2023-12-24, I use NeoVim (v0.9.5-dev-41+g25bedc925, local deb)
-with lua based lazyNvim (v10.15.1) as my primary editor invoked by
+As of 2023-12-24, I use NeoVim (v0.9.5-dev-41+g25bedc925, [osamu's
+private deb atgithub](https://osamuaoki.github.io/http/))
+with lua based lazyVim (v10.15.1) as my primary editor invoked by
 `nvim` (or via its `nv` alias) with
-[my customized LazyNvim starter](https://github.com/osamuaoki/starter).
+[my customized LazyVim starter](https://github.com/osamuaoki/starter).
 
-This LazyNvim is nice but a bit heavy.
+This LazyVim environment is nice but a bit heavy.
 
-I use `~/.vim` and `~/.gvimrc` in this repo for my common basic `vi`
-experience by invoking:
- - nvim as vi
- - vim as vi (when nvim is missing)
- - vim as vim
- - gvim as gvim
+I decided to use `vi` to start Vim or Nvim with a single file
+configuration with very minimal customization.
 
-I don't use my previous complicated configuration. (No more `~/.vim/*`)
+(I don't use my previous complicated configuration. No more `~/.vim/*`)
 
-## Key features
+## Minimulit features
 
 In order to make minimalist customization, I have removed many
 customization tricks mentioned in my old posts.
@@ -32,15 +29,16 @@ Remaining features are:
 * Spellcheck and syntax doesn't interfere readability
 * Window selection moves with CTRL-{H,J,K,L}
 
-## Quick start
+## Setup start
 
-This will set up basic configuration for my vim (Others may need to use
-their cloned tracking repo if they need to modify and keep by `push`).
+This will set up basic configuration for my vim.
 
+Let me get files and install them.
 ```
  $ cd path/to
  $ git clone https://github.com/osamuaoki/dot-vim
  $ cp dot-vim/.vim ~/.vim
+ $ cp dot-vim/.gvimrc ~/.gvimrc
 ```
 
 I created a local executable `~/bin/vi` (`~/bin` on my PATH):
@@ -58,6 +56,17 @@ else
   vim -N -u $VIRC "$@"
 fi
 ```
+
+The `~/.vim` and `~/.gvimrc` files in this repo enable me with my
+consistent basic `vi` experience for all:
+
+ - `nvim` invoked as `vi`
+ - `vim` invoked as `vi` (when `nvim` is missing)
+ - `vim` invoked as `vim`
+ - `gvim` invoked as `gvim`
+
+I save `nvim` and its shorter alias `nv` for
+[my customized LazyVim starter](https://github.com/osamuaoki/starter).
 
 ##  Last resort
 
