@@ -1,7 +1,7 @@
 """ Generic baseline Vim and Neovim configuration (~/.vim)
 """   - For NeoVim, use "nvim -u ~/.vim [filename]"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocopmpatible               " :h 'cp -- sensible (n)vim mode
+set nocompatible                " :h 'cp -- sensible (n)vim mode
 syntax on                       " :h :syn-on
 filetype plugin indent on       " :h :filetype-overview
 set encoding=utf-8              " :h 'enc (default: latin1) -- sensible encoding
@@ -51,45 +51,45 @@ endif
 augroup RetainLastCursorPosition
   autocmd!
   autocmd BufReadPost *
-        \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-          \ exe "normal! g'\"" |
-        \ endif
+    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+    \   exe "normal! g'\"" |
+    \ endif
 augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Force to use underline for spell check results
 augroup SpellUnderline
   autocmd!
   autocmd ColorScheme *
-        \ highlight SpellBad
-        \   cterm=Underline
-        \   ctermfg=NONE
-        \   ctermbg=NONE
-        \   term=Reverse
-        \   gui=Undercurl
-        \   guisp=Red
+    \ highlight SpellBad
+    \   cterm=Underline
+    \   ctermfg=NONE
+    \   ctermbg=NONE
+    \   term=Reverse
+    \   gui=Undercurl
+    \   guisp=Red
   autocmd ColorScheme *
-        \ highlight SpellCap
-        \   cterm=Underline
-        \   ctermfg=NONE
-        \   ctermbg=NONE
-        \   term=Reverse
-        \   gui=Undercurl
-        \   guisp=Red
+    \ highlight SpellCap
+    \   cterm=Underline
+    \   ctermfg=NONE
+    \   ctermbg=NONE
+    \   term=Reverse
+    \   gui=Undercurl
+    \   guisp=Red
   autocmd ColorScheme *
-        \ highlight SpellLocal
-        \   cterm=Underline
-        \   ctermfg=NONE
-        \   ctermbg=NONE
-        \   term=Reverse
-        \   gui=Undercurl
-        \   guisp=Red
+    \ highlight SpellLocal
+    \   cterm=Underline
+    \   ctermfg=NONE
+    \   ctermbg=NONE
+    \   term=Reverse
+    \   gui=Undercurl
+    \   guisp=Red
   autocmd ColorScheme *
-        \ highlight SpellRare
-        \   cterm=Underline
-        \   ctermfg=NONE
-        \   ctermbg=NONE
-        \   term=Reverse
-        \   gui=Undercurl
-        \   guisp=Red
+    \ highlight SpellRare
+    \   cterm=Underline
+    \   ctermfg=NONE
+    \   ctermbg=NONE
+    \   term=Reverse
+    \   gui=Undercurl
+    \   guisp=Red
 augroup END
 " vim: set sw=2 sts=2 et ft=vim :
