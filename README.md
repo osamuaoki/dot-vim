@@ -1,13 +1,15 @@
 # dot-vim
 
-As of 2022-12-28, I use NeoVim (v0.8.1 upstream deb) with lua based
-AstroNvim (v2.10.1) as my primary editor.
+As of 2023-12-24, I use NeoVim (v0.9.5-dev-41+g25bedc925, local deb)
+with lua based lazyNvim (v10.15.1) as my primary editor invoked by
+`nvim` (or via its `nv` alias).
 
-This is a copy of my `~/.vim` managed by the native package management,
-targetting for vim 8 and vim 9.
+This repo now has a copy of my `~/.vim` used for invoking
+ - nvim as vi
+ - vim as vi (when nvim is missing)
+ - vim as vim
 
-I am not updating this any more.  This is still my backup vimL based vim
-setting whenever I see problem in my latest nvim+lua system.
+I don't use my previous complicated configuration. (No more `~/.vim/*`)
 
 ## Key features
 
@@ -19,12 +21,11 @@ customization tricks mentioned in my old posts.
 
 Remaining features are:
 
+* Use bare Vim 8+ and NeoVim 0.8+ features only
 * Minimal key binding overrides
-* Use baremetal Vim8 feature only (no package manager)
-* Spellcheck and syntax doesn't interfere each other (vim-spell-under)
+* Single file configuration without external package
+* Spellcheck and syntax doesn't interfere readability
 * Window selection moves with CTRL-{H,J,K,L}
-
-I don't use `~/.vimrc` since it can't be managed easily with `git`.
 
 ## Quick start
 
@@ -32,64 +33,30 @@ This will set up basic configuration for my vim (Others may need to use
 their cloned tracking repo if they need to modify and keep by `push`).
 
 ```
- $ cd
- $ rm -rf ~/.vim # reset all
- $ git clone https://github.com/osamuaoki/dot-vim ~/.vim
- $ cd ~/.vim
- $ git submodule update --init --recursive
- $ git submodule foreach 'git config submodule.$name.update rebase'
- $ git submodule foreach 'git config pull.rebase true'
- $ git submodule foreach 'git remote set-url --push origin DISABLED_FOR_PUSH'
- $ git submodule foreach 'git checkout master'
- $ git config pull.rebase true
+ $ cd path/to
+ $ git clone https://github.com/osamuaoki/dot-vim
+ $ cp dot-vim/.vim ~/.vim
 ```
 
-This forces to pull always with rebase and stop pushing to someone
-else's repo accidentally even if you have write access right.
-
-If you already cloned this repo to `<your_account>`, you may replace
-above `git clone` command with:
-
+I have local executable `~/bin/vi` (`~/bin` on my PATH):
+```sh
+#!/bin/sh -e
+if [ -e ~/.vim ]; then
+  VIRC="~/.vim"
+else
+  VIRC="NORC"
+fi
+if type nvim >/dev/null; then
+  nvim -u $VIRC "$@"
+else
+  vim -N -u $VIRC "$@"
+fi
 ```
- $ git clone git@github.com:<your_account>/dot-vim.git ~/.vim
-```
-
-For select submodule repos I own and wish to push my changes, e.g.,
-`vim-spell-under` , I do the following:
-
-```
- $ cd ~/.vim/pack/gitsubmodules/opt/vim-spell-under
- $ git remote set-url --delete --push origin DISABLED_FOR_PUSH
-
-```
-
-or edit `~/.vim/.git/modules/vim-spell-under/config` which may be easier.
-
-
-Then let's fix all detached HEAD.  (Maybe there is a easier path...)
-
-```
- $ git submodule foreach 'git checkout master'
-```
-
-## Adding usable plugin packages
-
-* Add them under `~/.vim/pack/gitsubmodules/opt/` as git-submodule.
-  E.g.,
-ZZ
-```
- $ git submodule add https://github.com/dense-analysis/ale pack/submodules/opt/ale
-```
-
-* Add a line with `packadd!` in `~/.vim/vimrc` to enable it
-
-Vim packages offered as Debian packages usually places package files in
-`*/opt/*` path.  So they can be added in the same way in ~/.vim/vimrc`.
 
 ##  Last resort
 
 When you broke your Vim start up code, simply rename `~/.vim` to
-something else and start Vim or start it with `vim -u NORC`.
+something else and start Vim or start vim with `vim -N -u NORC`.
 
 ## Further customization idea
 
