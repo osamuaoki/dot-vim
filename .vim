@@ -5,7 +5,8 @@ set nocompatible                " :h 'cp -- sensible (n)vim mode
 syntax on                       " :h :syn-on
 filetype plugin indent on       " :h :filetype-overview
 set encoding=utf-8              " :h 'enc (default: latin1) -- sensible encoding
-set backspace=indent,eol,start  " :h 'bs (default: nobc) -- sensible BS
+""" current vim option value can be verified by :set encoding?
+set backspace=indent,eol,start  " :h 'bs (default: nobs) -- sensible BS
 set statusline=%<%f%m%r%h%w%=%y[U+%04B]%2l/%2L=%P,%2c%V
 set listchars=eol:¶,tab:⇄\ ,extends:↦,precedes:↤,nbsp:␣
 set viminfo=!,'100,<5000,s100,h " :h 'vi -- bigger copy buffer etc.
@@ -61,35 +62,19 @@ augroup SpellUnderline
   autocmd!
   autocmd ColorScheme *
     \ highlight SpellBad
-    \   cterm=Underline
-    \   ctermfg=NONE
-    \   ctermbg=NONE
-    \   term=Reverse
+    \   term=Underline
     \   gui=Undercurl
-    \   guisp=Red
   autocmd ColorScheme *
     \ highlight SpellCap
-    \   cterm=Underline
-    \   ctermfg=NONE
-    \   ctermbg=NONE
-    \   term=Reverse
+    \   term=Underline
     \   gui=Undercurl
-    \   guisp=Red
   autocmd ColorScheme *
     \ highlight SpellLocal
-    \   cterm=Underline
-    \   ctermfg=NONE
-    \   ctermbg=NONE
-    \   term=Reverse
+    \   term=Underline
     \   gui=Undercurl
-    \   guisp=Red
   autocmd ColorScheme *
     \ highlight SpellRare
-    \   cterm=Underline
-    \   ctermfg=NONE
-    \   ctermbg=NONE
-    \   term=Reverse
+    \   term=Underline
     \   gui=Undercurl
-    \   guisp=Red
 augroup END
 " vim: set sw=2 sts=2 et ft=vim :

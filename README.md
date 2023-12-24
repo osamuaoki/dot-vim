@@ -4,10 +4,12 @@ As of 2023-12-24, I use NeoVim (v0.9.5-dev-41+g25bedc925, local deb)
 with lua based lazyNvim (v10.15.1) as my primary editor invoked by
 `nvim` (or via its `nv` alias).
 
-This repo now has a copy of my `~/.vim` used for invoking
+This repo now has a copy of my `~/.vim` and `~/.gvimrc` files used for
+invoking
  - nvim as vi
  - vim as vi (when nvim is missing)
  - vim as vim
+ - gvim as gvim
 
 I don't use my previous complicated configuration. (No more `~/.vim/*`)
 
