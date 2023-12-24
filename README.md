@@ -2,10 +2,13 @@
 
 As of 2023-12-24, I use NeoVim (v0.9.5-dev-41+g25bedc925, local deb)
 with lua based lazyNvim (v10.15.1) as my primary editor invoked by
-`nvim` (or via its `nv` alias).
+`nvim` (or via its `nv` alias) with
+[my customized LazyNvim starter](https://github.com/osamuaoki/starter).
 
-This repo now has a copy of my `~/.vim` and `~/.gvimrc` files used for
-invoking
+This LazyNvim is nice but a bit heavy.
+
+I use `~/.vim` and `~/.gvimrc` in this repo for my common basic `vi`
+experience by invoking:
  - nvim as vi
  - vim as vi (when nvim is missing)
  - vim as vim
