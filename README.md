@@ -38,7 +38,8 @@ their cloned tracking repo if they need to modify and keep by `push`).
  $ cp dot-vim/.vim ~/.vim
 ```
 
-I have local executable `~/bin/vi` (`~/bin` on my PATH):
+I created a local executable `~/bin/vi` (`~/bin` on my PATH):
+
 ```sh
 #!/bin/sh -e
 if [ -e ~/.vim ]; then
@@ -55,7 +56,14 @@ fi
 
 ##  Last resort
 
-When you broke your Vim start up code, simply rename `~/.vim` to
+When you broke your Vim start up code, try:
+
+- Rename `~/.vim` to `~/.vimx` and `vi -N ~/.vimx`.  Then, rename back to
+  `~/.vim`.
+- `vim -N -u NORC ~/.vim`
+- `nvim -u NORC ~/.vim`
+
+simply rename `~/.vim` to
 something else and start Vim or start vim with `vim -N -u NORC`.
 
 ## Further customization idea
