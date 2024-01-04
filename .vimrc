@@ -1,5 +1,5 @@
-""" Generic baseline Vim and Neovim configuration (~/.vim)
-"""   - For NeoVim, use "nvim -u ~/.vim [filename]"
+""" Generic baseline Vim and Neovim configuration (~/.vimrc)
+"""   - For NeoVim, use "nvim -u ~/.vimrc [filename]"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible                " :h 'cp -- sensible (n)vim mode
 syntax on                       " :h :syn-on

@@ -9,7 +9,7 @@ with lua based lazyVim (v10.15.1) as my primary editor invoked by
 This LazyVim environment is nice but a bit heavy.
 
 I decided to use `vi` to start Vim or Nvim with a single file
-configuration with very minimal customization.
+configuration `~/.vimrc` with very minimal customization.
 
 (I don't use my previous complicated configuration. No more `~/.vim/*`)
 
@@ -37,48 +37,50 @@ Let me get files and install them.
 ```
  $ cd path/to
  $ git clone https://github.com/osamuaoki/dot-vim
- $ cp dot-vim/.vim ~/.vim
+ $ cp dot-vim/.vimrc ~/.vimrc
  $ cp dot-vim/.gvimrc ~/.gvimrc
 ```
 
-I created a local executable `~/bin/vi` (`~/bin` on my PATH):
+My `~/.bashrc` has following lines:
 
 ```sh
-#!/bin/sh -e
-if [ -e ~/.vim ]; then
-  VIRC="~/.vim"
+# GOOD OLDE VI as baseline editor (minimum resource file)
+if [ -r "~/.vimrc" ]; then
+  VIMRC="~/.vimrc"
 else
-  VIRC="NORC"
+  VIMRC="NONE"
 fi
-if type nvim >/dev/null; then
-  nvim -u $VIRC "$@"
+if type nvim >/dev/null ; then
+  alias nv='nvim'
+  alias vi='nvim -u $VIMRC'
+  alias v='nvim -u NORC'
+  alias sv="SUDO_EDITOR='/usr/bin/nvim -u NORC' /usr/bin/sudoedit"
+elif type vim >/dev/null ; then
+  alias vi='vim -N -u $VIMRC'
+  alias v='vim -N -u NORC'
+  alias sv="SUDO_EDITOR='/usr/bin/vim -N -u NORC' /usr/bin/sudoedit"
 else
-  vim -N -u $VIRC "$@"
+  unalias vi
+  unset VIMRC
+fi
+if [ -n "$VIMRC" ]; then
+  export EDITOR='vi'
+  export VISUAL='vi'
+  alias vimdiff='vi -d'
+  alias view='vi -R'
+  alias ex='vi -e'
 fi
 ```
 
-The `~/.vim` and `~/.gvimrc` files in this repo enable me with my
-consistent basic `vi` experience for all:
-
- - `nvim` invoked as `vi`
- - `vim` invoked as `vi` (when `nvim` is missing)
- - `vim` invoked as `vim`
- - `gvim` invoked as `gvim`
+The `~/.vimrc` and `~/.gvimrc` files in this repo enable me with my
+consistent basic `vi` experience.
 
 I save `nvim` and its shorter alias `nv` for
 [my customized LazyVim starter](https://github.com/osamuaoki/starter).
 
 ##  Last resort
 
-When you broke your Vim start up code, try:
-
-- Rename `~/.vim` to `~/.vimx` and `vi -N ~/.vimx`.  Then, rename back to
-  `~/.vim`.
-- `vim -N -u NORC ~/.vim`
-- `nvim -u NORC ~/.vim`
-
-simply rename `~/.vim` to
-something else and start Vim or start vim with `vim -N -u NORC`.
+When you broke your Vim start up code, try `v`.
 
 ## Further customization idea
 
