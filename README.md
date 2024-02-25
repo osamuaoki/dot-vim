@@ -1,7 +1,11 @@
 # dot-vim
 
-I am using `vi` with light weight settings and `nvim` with fancy LazyVim
-settings.
+I am now using `vi` with light weight simple settings and `nvim` with fancy
+LazyVim settings.   No more "`git submodule ...`" nor "`:packadd! ...`",
+here.
+
+If you are looking of my old page on them, please see 
+["old" branch here.](https://github.com/osamuaoki/dot-vim/tree/old).
 
 ## My 2 text-ediror environments
 
