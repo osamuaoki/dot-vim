@@ -5,7 +5,7 @@ LazyVim settings.   No more "`git submodule ...`" nor "`:packadd! ...`",
 here.
 
 If you are looking of my old page on them, please see 
-["old" branch here.](https://github.com/osamuaoki/dot-vim/tree/old).
+["old" branch here](https://github.com/osamuaoki/dot-vim/tree/old).
 
 ## My 2 text-ediror environments
 
@@ -14,7 +14,7 @@ versions.  But this makes me exposed to bugs.  I want stable work
 environment.  
 
 In order to satisfy these 2 conflicting needs, I set up 2 primary
-editor environments as below
+editor environments as below:
 
 * Install Vim from Debian repo
 * Install Nvim from my private deb-package at https://osamuaoki.github.io/http/
@@ -35,11 +35,16 @@ With these:
 
 * `vim`: Simple reasonable setup with `-u ~/.vimrc` with Vim
 * `vi`: Simple reasonable setup with `-u ~/.vimrc` with Nvim
-* `nvim`: LazyVim setup with `-u ~/.vimrc` with Nvim
+* `nvim`: LazyVim setup with Nvim
 * `nv`: LazyVim setup with Nvim (alias)
 * `v`: No customization with `-u NORC` with Nvim (last resort safe mode)
 
 (I don't use my previous complicated configuration. No more `~/.vim/*`)
+
+More elaborate explanations are available at:
+
+* [Building Neovim](https://osamuaoki.github.io/en/2023/03/05/nvim-build/)
+* [Re-learning Vim (7)](https://osamuaoki.github.io/en/2023/03/05/vim-learn-7/)
 
 ## Minimalist features
 
