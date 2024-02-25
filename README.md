@@ -1,19 +1,43 @@
 # dot-vim
 
-As of 2023-12-24, I use NeoVim (v0.9.5-dev-41+g25bedc925, [osamu's
-private deb atgithub](https://osamuaoki.github.io/http/))
-with lua based lazyVim (v10.15.1) as my primary editor invoked by
-`nvim` (or via its `nv` alias) with
-[my customized LazyVim starter](https://github.com/osamuaoki/starter).
+I am using `vi` with light weight settings and `nvim` with fancy LazyVim
+settings.
 
-This LazyVim environment is nice but a bit heavy.
+## My 2 text-ediror environments
 
-I decided to use `vi` to start Vim or Nvim with a single file
-configuration `~/.vimrc` with very minimal customization.
+I know it is tempting to have many fancy features and use newer
+versions.  But this makes me exposed to bugs.  I want stable work
+environment.  
+
+In order to satisfy these 2 conflicting needs, I set up 2 primary
+editor environments as below
+
+* Install Vim from Debian repo
+* Install Nvim from my private deb-package at https://osamuaoki.github.io/http/
+* Run followings:
+
+```console
+ $ apt update && apt install vim
+ $ cd path/to
+ $ git clone https://github.com/osamuaoki/dot-vim
+ $ cp dot-vim/.vimrc ~/.vimrc
+ $ cp dot-vim/.gvimrc ~/.gvimrc
+ $ cat dot-vim/70_editor.sh >>~/.bashrc
+ $ mkdir -p ~/.config && cd ~/.config/nvim
+ $ git clone https://github.com/LazyVim/starter ~/.config/nvim
+```
+
+With these:
+
+* `vim`: Simple reasonable setup with `-u ~/.vimrc` with Vim
+* `vi`: Simple reasonable setup with `-u ~/.vimrc` with Nvim
+* `nvim`: LazyVim setup with `-u ~/.vimrc` with Nvim
+* `nv`: LazyVim setup with Nvim (alias)
+* `v`: No customization with `-u NORC` with Nvim (last resort safe mode)
 
 (I don't use my previous complicated configuration. No more `~/.vim/*`)
 
-## Minimulit features
+## Minimalist features
 
 In order to make minimalist customization, I have removed many
 customization tricks mentioned in my old posts.
@@ -28,59 +52,16 @@ Remaining features are:
 * Single file configuration without external package
 * Spellcheck and syntax doesn't interfere readability
 * Window selection moves with CTRL-{H,J,K,L}
+* Cursor after search at the center of screen
 
-## Setup start
-
-This will set up basic configuration for my vim.
-
-Let me get files and install them.
-```
- $ cd path/to
- $ git clone https://github.com/osamuaoki/dot-vim
- $ cp dot-vim/.vimrc ~/.vimrc
- $ cp dot-vim/.gvimrc ~/.gvimrc
-```
-
-My `~/.bashrc` has following lines:
-
-```sh
-# GOOD OLDE VI as baseline editor (minimum resource file)
-if [ -r "~/.vimrc" ]; then
-  VIMRC="~/.vimrc"
-else
-  VIMRC="NONE"
-fi
-if type nvim >/dev/null ; then
-  alias nv='nvim'
-  alias vi='nvim -u $VIMRC'
-  alias v='nvim -u NORC'
-  alias sv="SUDO_EDITOR='/usr/bin/nvim -u NORC' /usr/bin/sudoedit"
-elif type vim >/dev/null ; then
-  alias vi='vim -N -u $VIMRC'
-  alias v='vim -N -u NORC'
-  alias sv="SUDO_EDITOR='/usr/bin/vim -N -u NORC' /usr/bin/sudoedit"
-else
-  unalias vi
-  unset VIMRC
-fi
-if [ -n "$VIMRC" ]; then
-  export EDITOR='vi'
-  export VISUAL='vi'
-  alias vimdiff='vi -d'
-  alias view='vi -R'
-  alias ex='vi -e'
-fi
-```
-
-The `~/.vimrc` and `~/.gvimrc` files in this repo enable me with my
-consistent basic `vi` experience.
-
-I save `nvim` and its shorter alias `nv` for
-[my customized LazyVim starter](https://github.com/osamuaoki/starter).
+I make some minor modifications to the 
+[upstream LazyVim starter code repo]( https://github.com/LazyVim/starter)
+and keep it at
+[my customized LazyVim starter code repo](https://github.com/osamuaoki/starter).
 
 ##  Last resort
 
-When you broke your Vim start up code, try `v`.
+When I break my Vim start up code, I can always use `v`.
 
 ## Further customization idea
 

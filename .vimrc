@@ -17,7 +17,7 @@ colorscheme industry
 "colorscheme default
 set laststatus=2                " :h 'ls (default 1)
 """ boolian options can be unset by prefixing "no"
-set list                        " :h 'list (default nolist)
+"set list                        " :h 'list (default nolist)
 set smartcase                   " :h 'scs -- Override the 'ignorecase' option
 set autoindent                  " :h 'ai
 set smartindent                 " :h 'si
@@ -33,6 +33,11 @@ nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
+""" execute macro recorded with <ESC>qq.....<ESC>q with Q
+nnoremap Q @q
+""" center after jump next
+nnoremap n nzz
+nnoremap N Nzz
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ fast "jk" to get out of INSERT mode (<ESC>)
 inoremap  jk        <ESC>
