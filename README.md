@@ -4,14 +4,14 @@ I am now using `vi` with light weight simple settings and `nvim` with fancy
 LazyVim settings.   No more "`git submodule ...`" nor "`:packadd! ...`",
 here.
 
-If you are looking of my old page on them, please see 
-["old" branch here](https://github.com/osamuaoki/dot-vim/tree/old).
+If you are looking of my old page on them, please see ["old" branch
+here](https://github.com/osamuaoki/dot-vim/tree/old).
 
 ## My 2 text-ediror environments
 
 I know it is tempting to have many fancy features and use newer
 versions.  But this makes me exposed to bugs.  I want stable work
-environment.  
+environment.
 
 In order to satisfy these 2 conflicting needs, I set up 2 primary
 editor environments as below:
@@ -63,7 +63,7 @@ Remaining features are:
 * Window selection moves with CTRL-{H,J,K,L}
 * Cursor after search at the center of screen
 
-I make some minor modifications to the 
+I make some minor modifications to the
 [upstream LazyVim starter code repo]( https://github.com/LazyVim/starter)
 and keep it at
 [my customized LazyVim starter code repo](https://github.com/osamuaoki/starter).

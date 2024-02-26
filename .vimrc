@@ -15,6 +15,7 @@ set viminfo=!,'100,<5000,s100,h " :h 'vi -- bigger copy buffer etc.
 """ shine slate torte zellner
 colorscheme industry
 "colorscheme default
+set scrolloff=5
 set laststatus=2                " :h 'ls (default 1)
 """ boolian options can be unset by prefixing "no"
 "set list                        " :h 'list (default nolist)
@@ -82,4 +83,7 @@ augroup SpellUnderline
     \   term=Underline
     \   gui=Undercurl
 augroup END
+" highlight tailing spaces red color
+highlight RedundantSpaces ctermbg=red guibg=red
+call matchadd('RedundantSpaces', '\s\+$')
 " vim: set sw=2 sts=2 et ft=vim :
