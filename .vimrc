@@ -49,6 +49,7 @@ tnoremap <ESC><ESC> <C-\><C-N>
 tnoremap jkjk <C-\><C-N>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ nvim default mappings (no need for nvim)
+""" copy to EOL (no delete) like D for d
 noremap Y y$
 """ "nnoremap <C-L> <Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>
 """ disable prefix repeats for erases
