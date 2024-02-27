@@ -35,7 +35,7 @@ set spelllang=en_us,cjk         " :h 'spl -- english spell, ignore CJK
 nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
-nnoremap <C-L> <C-W>l
+silent! nnoremap <C-L> <C-W>l
 """ execute macro recorded with <ESC>qq.....<ESC>q with Q
 nnoremap Q @q
 """ center after jump next
@@ -51,7 +51,6 @@ tnoremap jkjk <C-\><C-N>
 """ nvim default mappings (no need for nvim)
 """ copy to EOL (no delete) like D for d
 noremap Y y$
-""" "nnoremap <C-L> <Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>
 """ disable prefix repeats for erases
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
