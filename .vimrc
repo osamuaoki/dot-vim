@@ -36,6 +36,9 @@ nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 silent! nnoremap <C-L> <C-W>l
+""" Clear highlight and diff update with <ESC> (<C-L> is mapped as above)
+inoremap <ESC> <CMD>noh<CR><CMD>dif<CR><ESC>
+nnoremap <ESC> <CMD>noh<CR><CMD>dif<CR><ESC>
 """ execute macro recorded with <ESC>qq.....<ESC>q with Q
 nnoremap Q @q
 """ center after jump next
