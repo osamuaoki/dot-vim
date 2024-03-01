@@ -1,8 +1,14 @@
 # dot-vim
 
-I am now using `vi` with light weight simple settings and `nvim` with fancy
-LazyVim settings.   No more "`git submodule ...`" nor "`:packadd! ...`",
-here.
+My current settings here offer:
+
+* Basic text editor: `vi` with light weight simple settings as
+  [presented in the "master" branch here](https://github.com/osamuaoki/dot-vim).
+* IDE like text editor: `nvim` with fancy Lua based
+  [LazyVim](https://github.com/LazyVim/LazyVim) using its
+  [starter settings with my twist](https://github.com/osamuaoki/starter).
+
+No more "`git submodule ...`" nor "`:packadd! ...`", here.
 
 If you are looking of my old page on them, please see ["old" branch
 here](https://github.com/osamuaoki/dot-vim/tree/old).

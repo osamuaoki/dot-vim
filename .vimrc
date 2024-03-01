@@ -36,7 +36,7 @@ nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 silent! nnoremap <C-L> <C-W>l
-""" nohlsearch with <ESC> (<C-L> is mapped as above)
+""" Clear hlsearch with <ESC> (<C-L> is mapped as above)
 nnoremap <ESC> <CMD>noh<CR><ESC>
 inoremap <ESC> <CMD>noh<CR><ESC>
 """ execute macro recorded with <ESC>qq.....<ESC>q with Q
@@ -72,9 +72,11 @@ augroup SpellUnderline
   autocmd ColorScheme * highlight SpellRare term=Underline gui=Undercurl
 augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" highlight tailing spaces as red color
-highlight RedundantSpaces ctermbg=red guibg=red
-call matchadd('RedundantSpaces', '\s\+$')
+""" highlight tailing spaces except when typing as red (set after colorscheme)
+highlight TailingWhitespaces ctermbg=red guibg=red
+""" \s\+     1 or more whitespace character: <Space> and <Tab>
+""" \%#\@<!  Matches with zero width if the cursor position does NOT match.
+match TailingWhitespaces /\s\+\%#\@<!$/
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Use faster 'rg' (ripgrep package) for :grep
 if executable("rg")
