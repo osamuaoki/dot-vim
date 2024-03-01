@@ -1,21 +1,21 @@
-# dot-vim
+# dot-vim (old)
 
-This is a copy of my `~/.vim` managed by the native package management,
-targetting for vim 8.
+This is a copy of my old `~/.vim` targeting for vim 8 and later using
+the Vim native package management.  I don't use this setting any more.
 
-Somehow, even with the same configuration in vimL, neovim is faster
-(almost half with airline).  It may be some parallel execution feature
-of neovim.
+My current settings can be found at
+the ["master" branch here](https://github.com/osamuaoki/dot-vim) and
+offer:
 
-I am now moving to neovim/lua combination.
+* Basic text editor: `vi` with light weight simple settings as
+  [presented in the "master" branch here](https://github.com/osamuaoki/dot-vim).
+* IDE like text editor: `nvim` with fancy Lua based
+  [LazyVim](https://github.com/LazyVim/LazyVim) using its
+  [starter settings with my twist](https://github.com/osamuaoki/starter).
 
-* https://github.com/osamuaoki/dot-nvim (lua based)
-* https://github.com/osamuaoki/NvChad   (lua based, nvim 0.5 experimental/2021
-  required)
-
-So I may not update this as often.  But this will be my good baseline
-and backup vimL based setting whenever I see problem in my latest
-nvim+lua system..
+So I will not update this "old" branch.  I am keeping this here as my
+reference for how I used "`git submodule ...`" and "`:packadd! ...`" to
+make elaborate vimL based IDE like settings.
 
 ## Key features
 
@@ -37,7 +37,7 @@ For inner details on why and how I chose to set up, see:
 * [Re-learning Vim (1)](https://osamuaoki.github.io/en/2019/09/17/vim-learn-1/)
 * [Re-learning Vim (2)](https://osamuaoki.github.io/en/2019/09/24/vim-learn-2/)
 
-I don't use `~/.vimrc` since it can't be managed easily with `git`.
+I didn't use `~/.vimrc` since it can't be managed easily with `git`.
 
 ## Quick start
 
@@ -113,4 +113,4 @@ referenced for setting up Vim.
 * [#vim Recommendations](https://www.vi-improved.org/recommendations/)
 * [vim-galore](https://github.com/mhinz/vim-galore)
 
-<!-- vim: set sts=2 sw=2 expandtab ai si tw=72: -->
+<!-- vim: set sts=2 sw=2 expandtab ai tw=72: -->
