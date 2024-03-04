@@ -29,6 +29,7 @@ set novisualbell                " :h 'vb
 set t_vb=                       " :h 't_vb -- termcap visual bell
 set spell                       " :h 'spell
 set spelllang=en_us,cjk         " :h 'spl -- english spell, ignore CJK
+set clipboard=unnamedplus       " :h 'clipboard -- cut/copy/paste with other app
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Popular mappings
 """ Window moves without using CTRL-W which is dangerous in INSERT mode
