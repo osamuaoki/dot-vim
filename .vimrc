@@ -17,19 +17,21 @@ colorscheme industry
 "colorscheme default
 set scrolloff=5                 " :h 'scr -- show 5 lines around cursor
 set laststatus=2                " :h 'ls (default 1)  k
-""" boolian options can be unset by prefixing "no"
-"set list                        " :h 'list (default nolist)
-set smartcase                   " :h 'scs -- Override the 'ignorecase' option
+""" boolean options can be unset by prefixing "no"
+set ignorecase                  " :h 'ic
+set smartcase                   " :h 'scs
 set autoindent                  " :h 'ai
 set smartindent                 " :h 'si
 set nowrap                      " :h 'wrap
-set nolist                      " :h 'list -- (enable when needed)
+"set list                        " :h 'list (default nolist)
 set noerrorbells                " :h 'eb
 set novisualbell                " :h 'vb
 set t_vb=                       " :h 't_vb -- termcap visual bell
 set spell                       " :h 'spell
 set spelllang=en_us,cjk         " :h 'spl -- english spell, ignore CJK
-set clipboard=unnamedplus       " :h 'clipboard -- cut/copy/paste with other app
+set clipboard=unnamedplus       " :h 'cb -- cut/copy/paste with other app
+set hidden                      " :h 'hid
+set autowrite                   " :h 'aw
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Popular mappings
 """ Window moves without using CTRL-W which is dangerous in INSERT mode
@@ -46,11 +48,11 @@ nnoremap Q @q
 nnoremap n nzz
 nnoremap N Nzz
 """ fast "jk" to get out of INSERT mode (<ESC>)
-inoremap  jk        <ESC>
-""" double <ESC> to get out of TERM mode (CTRL-\ CTRL-N)
+inoremap  jk <ESC>
+""" fast "<ESC><ESC>" to get out of TERM mode (CTRL-\ CTRL-N)
 tnoremap <ESC><ESC> <C-\><C-N>
-""" fast "jkjk" to get out of TERM mode (CTRL-\ CTRL-N)
-tnoremap jkjk <C-\><C-N>
+""" fast "jk" to get out of TERM mode (CTRL-\ CTRL-N)
+tnoremap jk <C-\><C-N>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ nvim default mappings (no need for nvim)
 """ copy to EOL (no delete) like D for d
