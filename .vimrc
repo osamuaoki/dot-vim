@@ -40,6 +40,9 @@ noremap Y y$
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
 """ <C-L> is re-purposed below
+""" execute the previous macro recorded with Q
+""" (most likely @q if <ESC>qq....<ESC>q was used)
+nnoremap Q @@
 """ repeat last substitute and *KEEP* flags
 nnoremap & :&&<CR>
 """ search visual selected string for visual mode
@@ -60,8 +63,6 @@ nnoremap <C-RIGHT> <CMD>vertical resize +2<CR>
 """ Clear hlsearch with <ESC> (<C-L> is mapped as above)
 nnoremap <ESC> <CMD>noh<CR><ESC>
 inoremap <ESC> <CMD>noh<CR><ESC>
-""" execute macro recorded with <ESC>qq.....<ESC>q with Q
-nnoremap Q @q
 """ center after jump next
 nnoremap n nzz
 nnoremap N Nzz
