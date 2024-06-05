@@ -33,7 +33,8 @@ set clipboard=unnamedplus       " :h 'cb -- cut/copy/paste with other app
 set hidden                      " :h 'hid
 set autowrite                   " :h 'aw
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" nvim default mappings :h default-mappings (no need for nvim)
+if ! has('nvim')
+""" nvim default mappings for Vim.  See :h default-mappings in nvim
 """ copy to EOL (no delete) like D for d
 noremap Y y$
 """ sets a new undo point before deleting
@@ -48,6 +49,7 @@ nnoremap & :&&<CR>
 """ search visual selected string for visual mode
 xnoremap * y/\V<C-R>"<CR>
 xnoremap # y?\V<C-R>"<CR>
+endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Popular mappings (imitating LazyVim etc.)
 """ Window moves without using CTRL-W which is dangerous in INSERT mode
@@ -126,6 +128,7 @@ augroup RetainLastCursorPosition
     \   exe "normal! g'\"" |
     \ endif
 augroup END
-""" must have for quicklist
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" must have for quickfix list
 packadd cfilter
 " vim: set sw=2 sts=2 et ft=vim :
