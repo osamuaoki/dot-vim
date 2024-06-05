@@ -112,9 +112,9 @@ match TailingWhitespaces /\s\+\%#\@<!$/
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Use faster 'rg' (ripgrep package) for :grep
 if executable("rg")
-  " port https://www.vi-improved.org/recommendations/ to rg
-  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
-  set grepformat=%f:%l:%c:%m,%f:%l:%m
+  " Match LazyVim
+  set grepprg=rg\ --vimgrep\ --smart-case
+  set grepformat=%f:%l:%c:%m
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Retain last cursor position :h '"
