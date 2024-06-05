@@ -126,4 +126,6 @@ augroup RetainLastCursorPosition
     \   exe "normal! g'\"" |
     \ endif
 augroup END
+""" must have for quicklist
+packadd cfilter
 " vim: set sw=2 sts=2 et ft=vim :
