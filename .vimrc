@@ -113,7 +113,7 @@ match TailingWhitespaces /\s\+\%#\@<!$/
 """ Use faster 'rg' (ripgrep package) for :grep
 if executable("rg")
   " port https://www.vi-improved.org/recommendations/ to rg
-  set grepprg=rg\ --no-heading\ --color=never\ --ignore-case\ --column
+  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
