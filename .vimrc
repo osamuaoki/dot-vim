@@ -33,12 +33,30 @@ set clipboard=unnamedplus       " :h 'cb -- cut/copy/paste with other app
 set hidden                      " :h 'hid
 set autowrite                   " :h 'aw
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" Popular mappings
+""" nvim default mappings :h default-mappings (no need for nvim)
+""" copy to EOL (no delete) like D for d
+noremap Y y$
+""" sets a new undo point before deleting
+inoremap <C-U> <C-G>u<C-U>
+inoremap <C-W> <C-G>u<C-W>
+""" <C-L> is re-purposed below
+""" repeat last substitute and *KEEP* flags
+nnoremap & :&&<CR>
+""" search visual selected string for visual mode
+xnoremap * y/\V<C-R>"<CR>
+xnoremap # y?\V<C-R>"<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" Popular mappings (imitating LazyVim etc.)
 """ Window moves without using CTRL-W which is dangerous in INSERT mode
 nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 silent! nnoremap <C-L> <C-W>l
+""" Window resize
+nnoremap <C-LEFT> <CMD>vertical resize -2<CR>
+nnoremap <C-DOWN> <CMD>resize -2<CR>
+nnoremap <C-UP> <CMD>resize +2<CR>
+nnoremap <C-RIGHT> <CMD>vertical resize +2<CR>
 """ Clear hlsearch with <ESC> (<C-L> is mapped as above)
 nnoremap <ESC> <CMD>noh<CR><ESC>
 inoremap <ESC> <CMD>noh<CR><ESC>
@@ -48,23 +66,34 @@ nnoremap Q @q
 nnoremap n nzz
 nnoremap N Nzz
 """ fast "jk" to get out of INSERT mode (<ESC>)
-inoremap  jk <ESC>
+inoremap  jk <CMD>noh<CR><ESC>
 """ fast "<ESC><ESC>" to get out of TERM mode (CTRL-\ CTRL-N)
-tnoremap <ESC><ESC> <C-\><C-N>
+tnoremap <ESC><ESC> <CMD>noh<CR><C-\><C-N>
 """ fast "jk" to get out of TERM mode (CTRL-\ CTRL-N)
-tnoremap jk <C-\><C-N>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" nvim default mappings (no need for nvim)
-""" copy to EOL (no delete) like D for d
-noremap Y y$
-""" disable prefix repeats for erases
-inoremap <C-U> <C-G>u<C-U>
-inoremap <C-W> <C-G>u<C-W>
-""" search visual selected string for visual mode
-xnoremap * y/\V<C-R>"<CR>
-xnoremap # y?\V<C-R>"<CR>
-""" repeat last substitute and *KEEP* flags
-nnoremap & :&&<CR>
+tnoremap jk <CMD>noh<CR><C-\><C-N>
+""" previous/next trouble/quickfix item
+nnoremap [q <CMD>cprevious<CR>
+nnoremap ]q <CMD>cnext<CR>
+""" buffers
+nnoremap <S-H> <CMD>bprevious<CR>
+nnoremap <S-L> <CMD>bnext<CR>
+nnoremap [b <CMD>bprevious<CR>
+nnoremap ]b <CMD>bnext<CR>
+""" Add undo break-points
+inoremap  , ,<C-G>u
+inoremap  . .<C-G>u
+inoremap  ; ;<C-G>u
+""" save file
+inoremap <C-S> <CMD>w<CR><ESC>
+xnoremap <C-S> <CMD>w<CR><ESC>
+nnoremap <C-S> <CMD>w<CR><ESC>
+snoremap <C-S> <CMD>w<CR><ESC>
+""" better indenting
+vnoremap < <gv
+vnoremap > >gv
+""" terminal (Somehow under Linux, <C-/> becomes <C-_> in Vim)
+nnoremap <C-_> <CMD>terminal<CR>
+"nnoremap <C-/> <CMD>terminal<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Force to use underline for spell check results
 augroup SpellUnderline
