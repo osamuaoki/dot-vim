@@ -6,7 +6,7 @@ My current settings here offer:
   [presented in the "master" branch here](https://github.com/osamuaoki/dot-vim).
 * IDE like text editor: `nvim` with fancy Lua based
   [LazyVim](https://github.com/LazyVim/LazyVim) using its
-  [starter settings with my twist](https://github.com/osamuaoki/starter).
+  [starter settings with my minimalist twist](https://github.com/osamuaoki/starter).
 
 No more "`git submodule ...`" nor "`:packadd! ...`", here.
 
@@ -23,7 +23,7 @@ In order to satisfy these 2 conflicting needs, I set up 2 primary
 editor environments as below:
 
 * Install Vim from Debian repo
-* Install Nvim from my private deb-package at https://osamuaoki.github.io/http/
+* Install Nvim from my private deb-package at [https://osamuaoki.github.io/http/](https://osamuaoki.github.io/http/).
 * Run followings:
 
 ```console
@@ -40,10 +40,7 @@ editor environments as below:
 With these:
 
 * `vim`: Simple reasonable setup with `-u ~/.vimrc` with Vim
-* `vi`: Simple reasonable setup with `-u ~/.vimrc` with Nvim
-* `nvim`: LazyVim setup with Nvim
-* `nv`: LazyVim setup with Nvim (alias)
-* `v`: No customization with `-u NORC` with Nvim (last resort safe mode)
+* `nvim`: LazyVim setup with Nvim with my minimalist twist
 
 (I don't use my previous complicated configuration. No more `~/.vim/*`)
 
@@ -51,10 +48,11 @@ More elaborate explanations are available at:
 
 * [Building Neovim](https://osamuaoki.github.io/en/2023/03/05/nvim-build/)
 * [Re-learning Vim (7)](https://osamuaoki.github.io/en/2023/03/05/vim-learn-7/)
+* [Re-learning Vim (8)](https://osamuaoki.github.io/en/2024/06/04/vim-learn-8/)
 
 ## Minimalist features
 
-In order to make minimalist customization, I have removed many
+In order to make minimalist customization in my `~/.vimrc`, I have removed many
 customization tricks mentioned in my old posts.
 
 * [Re-learning Vim (1)](https://osamuaoki.github.io/en/2019/09/17/vim-learn-1/)
@@ -63,20 +61,20 @@ customization tricks mentioned in my old posts.
 Remaining features are:
 
 * Use bare Vim 8+ and NeoVim 0.8+ features only
-* Minimal key binding overrides
+* Minimal key binding overrides (mostly emulating LazyVim)
 * Single file configuration without external package
 * Spellcheck and syntax doesn't interfere readability
 * Window selection moves with CTRL-{H,J,K,L}
 * Cursor after search at the center of screen
 
-I make some minor modifications to the
+I also made modifications to the
 [upstream LazyVim starter code repo]( https://github.com/LazyVim/starter)
 and keep it at
-[my customized LazyVim starter code repo](https://github.com/osamuaoki/starter).
+[my customized minimalist LazyVim starter code repo](https://github.com/osamuaoki/starter).
 
-##  Last resort
+## Last resort
 
-When I break my Vim start up code, I can always use `v`.
+When I break my Vim start up code, I can always use `vi -N -u NORC`.
 
 ## Further customization idea
 
@@ -84,7 +82,7 @@ Here are a few insightful recommendations for the best practices I
 referenced for setting up Vim.
 
 * [Seven habits of effective text editing](https://www.moolenaar.net/habits.html) by Bram Moolenaar
-* [#vim Recommendations](https://www.vi-improved.org/recommendations/)
 * [vim-galore](https://github.com/mhinz/vim-galore)
+* ~~[#vim Recommendations](https://www.vi-improved.org/recommendations/)~~ No more accessible
 
 <!-- vim:set sts=2 sw=2 expandtab ai si tw=72: -->
