@@ -56,9 +56,9 @@ nnoremap N Nzz
 """ fast "jk" to get out of INSERT mode (<ESC>)
 inoremap  jk <CMD>noh<CR><ESC>
 """ fast "<ESC><ESC>" to get out of TERM mode (CTRL-\ CTRL-N)
-tnoremap <ESC><ESC> <CMD>noh<CR><C-\><C-N>
+tnoremap <ESC><ESC> <C-\><C-N>
 """ fast "jk" to get out of TERM mode (CTRL-\ CTRL-N)
-tnoremap jk <CMD>noh<CR><C-\><C-N>
+tnoremap jk <C-\><C-N>
 """ previous/next trouble/quickfix item
 nnoremap [q <CMD>cprevious<CR>
 nnoremap ]q <CMD>cnext<CR>
