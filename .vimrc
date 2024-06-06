@@ -1,6 +1,9 @@
 """ Generic baseline Vim and Neovim configuration (~/.vimrc)
 """   - For NeoVim, use "nvim -u ~/.vimrc [filename]"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+packadd! cfilter                " must have for quickfix list
+let mapleader = ' '             " :h mapleader
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible                " :h 'cp -- sensible (n)vim mode
 syntax on                       " :h :syn-on
 filetype plugin indent on       " :h :filetype-overview
@@ -32,24 +35,6 @@ set spelllang=en_us,cjk         " :h 'spl -- english spell, ignore CJK
 set clipboard=unnamedplus       " :h 'cb -- cut/copy/paste with other app
 set hidden                      " :h 'hid
 set autowrite                   " :h 'aw
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if ! has('nvim')
-""" nvim default mappings for Vim.  See :h default-mappings in nvim
-""" copy to EOL (no delete) like D for d
-noremap Y y$
-""" sets a new undo point before deleting
-inoremap <C-U> <C-G>u<C-U>
-inoremap <C-W> <C-G>u<C-W>
-""" <C-L> is re-purposed below
-""" execute the previous macro recorded with Q
-""" (most likely @q if <ESC>qq....<ESC>q was used)
-nnoremap Q @@
-""" repeat last substitute and *KEEP* flags
-nnoremap & :&&<CR>
-""" search visual selected string for visual mode
-xnoremap * y/\V<C-R>"<CR>
-xnoremap # y?\V<C-R>"<CR>
-endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Popular mappings (imitating LazyVim etc.)
 """ Window moves without using CTRL-W which is dangerous in INSERT mode
@@ -98,6 +83,40 @@ vnoremap > >gv
 nnoremap <C-_> <CMD>terminal<CR>
 "nnoremap <C-/> <CMD>terminal<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if ! has('nvim')
+""" Toggle paste mode with <SPACE>p for Vim (no need for Nvim)
+set pastetoggle=<leader>p
+""" nvim default mappings for Vim.  See :h default-mappings in nvim
+""" copy to EOL (no delete) like D for d
+noremap Y y$
+""" sets a new undo point before deleting
+inoremap <C-U> <C-G>u<C-U>
+inoremap <C-W> <C-G>u<C-W>
+""" <C-L> is re-purposed as above
+""" execute the previous macro recorded with Q
+nnoremap Q @@
+""" repeat last substitute and *KEEP* flags
+nnoremap & :&&<CR>
+""" search visual selected string for visual mode
+xnoremap * y/\V<C-R>"<CR>
+xnoremap # y?\V<C-R>"<CR>
+endif
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" Use faster 'rg' (ripgrep package) for :grep
+if executable("rg")
+  set grepprg=rg\ --vimgrep\ --smart-case
+  set grepformat=%f:%l:%c:%m
+endif
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" Retain last cursor position :h '"
+augroup RetainLastCursorPosition
+  autocmd!
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+    \   exe "normal! g'\"" |
+    \ endif
+augroup END
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Force to use underline for spell check results
 augroup SpellUnderline
   autocmd!
@@ -112,23 +131,4 @@ highlight TailingWhitespaces ctermbg=red guibg=red
 """ \s\+     1 or more whitespace character: <Space> and <Tab>
 """ \%#\@<!  Matches with zero width if the cursor position does NOT match.
 match TailingWhitespaces /\s\+\%#\@<!$/
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" Use faster 'rg' (ripgrep package) for :grep
-if executable("rg")
-  " Match LazyVim
-  set grepprg=rg\ --vimgrep\ --smart-case
-  set grepformat=%f:%l:%c:%m
-endif
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" Retain last cursor position :h '"
-augroup RetainLastCursorPosition
-  autocmd!
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-    \   exe "normal! g'\"" |
-    \ endif
-augroup END
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" must have for quickfix list
-packadd cfilter
 " vim: set sw=2 sts=2 et ft=vim :
