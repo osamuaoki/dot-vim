@@ -56,9 +56,9 @@ nnoremap N Nzz
 """ fast "jk" to get out of INSERT mode (&lt;ESC&gt;)
 inoremap  jk &lt;CMD&gt;noh&lt;CR&gt;&lt;ESC&gt;
 """ fast "&lt;ESC&gt;&lt;ESC&gt;" to get out of TERM mode (CTRL-\ CTRL-N)
-tnoremap &lt;ESC&gt;&lt;ESC&gt; &lt;CMD&gt;noh&lt;CR&gt;&lt;C-\&gt;&lt;C-N&gt;
+tnoremap &lt;ESC&gt;&lt;ESC&gt; &lt;C-\&gt;&lt;C-N&gt;
 """ fast "jk" to get out of TERM mode (CTRL-\ CTRL-N)
-tnoremap jk &lt;CMD&gt;noh&lt;CR&gt;&lt;C-\&gt;&lt;C-N&gt;
+tnoremap jk &lt;C-\&gt;&lt;C-N&gt;
 """ previous/next trouble/quickfix item
 nnoremap [q &lt;CMD&gt;cprevious&lt;CR&gt;
 nnoremap ]q &lt;CMD&gt;cnext&lt;CR&gt;
@@ -96,7 +96,7 @@ inoremap &lt;C-W&gt; &lt;C-G&gt;u&lt;C-W&gt;
 """ execute the previous macro recorded with Q
 nnoremap Q @@
 """ repeat last substitute and *KEEP* flags
-nnoremap & :&&&lt;CR&gt;
+nnoremap &amp; :&amp;&amp;&lt;CR&gt;
 """ search visual selected string for visual mode
 xnoremap * y/\V&lt;C-R&gt;"&lt;CR&gt;
 xnoremap # y?\V&lt;C-R&gt;"&lt;CR&gt;
