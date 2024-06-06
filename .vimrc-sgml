@@ -10,9 +10,9 @@ filetype plugin indent on       " :h :filetype-overview
 set encoding=utf-8              " :h 'enc (default: latin1) -- sensible encoding
 """ current vim option value can be verified by :set encoding?
 set backspace=indent,eol,start  " :h 'bs (default: nobs) -- sensible BS
-set statusline=%<%f%m%r%h%w%=%y[U+%04B]%2l/%2L=%P,%2c%V
+set statusline=%&lt;%f%m%r%h%w%=%y[U+%04B]%2l/%2L=%P,%2c%V
 set listchars=eol:¶,tab:⇄\ ,extends:↦,precedes:↤,nbsp:␣
-set viminfo=!,'100,<5000,s100,h " :h 'vi -- bigger copy buffer etc.
+set viminfo=!,'100,&lt;5000,s100,h " :h 'vi -- bigger copy buffer etc.
 """ Pick "colorscheme" from blue darkblue default delek desert elflord evening
 """ habamax industry koehler lunaperche morning murphy pablo peachpuff quiet ron
 """ shine slate torte zellner
@@ -38,68 +38,68 @@ set autowrite                   " :h 'aw
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Popular mappings (imitating LazyVim etc.)
 """ Window moves without using CTRL-W which is dangerous in INSERT mode
-nnoremap <C-H> <C-W>h
-nnoremap <C-J> <C-W>j
-nnoremap <C-K> <C-W>k
-silent! nnoremap <C-L> <C-W>l
+nnoremap &lt;C-H&gt; &lt;C-W&gt;h
+nnoremap &lt;C-J&gt; &lt;C-W&gt;j
+nnoremap &lt;C-K&gt; &lt;C-W&gt;k
+silent! nnoremap &lt;C-L&gt; &lt;C-W&gt;l
 """ Window resize
-nnoremap <C-LEFT> <CMD>vertical resize -2<CR>
-nnoremap <C-DOWN> <CMD>resize -2<CR>
-nnoremap <C-UP> <CMD>resize +2<CR>
-nnoremap <C-RIGHT> <CMD>vertical resize +2<CR>
-""" Clear hlsearch with <ESC> (<C-L> is mapped as above)
-nnoremap <ESC> <CMD>noh<CR><ESC>
-inoremap <ESC> <CMD>noh<CR><ESC>
+nnoremap &lt;C-LEFT&gt; &lt;CMD&gt;vertical resize -2&lt;CR&gt;
+nnoremap &lt;C-DOWN&gt; &lt;CMD&gt;resize -2&lt;CR&gt;
+nnoremap &lt;C-UP&gt; &lt;CMD&gt;resize +2&lt;CR&gt;
+nnoremap &lt;C-RIGHT&gt; &lt;CMD&gt;vertical resize +2&lt;CR&gt;
+""" Clear hlsearch with &lt;ESC&gt; (&lt;C-L&gt; is mapped as above)
+nnoremap &lt;ESC&gt; &lt;CMD&gt;noh&lt;CR&gt;&lt;ESC&gt;
+inoremap &lt;ESC&gt; &lt;CMD&gt;noh&lt;CR&gt;&lt;ESC&gt;
 """ center after jump next
 nnoremap n nzz
 nnoremap N Nzz
-""" fast "jk" to get out of INSERT mode (<ESC>)
-inoremap  jk <CMD>noh<CR><ESC>
-""" fast "<ESC><ESC>" to get out of TERM mode (CTRL-\ CTRL-N)
-tnoremap <ESC><ESC> <CMD>noh<CR><C-\><C-N>
+""" fast "jk" to get out of INSERT mode (&lt;ESC&gt;)
+inoremap  jk &lt;CMD&gt;noh&lt;CR&gt;&lt;ESC&gt;
+""" fast "&lt;ESC&gt;&lt;ESC&gt;" to get out of TERM mode (CTRL-\ CTRL-N)
+tnoremap &lt;ESC&gt;&lt;ESC&gt; &lt;CMD&gt;noh&lt;CR&gt;&lt;C-\&gt;&lt;C-N&gt;
 """ fast "jk" to get out of TERM mode (CTRL-\ CTRL-N)
-tnoremap jk <CMD>noh<CR><C-\><C-N>
+tnoremap jk &lt;CMD&gt;noh&lt;CR&gt;&lt;C-\&gt;&lt;C-N&gt;
 """ previous/next trouble/quickfix item
-nnoremap [q <CMD>cprevious<CR>
-nnoremap ]q <CMD>cnext<CR>
+nnoremap [q &lt;CMD&gt;cprevious&lt;CR&gt;
+nnoremap ]q &lt;CMD&gt;cnext&lt;CR&gt;
 """ buffers
-nnoremap <S-H> <CMD>bprevious<CR>
-nnoremap <S-L> <CMD>bnext<CR>
-nnoremap [b <CMD>bprevious<CR>
-nnoremap ]b <CMD>bnext<CR>
+nnoremap &lt;S-H&gt; &lt;CMD&gt;bprevious&lt;CR&gt;
+nnoremap &lt;S-L&gt; &lt;CMD&gt;bnext&lt;CR&gt;
+nnoremap [b &lt;CMD&gt;bprevious&lt;CR&gt;
+nnoremap ]b &lt;CMD&gt;bnext&lt;CR&gt;
 """ Add undo break-points
-inoremap  , ,<C-G>u
-inoremap  . .<C-G>u
-inoremap  ; ;<C-G>u
+inoremap  , ,&lt;C-G&gt;u
+inoremap  . .&lt;C-G&gt;u
+inoremap  ; ;&lt;C-G&gt;u
 """ save file
-inoremap <C-S> <CMD>w<CR><ESC>
-xnoremap <C-S> <CMD>w<CR><ESC>
-nnoremap <C-S> <CMD>w<CR><ESC>
-snoremap <C-S> <CMD>w<CR><ESC>
+inoremap &lt;C-S&gt; &lt;CMD&gt;w&lt;CR&gt;&lt;ESC&gt;
+xnoremap &lt;C-S&gt; &lt;CMD&gt;w&lt;CR&gt;&lt;ESC&gt;
+nnoremap &lt;C-S&gt; &lt;CMD&gt;w&lt;CR&gt;&lt;ESC&gt;
+snoremap &lt;C-S&gt; &lt;CMD&gt;w&lt;CR&gt;&lt;ESC&gt;
 """ better indenting
-vnoremap < <gv
-vnoremap > >gv
-""" terminal (Somehow under Linux, <C-/> becomes <C-_> in Vim)
-nnoremap <C-_> <CMD>terminal<CR>
-"nnoremap <C-/> <CMD>terminal<CR>
+vnoremap &lt; &lt;gv
+vnoremap &gt; &gt;gv
+""" terminal (Somehow under Linux, &lt;C-/&gt; becomes &lt;C-_&gt; in Vim)
+nnoremap &lt;C-_&gt; &lt;CMD&gt;terminal&lt;CR&gt;
+"nnoremap &lt;C-/&gt; &lt;CMD&gt;terminal&lt;CR&gt;
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if ! has('nvim')
-""" Toggle paste mode with <SPACE>p for Vim (no need for Nvim)
-set pastetoggle=<leader>p
+""" Toggle paste mode with &lt;SPACE&gt;p for Vim (no need for Nvim)
+set pastetoggle=&lt;leader&gt;p
 """ nvim default mappings for Vim.  See :h default-mappings in nvim
 """ copy to EOL (no delete) like D for d
 noremap Y y$
 """ sets a new undo point before deleting
-inoremap <C-U> <C-G>u<C-U>
-inoremap <C-W> <C-G>u<C-W>
-""" <C-L> is re-purposed as above
+inoremap &lt;C-U&gt; &lt;C-G&gt;u&lt;C-U&gt;
+inoremap &lt;C-W&gt; &lt;C-G&gt;u&lt;C-W&gt;
+""" &lt;C-L&gt; is re-purposed as above
 """ execute the previous macro recorded with Q
 nnoremap Q @@
 """ repeat last substitute and *KEEP* flags
-nnoremap & :&&<CR>
+nnoremap & :&&&lt;CR&gt;
 """ search visual selected string for visual mode
-xnoremap * y/\V<C-R>"<CR>
-xnoremap # y?\V<C-R>"<CR>
+xnoremap * y/\V&lt;C-R&gt;"&lt;CR&gt;
+xnoremap # y?\V&lt;C-R&gt;"&lt;CR&gt;
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Use faster 'rg' (ripgrep package) for :grep
@@ -112,7 +112,7 @@ endif
 augroup RetainLastCursorPosition
   autocmd!
   autocmd BufReadPost *
-    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+    \ if line("'\"") &gt; 0 &amp;&amp; line ("'\"") &lt;= line("$") |
     \   exe "normal! g'\"" |
     \ endif
 augroup END
@@ -128,7 +128,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ highlight tailing spaces except when typing as red (set after colorscheme)
 highlight TailingWhitespaces ctermbg=red guibg=red
-""" \s\+     1 or more whitespace character: <Space> and <Tab>
-""" \%#\@<!  Matches with zero width if the cursor position does NOT match.
-match TailingWhitespaces /\s\+\%#\@<!$/
+""" \s\+     1 or more whitespace character: &lt;Space&gt; and &lt;Tab&gt;
+""" \%#\@&lt;!  Matches with zero width if the cursor position does NOT match.
+match TailingWhitespaces /\s\+\%#\@&lt;!$/
 " vim: set sw=2 sts=2 et ft=vim :
