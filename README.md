@@ -2,8 +2,8 @@
 
 My current settings here offer:
 
-* Basic text editor: `vi` with light weight simple settings as
-  [presented in the "master" branch here](https://github.com/osamuaoki/dot-vim).
+* Basic text editor: `vim` with light weight simple settings as
+  [presented in the "master" branch here as .vimrc](https://github.com/osamuaoki/dot-vim/blob/master/.vimrc).
 * IDE like text editor: `nvim` with fancy Lua based
   [LazyVim](https://github.com/LazyVim/LazyVim) using its
   [starter settings with my minimalist twist](https://github.com/osamuaoki/starter).
@@ -11,7 +11,8 @@ My current settings here offer:
 No more "`git submodule ...`" nor "`:packadd! ...`", here.
 
 If you are looking of my old page on them, please see ["old" branch
-here](https://github.com/osamuaoki/dot-vim/tree/old).
+here](https://github.com/osamuaoki/dot-vim/tree/old).  This was fancy
+IDE-like setting with static code analysis with Vim8.
 
 ## My 2 text-ediror environments
 
